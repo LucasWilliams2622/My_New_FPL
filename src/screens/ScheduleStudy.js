@@ -86,6 +86,7 @@ const ItemTextSches = (props) => {
       <Image style={[AppStyle.icon, { position: 'absolute', left: 30, top: 28, tintColor: isFocus ? COLOR.primary : COLOR.black }]} source={require('../assets/icons/ic_schedule.png')} />
       <View style={styles.BoxContent}>
         <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+          <View style={{display: value == 7 ? 'flex' : 'none'}}>
           <Text style={[AppStyle.titleBig, { marginBottom: 10 ,display: dataScheduleCurrenday.length > 0 ? 'flex':'none' }]}>Lịch học hôm nay</Text>
           {isLoading ?
             (<Image
@@ -98,6 +99,8 @@ const ItemTextSches = (props) => {
               renderItem={({ item }) => <ItemScheduleStudy data={item} />}
               keyExtractor={item => item.id}
             />)}
+
+          </View>
 
           <Text style={[AppStyle.titleBig, { marginBottom: 10 }]}>Lịch học {value} ngày tới</Text>
           {isLoading ?

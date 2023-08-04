@@ -28,11 +28,11 @@ const ItemTextSches = () => {
 
   const getCurrentSchedule = async () => {
     try {
+      console.log("value", value);
       // const response = await AxiosInstance().get("SchedulesSubject/api/get-by-current-day&currentDay=" + currentDay);
       const response = await AxiosInstance().get("scheduleExam/api/get-by-" + value + "-day?currentDay=" + currentDay);
       const responseCurrenDay = await AxiosInstance().get("scheduleExam/api/get-by-current-day?currentDay=" + currentDay);
       console.log("===================================response", responseCurrenDay);
-      console.log(value)
       if (response.result) {
         // console.log("===================================response", isLoading);
         setdataCurrentScheduleExam(response.scheduleExam);
@@ -65,13 +65,11 @@ const ItemTextSches = () => {
   };
   return (
     <SafeAreaView style={AppStyle.container}>
-      <Dropdown
+       <Dropdown
         style={[AppStyle.dropdown, isFocus && { borderColor: COLOR.primary, borderBottomLeftRadius: 0, borderBottomRightRadius: 0 }]}
         placeholderStyle={styles.placeholderStyle}
         selectedTextStyle={styles.placeholderStyle}
         iconStyle={styles.iconStyle}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
         data={data}
         maxHeight={300}
         labelField="label"

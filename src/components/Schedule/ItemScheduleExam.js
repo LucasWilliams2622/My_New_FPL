@@ -53,6 +53,7 @@ const ItemSchedule = (props) => {
                         <Text>Lớp: </Text>
                         <Text style={[AppStyle.titleMedium, { color: COLOR.title }]}>CP17310</Text>
                     </View>
+                    <Text>Ngày: <Text style={{fontWeight:'800',color:'black'}}>{data.date.slice(0,10)}</Text></Text>
                 </View>
             </TouchableOpacity>
         </View>
