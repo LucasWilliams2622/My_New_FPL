@@ -24,7 +24,6 @@ import { COLOR } from "../constants/Theme";
 import { useNavigation } from '@react-navigation/native';
 // Responsible for either schedule new meeting or to join existing meeting as a host or as a viewer.
 function JoinScreen({ getMeetingAndToken, setMode }) {
-  const navigation = useNavigation();
   const [meetingVal, setMeetingVal] = useState("");
 
  
@@ -123,7 +122,7 @@ function ParticipantView({ participantId }) {
     <View
       style={{
         backgroundColor: "grey",
-        height: 300,
+        height: 280,
         justifyContent: "center",
         alignItems: "center",
         marginVertical: 8,
@@ -166,6 +165,7 @@ function Controls() {
         padding: 24,
         flexDirection: "row",
         justifyContent: "space-between",
+        top:-70
       }}
     >
       <TouchableOpacity style={[AppStyle.buttonVideo,{backgroundColor:onMic ? "#1178F8":'gray'}]}  onPress={() => {
@@ -251,6 +251,8 @@ function SpeakerView() {
 
 function HeaderView() {
   const { meetingId, leave } = useMeeting();
+  const navigation = useNavigation();
+
   const goProfile = () => {
     navigation.navigate('Profile');
   };

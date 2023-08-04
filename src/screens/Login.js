@@ -86,15 +86,9 @@ const Login = () => {
     }
     return null;
   };
-  const saveUserInfo = async (userInfo) => {
-    try {
-      await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
-    getInfoUserAsync();
+    checkLoginInfo();
 
     return () => {
 
@@ -102,33 +96,51 @@ const Login = () => {
   }, [idUser])
 
 
-  const getInfoUserAsync = async () => {
-    const userInfomation = AsyncStorage.getItem('userInfo')
-    console.log("userInfomation", userInfomation);
-  }
-  const SignIn = async () => {
+  const handleLoginPress = async () => {
     try {
-      // const userInfo = await AsyncStorage.getItem('userInfo');
-      // if (!userInfo) {
-      //   setIsLogin(true)
-      // } else {
-        const response = await AxiosInstance().post("user/api/login", { email: email, password: password });
-        console.log(response);
-        if (response.result) {
-          setIdUser(response.user._id)
-          setInfoUser(response.user)
-          // saveUserInfo(response.user)
-          await AsyncStorage.setItem('userInfo', JSON.stringify(response.user));
-          setIsLogin(true)
-        } else {
-          console.log("Login failed");
-          ToastAndroid.show("Đăng nhập thất bại hãy thử lại", ToastAndroid.SHORT);
-        }
-      // }
+      const response = await AxiosInstance().post("user/api/login", { email: email, password: password });
+      console.log(response);
+      if (response.result) {
+        setIdUser(response.user._id);
+        setInfoUser(response.user);
+        saveLoginInfo(response.user); // Lưu thông tin đăng nhập vào AsyncStorage
+        setIsLogin(true);
+      } else {
+        console.log("Login failed");
+        ToastAndroid.show("Đăng nhập thất bại hãy thử lại", ToastAndroid.SHORT);
+      }
     } catch (error) {
       console.log(error);
     }
-  }
+  };
+  
+  // Hàm lưu thông tin đăng nhập vào AsyncStorage
+  const saveLoginInfo = async (userInfo) => {
+    try {
+      await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
+      console.log('Thông tin đăng nhập đã được lưu.');
+    } catch (error) {
+      console.log('Lỗi khi lưu thông tin đăng nhập:', error);
+    }
+  };
+  
+  // Hàm kiểm tra thông tin đăng nhập đã tồn tại trong AsyncStorage hay chưa
+  const checkLoginInfo = async () => {
+    try {
+      const userInfo = await AsyncStorage.getItem('userInfo');
+      if (userInfo !== null) {
+        const parsedUserInfo = JSON.parse(userInfo);
+        setIdUser(parsedUserInfo._id);
+        setInfoUser(parsedUserInfo);
+        setIsLogin(true);
+        console.log('Thông tin đăng nhập đã tồn tại:', parsedUserInfo);
+      } else {
+        console.log('Không tìm thấy thông tin đăng nhập.');
+      }
+    } catch (error) {
+      console.log('Lỗi khi kiểm tra thông tin đăng nhập:', error);
+    }
+  };
   return (
     <KeyboardAvoidingView style={AppStyle.container}>
       <Image style={styles.image} source={require('../assets/images/ban_tin.png')} />
@@ -165,7 +177,7 @@ const Login = () => {
         <View style={[AppStyle.border, { marginHorizontal: 16, marginTop: 10, backgroundColor: COLOR.background, }]}>
           <TextInput style={{ backgroundColor: COLOR.background, fontSize: 14 }} placeholder='Password' placeholderTextColor={COLOR.normalText} onChangeText={(text) => setPassword(text)} secureTextEntry />
         </View>
-        <TouchableOpacity style={[AppStyle.border, AppStyle.button, { marginHorizontal: 16, marginTop: 16, alignItems: 'center', backgroundColor: COLOR.primary }]} onPress={() => { SignIn() }} >
+        <TouchableOpacity style={[AppStyle.border, AppStyle.button, { marginHorizontal: 16, marginTop: 16, alignItems: 'center', backgroundColor: COLOR.primary }]} onPress={() => { handleLoginPress() }} >
           <Text style={AppStyle.titleButton}>Đăng nhập</Text>
         </TouchableOpacity>
         {/* <TouchableOpacity style={[AppStyle.border, { marginHorizontal: 16 }]} onPress={() => { signInGoogle() }} >

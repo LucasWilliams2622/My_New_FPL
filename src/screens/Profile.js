@@ -39,8 +39,8 @@ const Profile = (props) => {
     Linking.openURL(url);
   };
   const getInfoUserAsync = async () => {
-   const userInfomation =  AsyncStorage.getItem('userInfo')
-   console.log("userInfomation",userInfomation);
+    const userInfomation = AsyncStorage.getItem('userInfo')
+    console.log("userInfomation", userInfomation);
   }
   const sendEmail = (email) => {
     const subject = 'Tiêu đề email';
@@ -130,8 +130,11 @@ const Profile = (props) => {
       </TouchableOpacity>
     </View>
   );
-  const goChat = () => {
+  const goVideoCall = () => {
     navigation.navigate("VideoCall");
+  }
+  const goChat = () => {
+    navigation.navigate("ChatTest");
   }
   return (
     <SafeAreaView style={[AppStyle.container]}>
@@ -172,11 +175,11 @@ const Profile = (props) => {
             pitchEnabled={true}
             rotateEnabled={true}>
             <Marker
-              title='Tòa F'
+              title='Tòa T'
               // description='This is a description'
               coordinate={position} />
             <Marker
-              title='Tòa T'
+              title='Tòa F'
               // description='This is a description'
               coordinate={position2} />
             <Marker
@@ -188,15 +191,23 @@ const Profile = (props) => {
         </View>
         <Text style={[AppStyle.titleBig, { marginBottom: 8 }]}>Hỗ trợ</Text>
         <TouchableOpacity style={[AppStyle.button, { marginBottom: 16 }]}
-          onPress={() => setOverlayVisible(true)}>
-          <Image style={AppStyle.icon} source={require('../assets/icons/Google.png')} />
-          <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Gửi Gmail hỗ trợ</Text>
+          onPress={() => { { goVideoCall() } }}>
+          <Image style={[AppStyle.icon,{tintColor:COLOR.primary}]} source={require('../assets/icons/ic_camera.png')} />
+          <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Video Call</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[AppStyle.button, { marginBottom: 20 }]}
-          onPress={() => { { goChat() } }}>
-          <Image style={AppStyle.icon} source={require('../assets/icons/ic_message_color.png')} />
-          <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Nhắn tin hỗ trợ</Text>
-        </TouchableOpacity>
+        <View style={[AppStyle.row, { justifyContent: 'space-between' }]}>
+          <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
+            onPress={() => setOverlayVisible(true)}>
+            <Image style={AppStyle.icon} source={require('../assets/icons/Google.png')} />
+            <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Gửi Gmail hỗ trợ</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
+            onPress={() => { { goChat() } }}>
+            <Image style={AppStyle.icon} source={require('../assets/icons/ic_message_color.png')} />
+            <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Nhắn tin hỗ trợ</Text>
+          </TouchableOpacity>
+        </View>
+
       </ScrollView>
       <Modal visible={isOverlayVisible} transparent>
         <View style={styles.container}>
