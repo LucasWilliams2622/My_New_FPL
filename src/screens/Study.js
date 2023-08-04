@@ -87,10 +87,10 @@ const Study = (props) => {
 
   const getAllNews = async () => {
     try {
-      const response = await AxiosInstance().get("/news/api/get-all");
-      console.log("===================================response", response.news);
+      const response = await AxiosInstance().get("/news/api/search-by-category?id=64c7b2fb704c7286d864e644");
+      // console.log("===================================response", response.news);
       if (response.result) {
-        setdataCurrentNews(response.news);
+        setdataCurrentNews(response.news.reverse());
         setIsLoading(false)
       } else {
         setIsLoading(true)
@@ -110,29 +110,7 @@ const Study = (props) => {
   return (
     <SafeAreaView style={styles.BoxContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%", marginBottom: 75 }}>
-        <View style={[AppStyle.column,]}>
-          <View style={[AppStyle.column,]}>
-            <Text style={AppStyle.titleBig}> Tin mới nhất </Text>
-            <Image style={[AppStyle.iconMedium, { position: "absolute", left: 110, bottom: 2 }]} source={require('../assets/icons/ic_new.png')} />
-          </View>
-          {isLoading ?
-            (<Image
-              source={require('../assets/gif/loading_bar.gif')}
-              style={{ width: 150, height: 100, alignSelf: 'center', }} />)
-            : (<FlatList
-              vertical
-              showsHorizontalScrollIndicator={false}
-              showsVerticalScrollIndicator={false}
-              data={[DataNewsStudy[0]]}
-              renderItem={({ item }) => <ItemStudy data={item} />}
-              keyExtractor={item => item.id}
-            />)}
-        </View>
-        
-        <View style={[AppStyle.column,]}>
-          <View style={[AppStyle.column, { marginTop: 20 }]}>
-            <Text style={AppStyle.titleBig}> Tin khác </Text>
-          </View>
+
           {isLoading ?
             (<Image
               source={require('../assets/gif/loading_bar.gif')}
@@ -145,7 +123,6 @@ const Study = (props) => {
               renderItem={({ item }) => <ItemStudy data={item} />}
               keyExtractor={item => item.id}
             />)}
-        </View>
       </ScrollView>
     </SafeAreaView>
   )

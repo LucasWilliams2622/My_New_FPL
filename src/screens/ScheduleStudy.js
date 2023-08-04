@@ -20,19 +20,22 @@ const data = [
 const ItemTextSches = (props) => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [dataScheduleByDay, setDataScheduleByDay] = useState([])
+  const [dataScheduleCurrenday, setDataScheduleCurrenday] = useState([])
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState(7);
   const [isLoading, setIsLoading] = useState(true)
   const getCurrentSchedule = async (value) => {
     try {
-      console.log("value",value);
+      console.log("value", value);
       // const response = await AxiosInstance().get("scheduleStudy/api/get-all");
-      const response = await AxiosInstance().get("scheduleStudy/api/get-by-"+value+"-day?currentDay="+currentDay);
+      const response = await AxiosInstance().get("scheduleStudy/api/get-by-" + value + "-day?currentDay=" + currentDay);
+      const responseCurrenDay = await AxiosInstance().get("scheduleStudy/api/get-by-current-day?currentDay=" + currentDay);
 
-      console.log("===================================response", response.scheduleStudy[1].idSubject);
+      // console.log("===================================response", responseCurrenDay.scheduleStudy.length);
 
       if (response.result) {
         setDataScheduleByDay(response.scheduleStudy);
+        setDataScheduleCurrenday(responseCurrenDay.scheduleStudy)
         setIsLoading(false)
       } else {
         setIsLoading(true)
@@ -60,7 +63,6 @@ const ItemTextSches = (props) => {
     }
   }, [value])
 
-
   return (
     <SafeAreaView style={AppStyle.container}>
       <Dropdown
@@ -84,7 +86,20 @@ const ItemTextSches = (props) => {
       <Image style={[AppStyle.icon, { position: 'absolute', left: 30, top: 28, tintColor: isFocus ? COLOR.primary : COLOR.black }]} source={require('../assets/icons/ic_schedule.png')} />
       <View style={styles.BoxContent}>
         <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
-          <Text style={[AppStyle.titleBig, { marginBottom: 10 }]}>Lịch học hôm nay</Text>
+          <Text style={[AppStyle.titleBig, { marginBottom: 10 ,display: dataScheduleCurrenday.length > 0 ? 'flex':'none' }]}>Lịch học hôm nay</Text>
+          {isLoading ?
+            (<Image
+              source={require('../assets/gif/loading_bar.gif')}
+              style={{ width: 150, height: 100, alignSelf: 'center', display: dataScheduleCurrenday.length > 0 ? 'flex':'none'  }} />)
+            : (<FlatList
+              vertical
+              showsVerticalScrollIndicator={false}
+              data={dataScheduleCurrenday}
+              renderItem={({ item }) => <ItemScheduleStudy data={item} />}
+              keyExtractor={item => item.id}
+            />)}
+
+          <Text style={[AppStyle.titleBig, { marginBottom: 10 }]}>Lịch học {value} ngày tới</Text>
           {isLoading ?
             (<Image
               source={require('../assets/gif/loading_bar.gif')}
@@ -96,11 +111,7 @@ const ItemTextSches = (props) => {
               renderItem={({ item }) => <ItemScheduleStudy data={item} />}
               keyExtractor={item => item.id}
             />)}
-          {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', width: '100%' }}>
-            {DataScheduleToday.slice(0, Math.ceil(DataScheduleToday.length)).map((item) => (
-              <ItemScheduleStudy data={item} key={item.id}/>
-            ))}
-          </View> */}
+
         </ScrollView>
       </View>
     </SafeAreaView>

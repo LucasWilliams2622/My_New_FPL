@@ -1,22 +1,75 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React,{useContext,useEffect,useState} from 'react'
 import { AppStyle } from '../constants/AppStyle'
 import ItemDetail from '../components/New/ItemDetail'
 import { useNavigation } from '@react-navigation/native'
+import AxiosInstance from '../constants/AxiosInstance';
+import { AppContext } from '../utils/AppContext';
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-const DetailsNew = () => {
-  const navigation = useNavigation();
+
+
+const DetailsNew = (props) => {
+  const {navigation,route} = props;
+  const {params} = route;
+  const [dataNewsById, setDataNewsById] = useState({})
+  const [date, setDate] = useState(undefined)
+
+  const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
+
+    
+
+  const getByIdNews = async () => {
+    try {
+      const response = await AxiosInstance().get("news/api/get-by-id?id=" + params.id);
+      // console.log("===================================response", response.news.title);
+      if (response.result) {
+        // console.log("===================================response", isLoading);
+        setDataNewsById(response.news)
+        setDate(response.news.date.slice(0,10))
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    getByIdNews()
+    return () => {
+
+    }
+  }, [appState])
+
 
   return (
-    <View style={[AppStyle.container, { padding: 16 }]}>
+    <SafeAreaView style={[AppStyle.container, { padding: 16 }]}>
       <TouchableOpacity style={[AppStyle.row]} onPress={()=>{navigation.goBack()}}>
         <Image source={require('../assets/icons/ic_back_black.png')} />
-        <Text style={[AppStyle.titleMedium]}> Chi tiết</Text>
+        <Text style={[AppStyle.titleMedium,{backgroundColor:'white'}]}> Chi tiết</Text>
 
       </TouchableOpacity>
-      <Text style={[AppStyle.titleBig, { marginTop: 10 }]}>Thay đổi thời gian học kì Summer 2023</Text>
-      <ItemDetail />
-    </View>
+      <Text style={[AppStyle.titleBig, { marginTop: 10 }]}>{dataNewsById.title}</Text>
+      <View style={[AppStyle.container]}>
+            {/* <Text style={[AppStyle.titleBig, { color: 'black',right:"3%" ,margin:10}]}>
+                {dataNewsById.title}
+            </Text> */}
+            <Text style={[AppStyle.title, { width: 350 ,textAlign:'justify', marginTop:10}]}>
+              {dataNewsById.content}
+            </Text>
+            <Image style={{ width: "100%", height: 200, borderRadius: 10, top: "2%" }} source={{uri: dataNewsById.image}} />
+            <Text style={{ top: "3%",textAlign:'justify' ,marginTop:8}}>
+            {dataNewsById.content}
+            
+            </Text>
+            <View style={{ top: "10%", flexDirection: 'row', justifyContent: 'space-between' }}>
+                
+                    <Text>Người đăng:  {dataNewsById.author}</Text>
+                 
+                    <Text> Thời gian: {date}</Text>
+                   
+            </View>
+        </View>
+    </SafeAreaView>
   )
 }
 
