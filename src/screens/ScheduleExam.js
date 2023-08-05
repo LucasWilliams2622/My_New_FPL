@@ -7,7 +7,6 @@ import { COLOR } from '../constants/Theme';
 import ItemSchedule from '../components/Schedule/ItemScheduleExam';
 import AxiosInstance from '../constants/AxiosInstance';
 import { AppContext } from '../utils/AppContext'
-import Swiper from 'react-native-swiper'
 
 const data = [
   { label: '7 ngày tới', value: '7' },
@@ -25,16 +24,12 @@ const ItemTextSches = () => {
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState(7);
 
-
   const getCurrentSchedule = async () => {
     try {
       console.log("value", value);
-      // const response = await AxiosInstance().get("SchedulesSubject/api/get-by-current-day&currentDay=" + currentDay);
       const response = await AxiosInstance().get("scheduleExam/api/get-by-" + value + "-day?currentDay=" + currentDay);
       const responseCurrenDay = await AxiosInstance().get("scheduleExam/api/get-by-current-day?currentDay=" + currentDay);
-      console.log("===================================response", responseCurrenDay);
       if (response.result) {
-        // console.log("===================================response", isLoading);
         setdataCurrentScheduleExam(response.scheduleExam);
         setDataCurrendayScheduleExam(responseCurrenDay.scheduleExam);
         setIsLoading(false)
@@ -46,15 +41,12 @@ const ItemTextSches = () => {
     }
   }
   useEffect(() => {
-    // console.log("INFOR ", infoUser);
 
     getCurrentSchedule()
     return () => {
 
     }
   }, [appState])
-
-
 
   const renderItem = item => {
     return (
@@ -108,6 +100,7 @@ const ItemTextSches = () => {
               style={{ width: 150, height: 100, alignSelf: 'center', }} />)
             : (<FlatList
               vertical
+              style={{paddingBottom:200}}
               showsVerticalScrollIndicator={false}
               data={dataCurrentScheduleExam}
               renderItem={({ item }) => <ItemScheduleExam data={item} />}

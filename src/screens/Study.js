@@ -5,82 +5,10 @@ import { AppStyle } from '../constants/AppStyle'
 import { COLOR } from '../constants/Theme'
 import ItemStudy from '../components/New/ItemStudy'
 import dayjs from 'dayjs'
-
-
 import { AppContext } from '../utils/AppContext';
 import AxiosInstance from '../constants/AxiosInstance';
-const DataNewsStudy = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "20/01/2020"
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bdsadaa',
-
-    title: 'Thông báo lịch thi',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "20/07/2023"
-
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28b',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "22/07/2023"
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad5abb28bdsaa',
-
-    title: 'Thông báo lịch thi',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "24/07/2021"
-
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-ad53abb28ba',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "23/07/2022"
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53a8bdsadaa',
-
-    title: 'Thông báo lịch thii',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "21/07/2023"
-
-  },
-
-
-
-]
-
-
-export const dateNearThe = (max) => {
-  max = DataNewsStudy[0].date
-
-  for (let i = 0; i < DataNewsStudy.length; i++) {
-    if (max < DataNewsStudy[i].date) {
-      max = DataNewsStudy[i].date
-    }
-
-  }
-
-  return max
-}
-
-
 
 const Study = (props) => {
-  const { navigation } = props
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [dataCurrentNews, setdataCurrentNews] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -88,7 +16,6 @@ const Study = (props) => {
   const getAllNews = async () => {
     try {
       const response = await AxiosInstance().get("/news/api/search-by-category?id=64c7b2fb704c7286d864e644");
-      // console.log("===================================response", response.news);
       if (response.result) {
         setdataCurrentNews(response.news.reverse());
         setIsLoading(false)
@@ -100,7 +27,6 @@ const Study = (props) => {
     }
   }
   useEffect(() => {
-    // console.log("INFOR ", infoUser);
 
     getAllNews()
     return () => {
@@ -110,7 +36,6 @@ const Study = (props) => {
   return (
     <SafeAreaView style={styles.BoxContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%", marginBottom: 75 }}>
-
           {isLoading ?
             (<Image
               source={require('../assets/gif/loading_bar.gif')}

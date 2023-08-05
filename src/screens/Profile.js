@@ -10,8 +10,6 @@ import MapViewDirections from 'react-native-maps-directions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppContext } from "../utils/AppContext";
 
-
-// console.log("AAAAAAAAAAAAA",AsyncStorage.getItem());
 const Profile = (props) => {
   const { navigation } = props;
   const { infoUser, idUser } = useContext(AppContext);
@@ -40,12 +38,10 @@ const Profile = (props) => {
   };
   const getInfoUserAsync = async () => {
     const userInfomation = AsyncStorage.getItem('userInfo')
-    console.log("userInfomation", userInfomation);
   }
   const sendEmail = (email) => {
     const subject = 'Tiêu đề email';
     const body = 'Nội dung email';
-
     const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     Linking.openURL(url);
   };
@@ -80,10 +76,9 @@ const Profile = (props) => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
-  // add this to the component's useEffect hook
+
   useEffect(() => {
     getInfoUserAsync();
-
     Geolocation.getCurrentPosition(
       position => {
         setCurrentLocation({
@@ -144,6 +139,7 @@ const Profile = (props) => {
           <Image style={{ width: 100, height: 30 }} source={require('../assets/images/logo.jpg')} />
         </View>
         <ItemProfile />
+
         <View style={{ marginLeft: 10, marginBottom: 8 }}>
           <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
           <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 100 }}></View>
@@ -192,7 +188,7 @@ const Profile = (props) => {
         <Text style={[AppStyle.titleBig, { marginBottom: 8 }]}>Hỗ trợ</Text>
         <TouchableOpacity style={[AppStyle.button, { marginBottom: 16 }]}
           onPress={() => { { goVideoCall() } }}>
-          <Image style={[AppStyle.icon,{tintColor:COLOR.primary}]} source={require('../assets/icons/ic_camera.png')} />
+          <Image style={[AppStyle.icon, { tintColor: COLOR.primary }]} source={require('../assets/icons/ic_camera.png')} />
           <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Video Call</Text>
         </TouchableOpacity>
         <View style={[AppStyle.row, { justifyContent: 'space-between' }]}>

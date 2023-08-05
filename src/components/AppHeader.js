@@ -9,7 +9,11 @@ const AppHeader = () => {
     return (
         <SafeAreaView style={[AppStyle.header, AppStyle.row, { paddingTop: 20, paddingHorizontal: 16, justifyContent: 'space-between', }]}>
             <TouchableOpacity style={[AppStyle.row, {}]}>
-                <Image style={AppStyle.avatar} source={require('../assets/images/defaultAvatar.png')} />
+                {infoUser.avatar != "" ?
+                    (<Image style={AppStyle.avatar} source={{ uri: infoUser.avatar }} />)
+                    :
+                    (<Image style={AppStyle.avatar} source={require('../assets/images/defaultAvatar.png')} />)
+                }
                 <View style={[AppStyle.column, { marginLeft: 7, justifyContent: 'center', paddingTop: 5 }]}>
                     <Text style={[AppStyle.titleSmall, { color: COLOR.title }]}>{infoUser.name}</Text>
                     <Text style={[AppStyle.titleSmall, { paddingTop: 4 }]}>{infoUser.studentCode}</Text>

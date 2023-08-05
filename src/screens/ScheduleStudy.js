@@ -7,7 +7,6 @@ import { COLOR } from '../constants/Theme';
 import ItemScheduleStudy from '../components/Schedule/ItemScheduleStudy';
 import AxiosInstance from '../constants/AxiosInstance';
 import { AppContext } from '../utils/AppContext'
-import Swiper from 'react-native-swiper'
 
 const data = [
   { label: '7 ngày tới', value: '7' },
@@ -30,8 +29,6 @@ const ItemTextSches = (props) => {
       const response = await AxiosInstance().get("scheduleStudy/api/get-by-" + value + "-day?currentDay=" + currentDay);
       const responseCurrenDay = await AxiosInstance().get("scheduleStudy/api/get-by-current-day?currentDay=" + currentDay);
 
-      // console.log("===================================response", responseCurrenDay.scheduleStudy.length);
-
       if (response.result) {
         setDataScheduleByDay(response.scheduleStudy);
         setDataScheduleCurrenday(responseCurrenDay.scheduleStudy)
@@ -44,7 +41,6 @@ const ItemTextSches = (props) => {
     }
   }
 
-
   const renderItem = item => {
     return (
       <View style={styles.item}>
@@ -52,8 +48,8 @@ const ItemTextSches = (props) => {
       </View>
     );
   };
+  
   useEffect(() => {
-    // console.log("INFOR ", infoUser);
     console.log(value);
 
     getCurrentSchedule(value)
@@ -84,7 +80,7 @@ const ItemTextSches = (props) => {
       />
       <Image style={[AppStyle.icon, { position: 'absolute', left: 30, top: 28, tintColor: isFocus ? COLOR.primary : COLOR.black }]} source={require('../assets/icons/ic_schedule.png')} />
       <View style={styles.BoxContent}>
-        <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+        <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false} style={{}}>
           <View style={{display: value == 7 ? 'flex' : 'none'}}>
           <Text style={[AppStyle.titleBig, { marginBottom: 10 ,display: dataScheduleCurrenday.length > 0 ? 'flex':'none' }]}>Lịch học hôm nay</Text>
           {isLoading ?
@@ -97,8 +93,8 @@ const ItemTextSches = (props) => {
               data={dataScheduleCurrenday}
               renderItem={({ item }) => <ItemScheduleStudy data={item} />}
               keyExtractor={item => item.id}
+              
             />)}
-
           </View>
 
           <Text style={[AppStyle.titleBig, { marginBottom: 10 }]}>Lịch học {value} ngày tới</Text>
@@ -108,6 +104,7 @@ const ItemTextSches = (props) => {
               style={{ width: 150, height: 100, alignSelf: 'center', }} />)
             : (<FlatList
               vertical
+              style={{paddingBottom:200}}
               showsVerticalScrollIndicator={false}
               data={dataScheduleByDay}
               renderItem={({ item }) => <ItemScheduleStudy data={item} />}
@@ -158,7 +155,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: '100%',
     width: '100%',
-
     paddingHorizontal: 16,
     paddingVertical: 8
   },

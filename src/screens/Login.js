@@ -113,7 +113,7 @@ const Login = () => {
       console.log(error);
     }
   };
-  
+
   // Hàm lưu thông tin đăng nhập vào AsyncStorage
   const saveLoginInfo = async (userInfo) => {
     try {
@@ -123,7 +123,7 @@ const Login = () => {
       console.log('Lỗi khi lưu thông tin đăng nhập:', error);
     }
   };
-  
+
   // Hàm kiểm tra thông tin đăng nhập đã tồn tại trong AsyncStorage hay chưa
   const checkLoginInfo = async () => {
     try {

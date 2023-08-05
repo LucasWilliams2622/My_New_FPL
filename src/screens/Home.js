@@ -20,12 +20,10 @@ const Home = () => {
 
   const getCurrentSchedule = async () => {
     try {
-      console.log("currentDay", currentDay);
       const response = await AxiosInstance().get("scheduleStudy/api/get-by-current-day?currentDay=" + currentDay);
       const responseActivate = await AxiosInstance().get("news/api/search-by-category?id=64c7b309704c7286d864e646");
       const responseEnterprise = await AxiosInstance().get("news/api/search-by-category?id=64c7b313704c7286d864e648");
       for (let i = 0; i < response.scheduleStudy.length; i++) {
-        console.log("===================================responseActivate", responseEnterprise);
       }
       if (response.result) {
         setDataCurrentSchedule(response.scheduleStudy);
@@ -40,7 +38,6 @@ const Home = () => {
     }
   }
   useEffect(() => {
-    // console.log("INFOR ", infoUser);
     getCurrentSchedule()
     return () => {
 
@@ -64,6 +61,7 @@ const Home = () => {
             </View>
           </Swiper>
         </View>
+
         <View style={styles.BoxContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
           <View style={[AppStyle.column,{display: dataCurrentSchedule.length > 0 ? 'flex':'none',marginBottom:20 }]}>
             <Text style={AppStyle.titleBig}>Lịch học hôm nay</Text>
@@ -82,6 +80,7 @@ const Home = () => {
               />
               )}
           </View>
+
           <View style={[AppStyle.column]}>
             <Text style={AppStyle.titleBig}>Tin tức mới !</Text>
             {
@@ -99,6 +98,7 @@ const Home = () => {
                 />)
             }
           </View>
+
           <View style={[AppStyle.column, { marginTop: 20, marginBottom: 80 }]}>
             <Text style={[AppStyle.titleBig,{marginBottom:6}]}>Tin tức doanh nghiệp !</Text>
             <FlatList

@@ -7,8 +7,6 @@ import AppHeader from '../components/AppHeader'
 import Activate from '../screens/Activate'
 import Study from '../screens/Study'
 import Enterprise from '../screens/Enterprise'
-
-
 import { AppContext } from '../utils/AppContext';
 import AxiosInstance from '../constants/AxiosInstance';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -49,21 +47,12 @@ const options = ({ route }) => ({
 })
 
 
-
-
-
-
 const News = (props) => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
-
   const [dataCurrentNews, setdataCurrentNews] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
-  const layout = useWindowDimensions();
-  const [index, setIndex] = React.useState(0);
-
  
-
   const getAllNews = async () => {
     try {
       // const response = await AxiosInstance().get("SchedulesSubject/api/get-by-current-day&currentDay=" + currentDay);
@@ -81,8 +70,8 @@ const News = (props) => {
       console.log(error);
     }
   }
+
   useEffect(() => {
-    // console.log("INFOR ", infoUser);
 
     getAllNews()
     return () => {
@@ -98,8 +87,6 @@ const News = (props) => {
         <Tab.Screen name='Activate' component={Activate} />    
         <Tab.Screen name='Enterprise' component={Enterprise} />    
       </Tab.Navigator>
-
-
     </SafeAreaView>
   );
 

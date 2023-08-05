@@ -8,24 +8,6 @@ import ItemActivate from '../components/New/ItemActivate'
 import { AppContext } from '../utils/AppContext';
 import AxiosInstance from '../constants/AxiosInstance';
 
-const DataNewsActivate = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "23/07/2023"
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bdsadaa',
-    title: 'Thông báo lịch thi',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "23/07/2023"
-
-  },
-]
-
 const Activate = () => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [dataCurrentNews, setdataCurrentNews] = useState([])
@@ -33,11 +15,8 @@ const Activate = () => {
 
   const getAllNews = async () => {
     try {
-      // const response = await AxiosInstance().get("SchedulesSubject/api/get-by-current-day&currentDay=" + currentDay);
       const response = await AxiosInstance().get("/news/api/search-by-category?id=64c7b309704c7286d864e646");
-      // console.log("===================================response", response.news.reverse());
       if (response.result) {
-        // console.log("===================================response", isLoading);
         setdataCurrentNews(response.news.reverse());
         setIsLoading(false)
       } else {
@@ -49,13 +28,13 @@ const Activate = () => {
   }
 
   useEffect(() => {
-    // console.log("INFOR ", infoUser);
 
     getAllNews()
     return () => {
 
     }
   }, [appState])
+
   return (
     <SafeAreaView style={[styles.BoxContent,{paddingBottom:95}]} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%" }}>
@@ -86,7 +65,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: '100%',
     width: '100%',
-
     paddingHorizontal: 16,
     paddingVertical: 20,
   },

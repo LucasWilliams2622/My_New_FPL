@@ -22,11 +22,9 @@ import { Image } from "react-native-animatable";
 import { AppStyle, windowWidth } from "../constants/AppStyle";
 import { COLOR } from "../constants/Theme";
 import { useNavigation } from '@react-navigation/native';
-// Responsible for either schedule new meeting or to join existing meeting as a host or as a viewer.
 function JoinScreen({ getMeetingAndToken, setMode }) {
   const [meetingVal, setMeetingVal] = useState("");
 
- 
   const JoinButton = ({ value, onPress }) => {
     return (
       <TouchableOpacity
@@ -38,7 +36,7 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
         }}
         onPress={onPress}
       >
-        <Text style={{ color: "white", alignSelf: "center", fontSize: 18,fontWeight:'700' }}>
+        <Text style={{ color: "white", alignSelf: "center", fontSize: 18, fontWeight: '700' }}>
           {value}
         </Text>
       </TouchableOpacity>
@@ -53,8 +51,8 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
         paddingHorizontal: 6 * 10,
       }}
     >
-      <Image style={{alignSelf:"center",width:windowWidth-100,height:100,marginBottom:10}} source={require('../assets/images/logoFPL.png')}/>
-      <Text style={[AppStyle.titleBig,{color:COLOR.primary,fontStyle:'italic',fontWeight:'700',fontSize:30, alignSelf:'center',marginBottom:50}]}>MEETING</Text>
+      <Image style={{ alignSelf: "center", width: windowWidth - 100, height: 100, marginBottom: 10 }} source={require('../assets/images/logoFPL.png')} />
+      <Text style={[AppStyle.titleBig, { color: COLOR.primary, fontStyle: 'italic', fontWeight: '700', fontSize: 30, alignSelf: 'center', marginBottom: 50 }]}>MEETING</Text>
       <TextInput
         value={meetingVal}
         onChangeText={setMeetingVal}
@@ -91,7 +89,7 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
           color: "grey",
         }}
       >
-       ------------- hoặc -------------
+        ------------- hoặc -------------
       </Text>
 
       <JoinButton
@@ -113,7 +111,7 @@ function ParticipantView({ participantId }) {
       objectFit={"cover"}
       style={{
         height: 300,
-        borderRadius:8,
+        borderRadius: 8,
         marginVertical: 8,
         marginHorizontal: 8,
       }}
@@ -127,7 +125,7 @@ function ParticipantView({ participantId }) {
         alignItems: "center",
         marginVertical: 8,
         marginHorizontal: 8,
-        borderRadius:8
+        borderRadius: 8
       }}
     >
       <Text style={{ fontSize: 16 }}>NO MEDIA</Text>
@@ -165,26 +163,26 @@ function Controls() {
         padding: 24,
         flexDirection: "row",
         justifyContent: "space-between",
-        top:-70
+        top: -70
       }}
     >
-      <TouchableOpacity style={[AppStyle.buttonVideo,{backgroundColor:onMic ? "#1178F8":'gray'}]}  onPress={() => {
-          toggleWebcam() ,setOnMic(!onMic);
-        }}>
-        <Image style={[AppStyle.icon,{tintColor:COLOR.white}]}  source={require('../assets/icons/ic_camera.png')}/>
-         <Text style={[AppStyle.titleSmall,{color:COLOR.white,marginLeft:4}]}>Tắt/Mở Cam</Text>
+      <TouchableOpacity style={[AppStyle.buttonVideo, { backgroundColor: onMic ? "#1178F8" : 'gray' }]} onPress={() => {
+        toggleWebcam(), setOnMic(!onMic);
+      }}>
+        <Image style={[AppStyle.icon, { tintColor: COLOR.white }]} source={require('../assets/icons/ic_camera.png')} />
+        <Text style={[AppStyle.titleSmall, { color: COLOR.white, marginLeft: 4 }]}>Tắt/Mở Cam</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[AppStyle.buttonVideo,{backgroundColor:onCam ? "#1178F8":'gray'}]}  onPress={() => {
-         toggleMic(),setOnCam(!onCam);
-        }}>
-        <Image style={[AppStyle.icon,{tintColor:COLOR.white}]}  source={require('../assets/icons/ic_micro.png')}/>
-         <Text style={[AppStyle.titleSmall,{color:COLOR.white,marginLeft:4}]}>Tắt/Mở Mic</Text>
+      <TouchableOpacity style={[AppStyle.buttonVideo, { backgroundColor: onCam ? "#1178F8" : 'gray' }]} onPress={() => {
+        toggleMic(), setOnCam(!onCam);
+      }}>
+        <Image style={[AppStyle.icon, { tintColor: COLOR.white }]} source={require('../assets/icons/ic_micro.png')} />
+        <Text style={[AppStyle.titleSmall, { color: COLOR.white, marginLeft: 4 }]}>Tắt/Mở Mic</Text>
       </TouchableOpacity>
-      
+
       {hlsState === "HLS_STARTED" ||
-      hlsState === "HLS_STOPPING" ||
-      hlsState === "HLS_STARTING" ||
-      hlsState === "HLS_PLAYABLE" ? (
+        hlsState === "HLS_STOPPING" ||
+        hlsState === "HLS_STARTING" ||
+        hlsState === "HLS_PLAYABLE" ? (
         <Button
           onPress={() => {
             _handleHLS();
@@ -193,10 +191,10 @@ function Controls() {
             hlsState === "HLS_STARTED"
               ? `Live Starting`
               : hlsState === "HLS_STOPPING"
-              ? `Live Stopping`
-              : hlsState === "HLS_PLAYABLE"
-              ? `Stop Live`
-              : `Go Live`
+                ? `Live Stopping`
+                : hlsState === "HLS_PLAYABLE"
+                  ? `Stop Live`
+                  : `Go Live`
           }
           backgroundColor={"#FF5D5D"}
         />
@@ -266,8 +264,8 @@ function HeaderView() {
         alignItems: "center",
       }}
     >
-      <TouchableOpacity onPress={()=>{goProfile()}}>
-        <Image style={[AppStyle.icon,{tintColor:COLOR.white}]}  source={require('../assets/icons/ic_left.png')}/>
+      <TouchableOpacity onPress={() => { goProfile() }}>
+        <Image style={[AppStyle.icon, { tintColor: COLOR.white }]} source={require('../assets/icons/ic_left.png')} />
       </TouchableOpacity>
       <Text style={{ fontSize: 24, color: "white" }}>{meetingId}</Text>
       <Button
@@ -283,18 +281,18 @@ function HeaderView() {
         backgroundColor={"transparent"}
       />
 
-      <TouchableOpacity style={{backgroundColor:"#FF0000" ,borderRadius:8,paddingVertical:6,paddingHorizontal:16}}  onPress={() => {
-          leave();
-        }}>
-        <Image style={[AppStyle.icon,{tintColor:COLOR.white}]}  source={require('../assets/icons/ic_logout.png')} />
+      <TouchableOpacity style={{ backgroundColor: "#FF0000", borderRadius: 8, paddingVertical: 6, paddingHorizontal: 16 }} onPress={() => {
+        leave();
+      }}>
+        <Image style={[AppStyle.icon, { tintColor: COLOR.white }]} source={require('../assets/icons/ic_logout.png')} />
       </TouchableOpacity>
-      
+
     </View>
   );
 }
 
 // Responsible for Viewer side view, which contains video player for streaming HLS and managing HLS state (HLS_STARTED, HLS_STOPPING, HLS_STARTING, etc.)
-function ViewerView({}) {
+function ViewerView({ }) {
   const { hlsState, hlsUrls } = useMeeting();
 
   return (
@@ -355,7 +353,7 @@ function Container() {
           }}
         >
           <Text style={{ fontSize: 20, color: "white" }}>
-           Nhấn tham gia để bắt đầu cuộc họp
+            Nhấn tham gia để bắt đầu cuộc họp
           </Text>
           <Button
             btnStyle={{
@@ -363,7 +361,7 @@ function Container() {
               paddingHorizontal: 22,
               padding: 12,
               borderWidth: 1,
-              marginTop:40,
+              marginTop: 40,
               borderColor: "white",
               borderRadius: 8,
             }}

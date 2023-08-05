@@ -28,7 +28,11 @@ const ItemProfile = () => {
       <View style={styles.panel}>
         <View style={{}}>
           <View style={[AppStyle.row, {}]}>
-            <Image style={AppStyle.portrait} source={require('../../assets/images/green_field.jpg')} />
+            {infoUser.avatar != "" ?
+              (<Image style={AppStyle.portrait} source={{ uri: infoUser.avatar }} />)
+              :
+              (<Image style={AppStyle.portrait} source={require('../../assets/images/green_field.jpg')} />)
+            }
             <View style={[AppStyle.column, { marginLeft: 8 }]}>
               <View style={{ marginBottom: 12 }} >
                 <Text style={AppStyle.textNormal}>Họ và tên/Name</Text>
@@ -36,16 +40,16 @@ const ItemProfile = () => {
               </View>
               <View style={{ marginBottom: 12 }} >
                 <Text style={AppStyle.textNormal}>MSSV/Student ID</Text>
-                <Text style={[AppStyle.titleMedium, { width: 160 ,color:COLOR.title, letterSpacing:1 ,textAlign:'left'}]} numberOfLines={1}>{infoUser.studentCode}</Text>
+                <Text style={[AppStyle.titleMedium, { width: 160, color: COLOR.title, letterSpacing: 1, textAlign: 'left' }]} numberOfLines={1}>{infoUser.studentCode}</Text>
               </View>
               <View >
                 <Text style={AppStyle.textNormal}>Chuyên ngành/Major</Text>
-                <Text style={[AppStyle.titleMedium, { width: 160,color:COLOR.title }]} numberOfLines={2}>Lập trình máy tính/Computer Programming</Text>
+                <Text style={[AppStyle.titleMedium, { width: 160, color: COLOR.title }]} numberOfLines={2}>Lập trình máy tính/Computer Programming</Text>
               </View>
             </View>
           </View>
           <Text style={styles.textLink} >----------------------- caodang.fpt.edu.vn -----------------------</Text>
-          <View style={{ alignItems: 'center',marginBottom:12 }}>
+          <View style={{ alignItems: 'center', marginBottom: 12 }}>
             <QRCode value={valueQRCode}
               color={COLOR.title}
               backgroundColor='white'
@@ -108,7 +112,12 @@ const ItemProfile = () => {
   return (
     <View style={[styles.boxShadow, AppStyle.row, { width: '100%', justifyContent: 'space-between' }]}>
       <View style={[AppStyle.row, { width: '100%', padding: 16, alignItems: 'center', borderRadius: 10 }]}>
-        <Image style={{ width: 70, height: 70, borderRadius: 100 }} source={require('../../assets/images/green_field.jpg')} />
+        {infoUser.avatar != "" ?
+          (<Image style={{ width: 70, height: 70, borderRadius: 100 }} source={{ uri: infoUser.avatar }} />)
+          :
+          (<Image style={{ width: 70, height: 70, borderRadius: 100 }} source={require('../../assets/images/green_field.jpg')} />)
+        }
+
         <View style={{ marginLeft: 15 }}>
           <Text style={[AppStyle.titleMedium, { color: COLOR.black, marginBottom: 4 }]}>{infoUser.name}</Text>
           <Text style={[AppStyle.titleMedium, { marginBottom: 4 }]}>{infoUser.studentCode}</Text>
@@ -165,9 +174,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 8,
   },
-  textLink:{
-    paddingVertical:16,
-    alignSelf:'center',
+  textLink: {
+    paddingVertical: 16,
+    alignSelf: 'center',
   }
 
 })

@@ -45,8 +45,6 @@ const StackProfile = () => {
             <Stack.Screen name="ChatTest" component={ChatTest} />
             <Stack.Screen name="VideoCall" component={VideoCall} />
 
-
-
         </Stack.Navigator>
     )
 }

@@ -7,25 +7,6 @@ import { AppStyle } from '../constants/AppStyle'
 import { AppContext } from '../utils/AppContext';
 import AxiosInstance from '../constants/AxiosInstance';
 import ItemEnterprise from '../components/New/ItemEnterprise'
-const DataNewsActivate = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "23/07/2023"
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bdsadaa',
-
-    title: 'Thông báo lịch thi',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ...",
-    name: "trunghieu",
-    date: "23/07/2023"
-  },
-
-
-]
 
 const Enterprise = () => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
@@ -34,11 +15,8 @@ const Enterprise = () => {
 
   const getAllNews = async () => {
     try {
-      // const response = await AxiosInstance().get("SchedulesSubject/api/get-by-current-day&currentDay=" + currentDay);
       const response = await AxiosInstance().get("/news/api/search-by-category?id=64c7b313704c7286d864e648");
-      // console.log("===================================response", response.news);
       if (response.result) {
-        // console.log("===================================response", isLoading);
         setdataCurrentNews(response.news.reverse());
         setIsLoading(false)
       } else {
@@ -50,7 +28,6 @@ const Enterprise = () => {
   }
 
   useEffect(() => {
-    // console.log("INFOR ", infoUser);
 
     getAllNews()
     return () => {
@@ -65,6 +42,7 @@ const Enterprise = () => {
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
             data={dataCurrentNews}
+            style={{paddingBottom:100}}
             renderItem={({ item }) => <ItemEnterprise data={item} />}
             keyExtractor={item => item.id}
           />

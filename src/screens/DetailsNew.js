@@ -1,31 +1,23 @@
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React,{useContext,useEffect,useState} from 'react'
 import { AppStyle } from '../constants/AppStyle'
-import ItemDetail from '../components/New/ItemDetail'
 import { useNavigation } from '@react-navigation/native'
 import AxiosInstance from '../constants/AxiosInstance';
 import { AppContext } from '../utils/AppContext';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLOR } from '../constants/Theme'
 
-
-
 const DetailsNew = (props) => {
   const {navigation,route} = props;
   const {params} = route;
   const [dataNewsById, setDataNewsById] = useState({})
   const [date, setDate] = useState(undefined)
-
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
-
-    
 
   const getByIdNews = async () => {
     try {
       const response = await AxiosInstance().get("news/api/get-by-id?id=" + params.id);
-      // console.log("===================================response", response.news.title);
       if (response.result) {
-        // console.log("===================================response", isLoading);
         setDataNewsById(response.news)
         setDate(response.news.date.slice(0,10))
       }
@@ -40,7 +32,6 @@ const DetailsNew = (props) => {
 
     }
   }, [appState])
-
 
   return (
     <SafeAreaView style={[AppStyle.container, { padding: 16 }]}>
