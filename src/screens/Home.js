@@ -11,53 +11,6 @@ import ItemScheduleToday from '../components/Home/ItemScheduleToday'
 import ItemNews from '../components/Home/ItemNews'
 import ItemNewsEnterprise from '../components/Home/ItemNewsEnterprise'
 
-
-const DataNewsHome = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ..."
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bdsadaa',
-
-    title: 'Thông báo lịch thi',
-    content: "Thông báo Thông báoThông báoThông báoThông báoThông báoThông báoThông báoThông báoThông asd báoThông báoThông báoThông báo Thông báoThông báoThông báo ..."
-  },
-]
-const DataNewsEnterprise = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bdnbvcsadaa',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    nameCompany: "Công Ty TNHH ABC",
-    location: "11 đường 11 quận 11 Tp.HCM",
-    content: "Yêu cầu ứng viên:sinh viên các trường cao đăng, đại học tr ...",
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bdsavbndaa',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    nameCompany: "Công Ty TNHH AHAH",
-    location: "11 đường 21 quận 12 Tp.HCM",
-    content: "Yêu cầu ứng viên:sinh viên các trường cao đăng, đại học tr ...",
-
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bdsadâdsaa',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    nameCompany: "Công Ty TNHH ABC",
-    location: "11 đường 11 quận 11 Tp.HCM",
-    content: "Yêu cầu ứng viên:sinh viên các trường cao đăng, đại học tr ...",
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28bdsa123daa',
-    title: 'Thông báo thay đổi giờ học Block 2',
-    nameCompany: "Công Ty TNHH AHAH",
-    location: "11 đường 21 quận 12 Tp.HCM",
-    content: "Yêu cầu ứng viên:sinh viên các trường cao đăng, đại học tr ...",
-
-  },
-]
-
 const Home = () => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [dataCurrentSchedule, setDataCurrentSchedule] = useState([])

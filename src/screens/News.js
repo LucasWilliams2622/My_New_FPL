@@ -89,12 +89,7 @@ const News = (props) => {
 
     }
   }, [appState])
-  //   return(
-  //     <Image 
-  //     source={require('../assets/gif/loading_bar.gif')}  
-  //     style={{width: 300, height: 300 ,alignSelf:'center'}}
-  // />
-  //   )
+
   return (
     <SafeAreaView style={AppStyle.container}>
       <AppHeader style={{ height: "45%", }} />

@@ -25,6 +25,9 @@ export const AppStyle = StyleSheet.create({
         height: 50,
         borderRadius: 1000,
     },
+    portrait: {
+        height: 160, width: 130,borderRadius:8,
+    },
     border: {
         borderWidth: 0.5,
         borderColor: COLOR.border,
@@ -53,6 +56,13 @@ export const AppStyle = StyleSheet.create({
         fontSize: 10,
         fontWeight: '400',
         fontStyle: 'normal',
+
+    },
+    textNormal:{
+        color: COLOR.title,
+        fontWeight: '400',
+        fontStyle: 'normal',
+        fontSize:12,
 
     },
     row: {
@@ -107,13 +117,13 @@ export const AppStyle = StyleSheet.create({
         shadowRadius: 4.59,
         elevation: 5
     },
-    buttonVideo:{
-        backgroundColor: '#1178F8', 
+    buttonVideo: {
+        backgroundColor: '#1178F8',
         flexDirection: 'row',
-        padding:8,
-        borderRadius:8,
-        alignItems:'center',
-        justifyContent:'center'
+        padding: 8,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     dropdown: {

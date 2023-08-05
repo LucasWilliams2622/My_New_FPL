@@ -11,7 +11,6 @@ import News from '../screens/News';
 import Profile from '../screens/Profile';
 import Schedule from '../screens/Schedule';
 import DetailsNew from '../screens/DetailsNew';
-import NewsDetails from '../screens/NewsDetails';
 import ItemActivate from '../components/New/ItemActivate';
 import Study from '../screens/Study';
 import VideoCall from '../screens/VideoCall'
@@ -55,7 +54,6 @@ const StackNews = () => {
     return (
         <Stack.Navigator initialRouteName="News" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="News" component={News} />
-            <Stack.Screen name="NewsDetails" component={NewsDetails} />
             <Stack.Screen name="Activate" component={Activate} />
             <Stack.Screen name="DetailsNew" component={DetailsNew} />
             <Stack.Screen name="ItemActivate" component={ItemActivate} />

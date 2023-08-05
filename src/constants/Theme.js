@@ -34,7 +34,11 @@ export const COLOR = {
     white: "#ffffff",
     black: "#000000",
     blue:"#2f96eb",
-    green:"#39b878"
+    green:"#39b878",
+
+    Fcolor:'#1468b1',
+    Pcolor:'#f17126',
+    Tcolor:'#23b14b',
 
 
 }

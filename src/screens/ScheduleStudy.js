@@ -19,7 +19,7 @@ const data = [
 
 const ItemTextSches = (props) => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
-  const [dataScheduleByDay, setDataScheduleByDay] = useState([])
+  const [dataScheduleByDay, setDataScheduleByDay] = useState([])  
   const [dataScheduleCurrenday, setDataScheduleCurrenday] = useState([])
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState(7);
@@ -27,7 +27,6 @@ const ItemTextSches = (props) => {
   const getCurrentSchedule = async (value) => {
     try {
       console.log("value", value);
-      // const response = await AxiosInstance().get("scheduleStudy/api/get-all");
       const response = await AxiosInstance().get("scheduleStudy/api/get-by-" + value + "-day?currentDay=" + currentDay);
       const responseCurrenDay = await AxiosInstance().get("scheduleStudy/api/get-by-current-day?currentDay=" + currentDay);
 

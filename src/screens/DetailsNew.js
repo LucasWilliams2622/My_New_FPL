@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native'
 import AxiosInstance from '../constants/AxiosInstance';
 import { AppContext } from '../utils/AppContext';
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { COLOR } from '../constants/Theme'
 
 
 
@@ -45,7 +46,7 @@ const DetailsNew = (props) => {
     <SafeAreaView style={[AppStyle.container, { padding: 16 }]}>
       <TouchableOpacity style={[AppStyle.row]} onPress={()=>{navigation.goBack()}}>
         <Image source={require('../assets/icons/ic_back_black.png')} />
-        <Text style={[AppStyle.titleMedium,{backgroundColor:'white'}]}> Chi tiết</Text>
+        <Text style={[AppStyle.titleMedium,{backgroundColor:'white',color:COLOR.title}]}> Quay lại </Text>
 
       </TouchableOpacity>
       <Text style={[AppStyle.titleBig, { marginTop: 10 }]}>{dataNewsById.title}</Text>
