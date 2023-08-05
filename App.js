@@ -6,6 +6,8 @@ import BottomTabs from './src/navigation/BottomNav';
 import Test from './src/screens/Test';
 import TesTMap from './src/test/ChatTest'
 import VideoCall from './src/screens/VideoCall'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ScanQrCode from './src/screens/ScanQrCode';
 import TestQRCode from './src/test/TestQRCode'
 
 const App = () => {
@@ -13,7 +15,7 @@ const App = () => {
   return (
     <AppContextProvider>
       <NavigationContainer>
-        {/* <TestQRCode /> */}
+        {/* <VideoCall /> */}
         <BottomTabs/>
         {/* <TesTMap /> */}
       </NavigationContainer>
