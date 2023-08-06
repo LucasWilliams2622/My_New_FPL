@@ -16,7 +16,7 @@ const App = () => {
     <AppContextProvider>
       <NavigationContainer>
         {/* <VideoCall /> */}
-        <BottomTabs/>
+        <ScanQrCode/>
         {/* <TesTMap /> */}
       </NavigationContainer>
     </AppContextProvider>

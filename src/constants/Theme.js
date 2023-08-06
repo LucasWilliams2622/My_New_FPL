@@ -39,7 +39,8 @@ export const COLOR = {
     Fcolor:'#1468b1',
     Pcolor:'#f17126',
     Tcolor:'#23b14b',
-
+    light:"#fec007",
+    textLight:"#bf920b",
 
 }
 

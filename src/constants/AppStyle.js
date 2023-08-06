@@ -26,7 +26,13 @@ export const AppStyle = StyleSheet.create({
         borderRadius: 1000,
     },
     portrait: {
-        height: 160, width: 130,borderRadius:8,
+        height: 160, width: 130, borderRadius: 8,
+    },
+    logo: {
+        width: 100,
+        height: 40,
+        borderRadius:20
+
     },
     border: {
         borderWidth: 0.5,
@@ -58,11 +64,11 @@ export const AppStyle = StyleSheet.create({
         fontStyle: 'normal',
 
     },
-    textNormal:{
+    textNormal: {
         color: COLOR.title,
         fontWeight: '400',
         fontStyle: 'normal',
-        fontSize:12,
+        fontSize: 12,
 
     },
     row: {
