@@ -51,16 +51,16 @@ const ItemProfile = () => {
           <Text style={styles.textLink} >----------------------- caodang.fpt.edu.vn -----------------------</Text>
           <View style={{ alignItems: 'center', marginBottom: 12 }}>
             <QRCode value={valueQRCode}
-              color={COLOR.title}
+              color={COLOR.black}
               backgroundColor='white'
               // gradientDirection={[0, 0, 0]}
-              enableLinearGradient={true}
-              linearGradient={[COLOR.Fcolor, COLOR.Pcolor, COLOR.Tcolor]}
+              // enableLinearGradient={true}
+              // linearGradient={[COLOR.Fcolor, COLOR.Pcolor, COLOR.Tcolor]}
               logo={require('../../assets/icons/logo_fpt_square.jpg')}
               logoBackgroundColor={'white'}
               logoBorderRadius={16}
               logoMargin={6}
-              size={180}
+              size={190}
             />
           </View>
         </View>

@@ -131,6 +131,9 @@ const Profile = (props) => {
   const goChat = () => {
     navigation.navigate("ChatTest");
   }
+  const goScanner = () => {
+    navigation.navigate("ScanQRCode");
+  }
   return (
     <SafeAreaView style={[AppStyle.container]}>
       <View style={[AppStyle.column, AppStyle.boxShadow, { paddingHorizontal: 16, paddingVertical: 8, borderBottomStartRadius: 20, borderBottomEndRadius: 20, width: '102%', elevation: 4, top: -6, left: -4 }]}>
@@ -140,10 +143,16 @@ const Profile = (props) => {
         </View>
         <ItemProfile />
 
-        <View style={{ marginLeft: 10, marginBottom: 8 }}>
-          <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
-          <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 100 }}></View>
+        <View style={[AppStyle.row, { width: '100%', justifyContent: 'space-between' }]}>
+          <View style={{ marginLeft: 10, marginBottom: 8 }}>
+            <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
+            <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 100 }}></View>
+          </View>
+          <TouchableOpacity onPress={() => { goScanner() }}>
+            <Image style={{ width: 24, height: 24, marginRight: 8 }} source={require('../assets/icons/ic_scan_qr_code.png')} />
+          </TouchableOpacity>
         </View>
+
         <View style={{ marginLeft: 10, marginBottom: 8 }}>
           <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Ngày sinh: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>08-06-2003</Text></Text>
           <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 180 }}></View>

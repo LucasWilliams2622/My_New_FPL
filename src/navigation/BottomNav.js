@@ -17,6 +17,7 @@ import VideoCall from '../screens/VideoCall'
 import ChatTest from '../test/ChatTest'
 import Activate from '../screens/Activate';
 import ItemNews from '../components/Home/ItemNews';
+import ScanQrCode from '../screens/ScanQrCode';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -44,6 +45,8 @@ const StackProfile = () => {
             <Stack.Screen name="Profile" component={Profile} />
             <Stack.Screen name="ChatTest" component={ChatTest} />
             <Stack.Screen name="VideoCall" component={VideoCall} />
+            <Stack.Screen name="ScanQRCode" component={ScanQrCode} />
+
 
         </Stack.Navigator>
     )

@@ -15,8 +15,8 @@ const App = () => {
   return (
     <AppContextProvider>
       <NavigationContainer>
-        {/* <VideoCall /> */}
-        <ScanQrCode/>
+        <BottomTabs />
+        {/* <ScanQrCode/> */}
         {/* <TesTMap /> */}
       </NavigationContainer>
     </AppContextProvider>
