@@ -13,6 +13,6 @@ LogBox.ignoreLogs([
 ]);
 console.disableYellowBox = true;
 console.error = () => {};
-register();
+register(); 
 
 AppRegistry.registerComponent(appName, () => App);

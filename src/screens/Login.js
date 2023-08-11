@@ -98,8 +98,9 @@ const Login = () => {
 
   const handleLoginPress = async () => {
     try {
+      console.log("email",email,"password",password);
       const response = await AxiosInstance().post("user/api/login", { email: email, password: password });
-      console.log(response);
+      console.log("response",response);
       if (response.result) {
         setIdUser(response.user._id);
         setInfoUser(response.user);

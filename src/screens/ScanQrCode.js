@@ -13,7 +13,7 @@ const ScanQrCode = () => {
     const [isFlashOn, setIsFlashOn] = useState(false);
     const navigation = useNavigation()
     const [infoStudent, setInfoStudent] = useState([])
-    const [isOverlayVisible, setOverlayVisible] = useState(false);
+    const [isOverlayVisible, setOverlayVisible] = useState(true);
 
     const toggleFlash = () => {
         setIsFlashOn(!isFlashOn);
@@ -36,18 +36,19 @@ const ScanQrCode = () => {
             <View style={{}}>
               <View style={[AppStyle.row, {}]}>
                 {infoStudent.avatar != "" ?
+                 (<Image style={AppStyle.portrait} source={require('../assets/images/green_field.jpg')} />)
+                 :
                   (<Image style={AppStyle.portrait} source={{ uri: infoStudent.avatar }} />)
-                  :
-                  (<Image style={AppStyle.portrait} source={require('../assets/images/green_field.jpg')} />)
+                 
                 }
                 <View style={[AppStyle.column, { marginLeft: 8 }]}>
                   <View style={{ marginBottom: 12 }} >
                     <Text style={AppStyle.textNormal}>Họ và tên/Name</Text>
-                    <Text style={AppStyle.titleBig}>{infoStudent.name}</Text>
+                    <Text style={AppStyle.titleBig}>{infoStudent.name}Nguyễn Văn Sơn</Text>
                   </View>
                   <View style={{ marginBottom: 12 }} >
                     <Text style={AppStyle.textNormal}>MSSV/Student ID</Text>
-                    <Text style={[AppStyle.titleMedium, { width: 160, color: COLOR.title, letterSpacing: 1, textAlign: 'left' }]} numberOfLines={1}>{infoStudent.studentCode}</Text>
+                    <Text style={[AppStyle.titleMedium, { width: 160, color: COLOR.title, letterSpacing: 1, textAlign: 'left' }]} numberOfLines={1}>{infoStudent.studentCode}PS24943</Text>
                   </View>
                   <View >
                     <Text style={AppStyle.textNormal}>Chuyên ngành/Major</Text>
