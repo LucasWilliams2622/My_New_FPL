@@ -13,7 +13,7 @@ const ScanQrCode = () => {
     const [isFlashOn, setIsFlashOn] = useState(false);
     const navigation = useNavigation()
     const [infoStudent, setInfoStudent] = useState([])
-    const [isOverlayVisible, setOverlayVisible] = useState(true);
+    const [isOverlayVisible, setOverlayVisible] = useState(false);
 
     const toggleFlash = () => {
         setIsFlashOn(!isFlashOn);
