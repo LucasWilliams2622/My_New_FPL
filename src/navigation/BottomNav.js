@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, Image, } from 'react-native'
-import React, { useState ,useContext} from 'react'
+import React, { useState, useContext } from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { ICON, COLOR } from '../constants/Theme'
@@ -18,6 +18,8 @@ import ChatTest from '../test/ChatTest'
 import Activate from '../screens/Activate';
 import ItemNews from '../components/Home/ItemNews';
 import ScanQrCode from '../screens/ScanQrCode';
+import WebsiteFPL from '../screens/WebsiteFPL';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -46,8 +48,9 @@ const StackProfile = () => {
             <Stack.Screen name="ChatTest" component={ChatTest} />
             <Stack.Screen name="VideoCall" component={VideoCall} />
             <Stack.Screen name="ScanQRCode" component={ScanQrCode} />
+            <Stack.Screen name="WebsiteFPL" component={WebsiteFPL} />
 
-
+            
         </Stack.Navigator>
     )
 }
@@ -72,6 +75,8 @@ const StackSchedule = () => {
     )
 }
 const Main = () => {
+    const { infoUser, idUser, showWebView, setShowWebView } = useContext(AppContext);
+
     return (
         <Tab.Navigator
             initialRouteName="StackHome"
@@ -115,7 +120,7 @@ const Main = () => {
                             </Animatable.View>
                             <Text style={{
                                 fontSize: focused ? 10 : 0,
-                                fontWeight: focused ?"600":"100",
+                                fontWeight: focused ? "600" : "100",
                                 marginTop: 4,
                                 color: focused ? COLOR.focus : COLOR.notFocus,
 
@@ -143,6 +148,9 @@ const Main = () => {
             <Tab.Screen name="StackNews" component={StackNews} />
             <Tab.Screen name="StackProfile" component={StackProfile} />
         </Tab.Navigator>
+
+
+
     )
 }
 const BottomTabNav = () => {

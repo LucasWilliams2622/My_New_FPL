@@ -6,7 +6,7 @@ import AxiosInstance from '../constants/AxiosInstance';
 import { AppContext } from '../utils/AppContext';
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { COLOR } from '../constants/Theme'
-
+import ImageViewer from 'react-native-image-zoom-viewer';
 const DetailsNew = (props) => {
   const {navigation,route} = props;
   const {params} = route;

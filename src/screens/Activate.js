@@ -40,7 +40,7 @@ const Activate = () => {
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%" }}>
           {isLoading ?
             (<Image
-              source={require('../assets/gif/loading_bar.gif')}
+              source={require('../assets/gif/loading_circle.jpg')}
               style={{ width: 150, height: 100, alignSelf: 'center', }} />)
             : (<FlatList
               vertical

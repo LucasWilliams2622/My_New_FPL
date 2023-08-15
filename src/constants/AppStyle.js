@@ -7,6 +7,7 @@ export const AppStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLOR.background,
+       
     },
     icon: {
         width: 24,
@@ -186,7 +187,15 @@ export const AppStyle = StyleSheet.create({
         color: COLOR.white,
         fontWeight: '500',
         fontSize: 16
-    }
+    },
+    textError: {
+        fontWeight: '400',
+        fontSize: 12,
+        fontStyle: 'normal',
+        color: COLOR.primary,
+        alignSelf: 'center',
+        marginTop: 8
+    },
 
 
 })
