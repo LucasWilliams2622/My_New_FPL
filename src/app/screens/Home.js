@@ -29,7 +29,7 @@ const Home = () => {
             showsVerticalScrollIndicator={false}
             data={DATA}
             horizontal
-            renderItem={({ item }) => <ItemSearch title={item.title} />}
+            renderItem={({ item }) => <ItemSearch data={item} />}
             keyExtractor={item => item.id}
           />
         </View>
@@ -44,7 +44,7 @@ const Home = () => {
             showsVerticalScrollIndicator={false}
             data={DATA}
             horizontal
-            renderItem={({ item }) => <ItemDish title={item.title} />}
+            renderItem={({ item }) => <ItemDish data={item} />}
             keyExtractor={item => item.id}
           />
         </View>
@@ -59,7 +59,7 @@ const Home = () => {
           <View style={[appStyle.row, { marginTop: 16, width: '100%',  justifyContent: 'space-between' }]}>
             <ItemCategory title={"Categoryy"} backgroundColor={COLOR.primary} icon={require('../assets/icons/ic_cart.png')}/>
             <ItemCategory title={"Category 2"} backgroundColor={COLOR.blue} icon={require('../assets/icons/ic_cart.png')}/>
-            <ItemCategory title={"Category 3"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')}/>
+            <ItemCategory title={"food"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')}/>
             <ItemCategory title={"Cat"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')}/>
           </View>
         </View>

@@ -27,14 +27,14 @@ Icon.loadFont();
 const App = () => {
 
 
-  // return (
-  //   <AppProvider>
-  //     <NavigationContainer>
-  //       <BottomTabNav />
-  //     </NavigationContainer>
-  //   </AppProvider>
+  return (
+    <AppProvider>
+      <NavigationContainer>
+        <BottomTabNav />
+      </NavigationContainer>
+    </AppProvider>
 
-  // )
+  )
   return (
     <AppContextProvider>
       <NavigationContainer>

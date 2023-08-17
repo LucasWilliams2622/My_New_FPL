@@ -132,8 +132,8 @@ const Main = () => {
                 })}
         >
             <Tab.Screen name="StackHome" component={StackHome} />
-            <Tab.Screen name="StackCart" component={StackCart} />
             <Tab.Screen name="StackSave" component={StackSave} />
+            <Tab.Screen name="StackCart" component={StackCart} />
             <Tab.Screen name="StackProfile" component={StackProfile} />
         </Tab.Navigator>
     )
@@ -149,7 +149,7 @@ const BottomTabNav = () => {
             }
         </>)
 }
-//ADMIN
+
 export default BottomTabNav
 
 const styles = StyleSheet.create({})

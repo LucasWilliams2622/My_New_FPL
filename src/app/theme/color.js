@@ -19,7 +19,7 @@ export const COLOR = {
     titlePrimary: "#FF7324",
     titleNews: "#161719",
     titleDistraction: "#6D6D6D",
-    text: "#616161",
+    text: "#161719",
     normalText: "#848484",
     icon:"#1f2328",
 

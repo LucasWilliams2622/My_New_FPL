@@ -9,8 +9,8 @@ const ItemDish = () => {
       <Image style={appStyle.dishImage} source={require('../assets/images/ban_tin.png')} />
       <View style={[styles.boxContent]}>
         <View >
-          <Text style={appStyle.titleDish}>ItemDish</Text>
-          <Text style={[appStyle.titleDish,{fontWeight:'400',fontSize:14}]}>ItemDish</Text>
+          <Text style={appStyle.titleDish}>Name dish</Text>
+          <Text style={[appStyle.titleDish,{fontWeight:'400',fontSize:14}]}>Price</Text>
 
         </View>
         <Text style={[appStyle.titleDish,{color:COLOR.primary}]}>Buy</Text>

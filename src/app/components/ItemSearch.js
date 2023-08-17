@@ -7,7 +7,7 @@ const ItemSearch = () => {
   return (
     <TouchableOpacity style={styles.boxItem}>
         <Image  style={[appStyle.icon,{tintColor:COLOR.normalText}]} source={require('../assets/icons/ic_cart.png')}/>
-      <Text style={[appStyle.text,{fontSize:12,paddingLeft:6}]}>ItemSearch</Text>
+      <Text style={[appStyle.text,{fontSize:12,paddingLeft:6}]}>Name </Text>
     </TouchableOpacity>
   )
 }

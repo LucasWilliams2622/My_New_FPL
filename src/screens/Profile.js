@@ -126,7 +126,7 @@ const Profile = (props) => {
       <TouchableOpacity onPress={() => setOverlayVisible(false)} style={AppStyle.buttonBlue}>
         <Text style={AppStyle.titleButton}>Đóng</Text>
       </TouchableOpacity>
-    </View> 
+    </View>
   );
   const goVideoCall = () => {
     navigation.navigate("VideoCall");
@@ -138,100 +138,102 @@ const Profile = (props) => {
     navigation.navigate("ScanQRCode");
   }
   const goWebsite = () => {
-    navigation.navigate("WebsiteFPL");
+    // navigation.navigate("WebsiteFPL");
+    // navigation.replace("WebsiteFPL")
+    setShowWebView(true)
   }
   return (
-   <SafeAreaView style={[AppStyle.container]}>
-          <View style={[AppStyle.column, AppStyle.boxShadow, { paddingHorizontal: 16, paddingVertical: 16, borderBottomStartRadius: 20, borderBottomEndRadius: 20, width: '102%', elevation: 4, top: '-1%', left: -4 }]}>
-            <View style={[AppStyle.row, {}]}>
-              <Text style={[AppStyle.titleBig, { color: COLOR.primary, flex: 1 }]}>Hồ sơ cá nhân</Text>
-              <TouchableOpacity onPress={() => { goWebsite() }}>
-                <Image style={{ width: 100, height: 30 }} source={require('../assets/images/logo.jpg')} />
-              </TouchableOpacity>
-            </View>
+    <SafeAreaView style={[AppStyle.container]}>
+      <View style={[AppStyle.column, AppStyle.boxShadow, { paddingHorizontal: 16, paddingVertical: 16, borderBottomStartRadius: 20, borderBottomEndRadius: 20, width: '102%', elevation: 4, top: '-1%', left: -4 }]}>
+        <View style={[AppStyle.row, {}]}>
+          <Text style={[AppStyle.titleBig, { color: COLOR.primary, flex: 1 }]}>Hồ sơ cá nhân</Text>
+          <TouchableOpacity onPress={() => { goWebsite() }}>
+            <Image style={{ width: 100, height: 30 }} source={require('../assets/images/logo.jpg')} />
+          </TouchableOpacity>
+        </View>
 
-            <ItemProfile />
+        <ItemProfile />
 
-            <View style={[AppStyle.row, { width: '100%', justifyContent: 'space-between' }]}>
-              <View style={{ marginLeft: 10, marginBottom: 8 }}>
-                <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
-                <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 100 }}></View>
-              </View>
-              <TouchableOpacity onPress={() => { goScanner() }}>
-                <Image style={{ width: 24, height: 24, marginRight: 8 }} source={require('../assets/icons/ic_scan_qr_code.png')} />
-              </TouchableOpacity>
-            </View>
-
-            <View style={{ marginLeft: 10, marginBottom: 8 }}>
-              <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Ngày sinh: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>08-06-2003</Text></Text>
-              <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 180 }}></View>
-            </View>
-            <View style={{ marginLeft: 10, marginBottom: 8 }}>
-              <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Chuyên ngành: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Lập trình di động</Text></Text>
-              <View style={{ backgroundColor: COLOR.normalText, height: 1.2, width: 250 }}></View>
-            </View>
-            <View style={{ marginLeft: 10, marginBottom: 5 }}>
-              <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 14, fontWeight: '500' }]}>Địa chỉ:  <Text style={{ color: COLOR.normalText, fontWeight: '400', letterSpacing: 0.5, lineHeight: 20, }}>Địa chỉ: 12/23 khu phố 6, Đường abc, Phường XYZ, Quận 12, Tp.HCM</Text></Text>
-            </View>
+        <View style={[AppStyle.row, { width: '100%', justifyContent: 'space-between' }]}>
+          <View style={{ marginLeft: 10, marginBottom: 8 }}>
+            <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
+            <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 100 }}></View>
           </View>
+          <TouchableOpacity onPress={() => { goScanner() }}>
+            <Image style={{ width: 24, height: 24, marginRight: 8 }} source={require('../assets/icons/ic_scan_qr_code.png')} />
+          </TouchableOpacity>
+        </View>
 
-          <ScrollView style={{ paddingVertical: 12, paddingHorizontal: 16, marginBottom: '20%', flex: 1 }} showsVerticalScrollIndicator={false}>
-            <View style={{ width: '100%', backgroundColor: 'gray', borderWidth: 0.8, height: 170, marginBottom: 10 }}>
-              <MapView
-                style={styles.map}
-                initialRegion={position}
-                showsUserLocation={true}
-                showsMyLocationButton={true}
-                followsUserLocation={true}
-                showsCompass={true}
-                scrollEnabled={true}
-                zoomEnabled={true}
-                pitchEnabled={true}
-                rotateEnabled={true}>
-                <Marker
-                  title='Tòa T'
-                  // description='This is a description'
-                  coordinate={position} />
-                <Marker
-                  title='Tòa F'
-                  // description='This is a description'
-                  coordinate={position2} />
-                <Marker
-                  title='Tòa P'
-                  // description='This is a description'
-                  coordinate={position3} />
+        <View style={{ marginLeft: 10, marginBottom: 8 }}>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Ngày sinh: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>08-06-2003</Text></Text>
+          <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 180 }}></View>
+        </View>
+        <View style={{ marginLeft: 10, marginBottom: 8 }}>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Chuyên ngành: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Lập trình di động</Text></Text>
+          <View style={{ backgroundColor: COLOR.normalText, height: 1.2, width: 250 }}></View>
+        </View>
+        <View style={{ marginLeft: 10, marginBottom: 5 }}>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 14, fontWeight: '500' }]}>Địa chỉ:  <Text style={{ color: COLOR.normalText, fontWeight: '400', letterSpacing: 0.5, lineHeight: 20, }}>Địa chỉ: 12/23 khu phố 6, Đường abc, Phường XYZ, Quận 12, Tp.HCM</Text></Text>
+        </View>
+      </View>
 
-              </MapView>
-            </View>
-            <Text style={[AppStyle.titleBig, { marginBottom: 8 }]}>Hỗ trợ</Text>
-            <TouchableOpacity style={[AppStyle.button, { marginBottom: 16, marginHorizontal: 4 }]}
-              onPress={() => { { goVideoCall() } }}>
-              <Image style={[AppStyle.icon, { tintColor: COLOR.primary }]} source={require('../assets/icons/ic_camera.png')} />
-              <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Video Call</Text>
-            </TouchableOpacity>
+      <ScrollView style={{ paddingVertical: 12, paddingHorizontal: 16, marginBottom: '20%', flex: 1 }} showsVerticalScrollIndicator={false}>
+        <View style={{ width: '100%', backgroundColor: 'gray', borderWidth: 0.8, height: 170, marginBottom: 10 }}>
+          <MapView
+            style={styles.map}
+            initialRegion={position}
+            showsUserLocation={true}
+            showsMyLocationButton={true}
+            followsUserLocation={true}
+            showsCompass={true}
+            scrollEnabled={true}
+            zoomEnabled={true}
+            pitchEnabled={true}
+            rotateEnabled={true}>
+            <Marker
+              title='Tòa T'
+              // description='This is a description'
+              coordinate={position} />
+            <Marker
+              title='Tòa F'
+              // description='This is a description'
+              coordinate={position2} />
+            <Marker
+              title='Tòa P'
+              // description='This is a description'
+              coordinate={position3} />
 
-            <View style={[AppStyle.row, { justifyContent: 'space-between', marginVertical: 6, marginHorizontal: 4, }]}>
-              <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
-                onPress={() => setOverlayVisible(true)}>
-                <Image style={AppStyle.icon} source={require('../assets/icons/Google.png')} />
-                <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Gửi Gmail hỗ trợ</Text>
-              </TouchableOpacity>
+          </MapView>
+        </View>
+        <Text style={[AppStyle.titleBig, { marginBottom: 8 }]}>Hỗ trợ</Text>
+        <TouchableOpacity style={[AppStyle.button, { marginBottom: 16, marginHorizontal: 4 }]}
+          onPress={() => { { goVideoCall() } }}>
+          <Image style={[AppStyle.icon, { tintColor: COLOR.primary }]} source={require('../assets/icons/ic_camera.png')} />
+          <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Video Call</Text>
+        </TouchableOpacity>
 
-              <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
-                onPress={() => { { goChat() } }}>
-                <Image style={AppStyle.icon} source={require('../assets/icons/ic_message_color.png')} />
-                <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Nhắn tin hỗ trợ</Text>
-              </TouchableOpacity>
-            </View>
+        <View style={[AppStyle.row, { justifyContent: 'space-between', marginVertical: 6, marginHorizontal: 4, }]}>
+          <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
+            onPress={() => setOverlayVisible(true)}>
+            <Image style={AppStyle.icon} source={require('../assets/icons/Google.png')} />
+            <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Gửi Gmail hỗ trợ</Text>
+          </TouchableOpacity>
 
-          </ScrollView>
-          <Modal visible={isOverlayVisible} transparent>
-            <View style={styles.container}>
-              <Overlay />
-              <Panel />
-            </View>
-          </Modal>
-        </SafeAreaView>
+          <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
+            onPress={() => { { goChat() } }}>
+            <Image style={AppStyle.icon} source={require('../assets/icons/ic_message_color.png')} />
+            <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Nhắn tin hỗ trợ</Text>
+          </TouchableOpacity>
+        </View>
+
+      </ScrollView>
+      <Modal visible={isOverlayVisible} transparent>
+        <View style={styles.container}>
+          <Overlay />
+          <Panel />
+        </View>
+      </Modal>
+    </SafeAreaView>
   )
 }
 
