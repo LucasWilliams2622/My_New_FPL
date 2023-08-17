@@ -2,11 +2,12 @@ export const COLOR = {
     primary: "#f23d6a",
     secondary: "#ffffff",
 
-
+    bgContainer:"#f5f5f5",
     background: "#ffffff",
     background2: "#fff1ce",
     background3: "#FFEBB7",
     background4: "#CCF3FF",
+    
 
     bgHeader:"#ffffff",
     bgItemSchedule:"#ffffff",

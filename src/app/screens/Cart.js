@@ -11,7 +11,7 @@ const Cart = () => {
 
       <View style={{  marginBottom: 60,marginTop:16}}>
         <FlatList
-          style={{ borderWidth: 2, }}
+          style={{  }}
           contentContainerStyle={{ justifyContent: 'space-between', marginHorizontal: 20 }}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}

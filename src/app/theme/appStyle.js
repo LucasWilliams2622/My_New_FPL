@@ -6,7 +6,7 @@ export const windowHeight = Dimensions.get('window').height;
 export const appStyle = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:COLOR.background,
+        backgroundColor:COLOR.bgContainer,
     },
     logo: {
         width: '55%',
