@@ -56,6 +56,29 @@ export const appStyle = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 8
     },
+    text12:{
+        fontSize: 12,
+        fontStyle: 'normal',
+        color: COLOR.normalText
+    },
+    text14Bold:{
+        fontWeight: '500',
+        fontSize: 14,
+        fontStyle: 'normal',
+        color: COLOR.text
+    },
+    text14Normal:{
+        fontWeight: '400',
+        fontSize: 14,
+        fontStyle: 'normal',
+        color: COLOR.text
+    },
+    text16:{
+        fontWeight: '500',
+        fontSize: 16,
+        fontStyle: 'normal',
+        color: COLOR.text
+    },
     title: {
         fontWeight: '700',
         fontSize: 20,
@@ -82,6 +105,10 @@ export const appStyle = StyleSheet.create({
         width: 24,
         height: 24,
         tintColor: COLOR.primary,
+    },
+    smallIcon:{
+        width: 12,
+        height: 12,
     },
     boxShadow: {
         shadowColor: "#000000",

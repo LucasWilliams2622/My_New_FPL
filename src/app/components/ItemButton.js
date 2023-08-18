@@ -4,9 +4,9 @@ import { appStyle } from '../theme/appStyle'
 import { COLOR } from '../theme/color'
 
 const ItemButton = (props) => {
-  const {title , onPress, disable} = props;
+  const { title, onPress, disable, width } = props;
   return (
-    <TouchableOpacity style={styles.button} onPress={onPress} disable={disable}>
+    <TouchableOpacity style={[styles.button, { width: width == 1 ? "100%" : width == 0.5 ? "50%" : "50%" }]} onPress={onPress} disable={disable}>
       <Text style={appStyle.titleButton}>{title}</Text>
     </TouchableOpacity>
   )
@@ -15,14 +15,14 @@ const ItemButton = (props) => {
 export default ItemButton
 
 const styles = StyleSheet.create({
-    button:{
-        backgroundColor:COLOR.primary,
-        borderRadius:20,
-        width:'50%',
-        paddingVertical:12,
-        paddingHorizontal:24,
-        alignItems:'center',
-        justifyContent:'center',
+  button: {
+    backgroundColor: COLOR.primary,
+    borderRadius: 20,
+    width: '50%',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
 
-    }
+  }
 })

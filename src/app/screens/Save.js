@@ -9,10 +9,10 @@ const Save = () => {
     <SafeAreaView style={appStyle.container}>
       <ItemHeader title={"Save"} />
 
-      <View style={{ marginTop: 8, flex: 1, marginBottom: 70 }}>
+      <View style={{ marginTop: 8, flex: 1, marginBottom: 70,justifyContent: 'center', }}>
         <FlatList
           style={{}}
-          contentContainerStyle={{ justifyContent: 'space-between', marginHorizontal: 20 }}
+          contentContainerStyle={{ justifyContent: 'center', marginHorizontal: 20 ,flexDirection:'column',borderWidth:2}}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           data={DATA}
