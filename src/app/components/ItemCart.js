@@ -35,7 +35,7 @@ const ItemCart = () => {
     };
     return (
         <View style={[appStyle.row, styles.boxItem]}>
-            <Image style={styles.image} source={require('../assets/images/ban_tin.png')} />
+            <Image style={styles.image} source={require('../assets/images/food1.jpg')} />
             <View style={styles.boxContent}>
                 <View style={[appStyle.row, { justifyContent: 'space-between', alignItems: 'center', width: '100%' }]}>
                     <Text style={[appStyle.text16, { maxWidth: 190, }]} numberOfLines={1} >Name Dish</Text>

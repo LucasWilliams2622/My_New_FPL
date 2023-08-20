@@ -12,7 +12,7 @@ const Save = () => {
       <View style={{ marginTop: 8, flex: 1, marginBottom: 70,justifyContent: 'center', }}>
         <FlatList
           style={{}}
-          contentContainerStyle={{ justifyContent: 'center', marginHorizontal: 20 ,flexDirection:'column',borderWidth:2}}
+          contentContainerStyle={{ justifyContent: 'center', marginHorizontal: 20 ,flexDirection:'column',}}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={false}
           data={DATA}

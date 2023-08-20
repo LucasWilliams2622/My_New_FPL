@@ -6,7 +6,7 @@ import { appStyle } from '../theme/appStyle'
 const ItemSaveDish = () => {
   return (
     <TouchableOpacity style={styles.boxItemSave}>
-      <Image style={styles.imageDish} source={require('../assets/images/ban_tin.png')} />
+      <Image style={styles.imageDish} source={require('../assets/images/food1.jpg')} />
       <View style={styles.bõContent}>
         <Text style={[appStyle.text,{fontSize:12}]}>100.000</Text>
         <Text style={[appStyle.text, { paddingVertical: 4, fontWeight: '500',textAlign:'center',}]} numberOfLines={2}>Name dish Name dish Name dish  </Text>
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: '45%',
     marginBottom: 16,
-    // marginRight:28,
+    marginRight:28,
 
     shadowColor: "#000000",
     shadowOffset: {

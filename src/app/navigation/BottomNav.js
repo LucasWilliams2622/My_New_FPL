@@ -23,7 +23,7 @@ const Stack = createNativeStackNavigator();
 
 const StackBegin = () => {
     return (
-        <Stack.Navigator initialRouteName="Begin" screenOptions={{ headerShown: false }}>
+        <Stack.Navigator initialRouteName="Guide" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="Begin" component={Begin} />
             <Stack.Screen name="Guide" component={Guide} />
             <Stack.Screen name="Login" component={Login} />
@@ -68,74 +68,85 @@ const StackCart = () => {
     )
 }
 const Main = () => {
+    const { showBottom, setShowBottom } = useContext(AppContext)
     return (
-        <Tab.Navigator
-            initialRouteName="StackHome"
-            screenOptions={
-                ({ route }) => ({
-                    tabBarIcon: ({ focused, label, size }) => {
-                        let iconName = focused
-                        if (route.name === 'StackHome') {
-                            iconName = focused ? ICON.HomeFocus : ICON.Home
-                            label = 'Home'
-                        } else if (route.name === 'StackSave') {
-                            iconName = focused ? ICON.SaveFocus : ICON.Save;
-                            label = 'Save'
-                        } else if (route.name === 'StackCart') {
-                            iconName = focused ? ICON.CartFocus : ICON.Cart;
-                            label = 'Cart'
-                        }
-                        else if (route.name === 'StackProfile') {
-                            iconName = focused ? ICON.ProfileFocus : ICON.Profile;
-                            label = 'Profile'
-                        }
-                        // You can return any component that you like here!
-                        return <View style={{
-                            flex: 1,
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            width: 60
-                        }}>
+        <>
+            {
+                showBottom ? (<Tab.Navigator
+                    initialRouteName="StackHome"
+                    screenOptions={
+                        ({ route }) => ({
+                            tabBarIcon: ({ focused, label, size }) => {
+                                let iconName = focused
+                                if (route.name === 'StackHome') {
+                                    iconName = focused ? ICON.HomeFocus : ICON.Home
+                                    label = 'Home'
+                                } else if (route.name === 'StackSave') {
+                                    iconName = focused ? ICON.SaveFocus : ICON.Save;
+                                    label = 'Save'
+                                } else if (route.name === 'StackCart') {
+                                    iconName = focused ? ICON.CartFocus : ICON.Cart;
+                                    label = 'Cart'
+                                }
+                                else if (route.name === 'StackProfile') {
+                                    iconName = focused ? ICON.ProfileFocus : ICON.Profile;
+                                    label = 'Profile'
+                                }
+                                // You can return any component that you like here!
+                                return <View style={{
+                                    flex: 1,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    width: 60
+                                }}>
 
-                            <Animatable.View
-                                animation="zoomIn"
-                                duration={2000}>
-                                <Image source={iconName}
-                                    style={{
-                                        width: focused ? 28 : 24,
-                                        height: focused ? 28 : 24,
+                                    <Animatable.View
+                                        animation="zoomIn"
+                                        duration={2000}>
+                                        <Image source={iconName}
+                                            style={{
+                                                width: focused ? 28 : 24,
+                                                height: focused ? 28 : 24,
 
-                                        resizeMode: 'stretch',
-                                        tintColor: focused ? COLOR.focus : COLOR.notFocus,
-                                    }} />
-                            </Animatable.View>
-                            <Text style={{
-                                fontSize: focused ? 10 : 0,
-                                fontWeight: focused ? "600" : "100",
-                                marginTop: 4,
-                                color: focused ? COLOR.focus : COLOR.notFocus,
+                                                resizeMode: 'stretch',
+                                                tintColor: focused ? COLOR.focus : COLOR.notFocus,
+                                            }} />
+                                    </Animatable.View>
+                                    <Text style={{
+                                        fontSize: focused ? 10 : 0,
+                                        fontWeight: focused ? "600" : "100",
+                                        marginTop: 4,
+                                        color: focused ? COLOR.focus : COLOR.notFocus,
 
-                            }}>{label}</Text>
-                        </View>;
-                    },
+                                    }}>{label}</Text>
+                                </View>;
+                            },
 
-                    tabBarHideOnKeyboard: true,
-                    headerShown: false,
-                    tabBarShowLabel: false,
-                    tabBarStyle: {
-                        height: 70,
-                        position: 'absolute',
-                        backgroundColor: COLOR.background,
-                       
+                            tabBarHideOnKeyboard: true,
+                            headerShown: false,
+                            tabBarShowLabel: false,
+                            tabBarStyle: {
+                                height: 70,
+                                position: 'absolute',
+                                backgroundColor: COLOR.background,
 
-                    },
-                })}
-        >
-            <Tab.Screen name="StackHome" component={StackHome} />
-            <Tab.Screen name="StackSave" component={StackSave} />
-            <Tab.Screen name="StackCart" component={StackCart} />
-            <Tab.Screen name="StackProfile" component={StackProfile} />
-        </Tab.Navigator>
+
+                            },
+                        })}
+                >
+                    <Tab.Screen name="StackHome" component={StackHome} />
+                    <Tab.Screen name="StackSave" component={StackSave} />
+                    <Tab.Screen name="StackCart" component={StackCart} />
+                    <Tab.Screen name="StackProfile" component={StackProfile} />
+                </Tab.Navigator>) : 
+                (
+                    <>
+                    <Detail/>
+                    </>
+                )
+            }
+
+        </>
     )
 }
 const BottomTabNav = () => {

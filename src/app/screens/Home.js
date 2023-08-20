@@ -1,15 +1,24 @@
 import { SafeAreaView, ScrollView, TouchableOpacity, Image, StyleSheet, Text, View, TextInput, FlatList } from 'react-native'
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { appStyle } from '../theme/appStyle'
 import ItemSearch from '../components/ItemSearch'
 import { COLOR } from '../theme/color'
 import ItemDish from '../components/ItemDish'
 import ItemCategory from '../components/ItemCategory'
+import { AppContext } from '../constants/AppContext'
 const DATA = [
   {}, {}, {},
   {}, {}, {},
 ];
 const Home = () => {
+  const { showBottom, setShowBottom } = useContext(AppContext)
+  useEffect(() => {
+
+    return () => {
+
+    }
+  }, [])
+
   return (
     <SafeAreaView style={appStyle.container}>
       <ScrollView style={styles.boxMain}>
@@ -50,17 +59,17 @@ const Home = () => {
         </View>
         <View style={[appStyle.column, { marginTop: 24, flex: 1, marginHorizontal: 16, }]}>
           <Text style={[appStyle.title, { fontStyle: 'normal' }]}>Category aaaaaa</Text>
-          <View style={[appStyle.row, { marginTop: 16, width: '100%',  justifyContent: 'space-between' }]}>
-            <ItemCategory title={"Categoryy"} backgroundColor={COLOR.primary} icon={require('../assets/icons/ic_cart.png')}/>
-            <ItemCategory title={"Category 2"} backgroundColor={COLOR.blue} icon={require('../assets/icons/ic_search.png')}/>
-            <ItemCategory title={"Category 3"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')}/>
-            <ItemCategory title={"Cat"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')}/>
+          <View style={[appStyle.row, { marginTop: 16, width: '100%', justifyContent: 'space-between' }]}>
+            <ItemCategory title={"Categoryy"} backgroundColor={COLOR.primary} icon={require('../assets/icons/ic_cart.png')} />
+            <ItemCategory title={"Category 2"} backgroundColor={COLOR.blue} icon={require('../assets/icons/ic_search.png')} />
+            <ItemCategory title={"Category 3"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')} />
+            <ItemCategory title={"Cat"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')} />
           </View>
-          <View style={[appStyle.row, { marginTop: 16, width: '100%',  justifyContent: 'space-between' }]}>
-            <ItemCategory title={"Categoryy"} backgroundColor={COLOR.primary} icon={require('../assets/icons/ic_cart.png')}/>
-            <ItemCategory title={"Category 2"} backgroundColor={COLOR.blue} icon={require('../assets/icons/ic_cart.png')}/>
-            <ItemCategory title={"food"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')}/>
-            <ItemCategory title={"Cat"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')}/>
+          <View style={[appStyle.row, { marginTop: 16, width: '100%', justifyContent: 'space-between' }]}>
+            <ItemCategory title={"Categoryy"} backgroundColor={COLOR.primary} icon={require('../assets/icons/ic_cart.png')} />
+            <ItemCategory title={"Category 2"} backgroundColor={COLOR.blue} icon={require('../assets/icons/ic_cart.png')} />
+            <ItemCategory title={"food"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')} />
+            <ItemCategory title={"Cat"} backgroundColor={COLOR.light} icon={require('../assets/icons/ic_cart.png')} />
           </View>
         </View>
 

@@ -6,7 +6,7 @@ export const windowHeight = Dimensions.get('window').height;
 export const appStyle = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:COLOR.bgContainer,
+        backgroundColor: COLOR.bgContainer,
     },
     logo: {
         width: '55%',
@@ -56,24 +56,29 @@ export const appStyle = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 8
     },
-    text12:{
+    text10: {
+        fontSize: 10,
+        fontStyle: 'normal',
+        color: COLOR.normalText
+    },
+    text12: {
         fontSize: 12,
         fontStyle: 'normal',
         color: COLOR.normalText
     },
-    text14Bold:{
+    text14Bold: {
         fontWeight: '500',
         fontSize: 14,
         fontStyle: 'normal',
         color: COLOR.text
     },
-    text14Normal:{
+    text14Normal: {
         fontWeight: '400',
         fontSize: 14,
         fontStyle: 'normal',
         color: COLOR.text
     },
-    text16:{
+    text16: {
         fontWeight: '500',
         fontSize: 16,
         fontStyle: 'normal',
@@ -101,12 +106,17 @@ export const appStyle = StyleSheet.create({
         marginTop: 20,
         borderRadius: 100,
     },
+    avatarComment: {
+        borderRadius: 100,
+        width: 52,
+        height: 52,
+    },
     icon: {
         width: 24,
         height: 24,
         tintColor: COLOR.primary,
     },
-    smallIcon:{
+    smallIcon: {
         width: 12,
         height: 12,
     },
@@ -118,7 +128,7 @@ export const appStyle = StyleSheet.create({
         },
         shadowOpacity: 0.8,
         shadowRadius: 4.59,
-        elevation: 5
+        elevation: 3
     },
     boxIcon: {
         width: 50,
@@ -147,10 +157,10 @@ export const appStyle = StyleSheet.create({
         borderRadius: 16,
 
     },
-    titleDish:{
-        fontSize:16,
-        fontWeight:'600',
-        color:COLOR.title
+    titleDish: {
+        fontSize: 16,
+        fontWeight: '600',
+        color: COLOR.title
     }
 
 })
