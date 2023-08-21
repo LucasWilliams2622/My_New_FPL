@@ -11,7 +11,7 @@ export const AppStyle = StyleSheet.create({
     },
     icon: {
         width: 24,
-        height: 24
+        height: 24,
     },
     iconSmall: {
         width: 12,

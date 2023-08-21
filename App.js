@@ -13,6 +13,7 @@ import ScanQrCode from './src/screens/ScanQrCode';
 import TestQRCode from './src/test/TestQRCode'
 import BottomTabNav from './src/app/navigation/BottomNav'
 import { Button, Input, CheckBox, RadioButton } from 'react-native-btr';
+import TestShare from './src/test/TestShare'
 // import { whyDidYouRender } from '@welldone-software/why-did-you-render';
 
 // if (__DEV__) {
@@ -27,19 +28,19 @@ Icon.loadFont();
 const App = () => {
 
 
-  return (
-    <AppProvider>
-      <NavigationContainer>
-        <BottomTabNav />
-      </NavigationContainer>
-    </AppProvider>
+  // return (
+  //   <AppProvider>
+  //     <NavigationContainer>
+  //       <BottomTabNav />
+  //     </NavigationContainer>
+  //   </AppProvider>
 
-  )
+  // )
   return (
     <AppContextProvider>
       <NavigationContainer>
         <BottomTabs />
-        {/* <Test /> */}
+        {/* <TestShare /> */}
         {/* <TesTMap /> */}
       </NavigationContainer>
     </AppContextProvider>
