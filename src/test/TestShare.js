@@ -1,32 +1,43 @@
-import React from 'react';
-import { View, Button, Image } from 'react-native';
-import Share from 'react-native-share';
+import React, { useState } from 'react';
+import { View, PanResponder, Animated, StyleSheet } from 'react-native';
+import Draggable from 'react-native-draggable';
+const BubbleChat = () => {
+  const [position, setPosition] = useState(new Animated.ValueXY({ x: 0, y: 0 }));
 
-const App = () => {
-    const shareToFacebook = async () => {
-        try {
-            const shareOptions = {
-                social: Share.Social.TWITTER,
-                title: 'Test By Lucas',
-                message: 'Test App Nè',
-                url: 'https://wonderdome.co.uk/wp-content/uploads/2020/10/sun-burst-1478549-1600x1200.jpg',
-                // showAppsToView: true, // Hiển thị ứng dụng Facebook để xem trước khi chia sẻ
-                failOnCancel: false, // Không báo lỗi nếu người dùng hủy chia sẻ
-            };
-    
-            const shareResponse = await Share.open(shareOptions);
-            console.log('Chia sẻ thành công:', shareResponse);
-        } catch (error) {
-            console.log('Lỗi chia sẻ:', error);
-        }
-    };
-    
+  const panResponder = PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderMove: Animated.event([
+      null,
+      { dx: position.x, dy: position.y }
+    ]),
+    onPanResponderRelease: () => {
+      // Xử lý logic khi thả bóng bóng
+    }
+  });
 
     return (
-        <View>
-            <Button title="Chia sẻ lên Facebook" onPress={shareToFacebook} />
+        <View >
+            <Draggable x={75} y={100} renderSize={56} renderColor='black' renderText='A' isCircle  onShortPressRelease={()=>alert('touched!!')}/> 
+            <Draggable imageSource={require('../assets/icons/ic_back.png')} x={100} y={300} renderSize={54} renderColor='red' renderText='B' isCircle/>
+            <Draggable/>
+        <Draggable x={50} y={50}>
+        </Draggable>
         </View>
-    );
+  );
 };
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bubble: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: 'blue',
+  },
+});
+
+export default BubbleChat;

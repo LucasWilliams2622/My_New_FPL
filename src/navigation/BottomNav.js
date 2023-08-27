@@ -19,6 +19,8 @@ import Activate from '../screens/Activate';
 import ItemNews from '../components/Home/ItemNews';
 import ScanQrCode from '../screens/ScanQrCode';
 import WebsiteFPL from '../screens/WebsiteFPL';
+import GoFPT from '../screens/GoFPT';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -74,6 +76,14 @@ const StackSchedule = () => {
         </Stack.Navigator>
     )
 }
+const StackGoFPT = () => {
+    return (
+        <Stack.Navigator initialRouteName="GoFPT" screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="GoFPT" component={GoFPT} />
+
+        </Stack.Navigator>
+    )
+}
 const Main = () => {
     const { infoUser, idUser, showWebView, setShowWebView } = useContext(AppContext);
 
@@ -95,6 +105,9 @@ const Main = () => {
                                     } else if (route.name === 'StackSchedule') {
                                         iconName = focused ? ICON.ScheduleFocus : ICON.Schedule;
                                         label = 'Lịch'
+                                    } else if (route.name === 'StackGoFPT') {
+                                        iconName = focused ? ICON.Walk : ICON.Walk;
+                                        label = 'Go FPT'
                                     } else if (route.name === 'StackNews') {
                                         iconName = focused ? ICON.NotificationFocus : ICON.Notification;
                                         label = 'Tin tức'
@@ -150,6 +163,7 @@ const Main = () => {
                     >
                         <Tab.Screen name="StackHome" component={StackHome} />
                         <Tab.Screen name="StackSchedule" component={StackSchedule} />
+                        <Tab.Screen name="StackGoFPT" component={StackGoFPT} />
                         <Tab.Screen name="StackNews" component={StackNews} />
                         <Tab.Screen name="StackProfile" component={StackProfile} />
                     </Tab.Navigator>)}

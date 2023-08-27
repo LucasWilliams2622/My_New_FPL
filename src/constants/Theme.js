@@ -57,11 +57,14 @@ export const SIZES = {
 export const ICON = {
     Home: require('../assets/icons/ic_home.png'),
     Schedule: require('../assets/icons/ic_schedule.png'),
+    Walk:require('../assets/icons/ic_cross_walk.png'),
+    Go: require('../assets/icons/ic_motor.png'),
     Notification: require('../assets/icons/ic_notification.png'),
     Profile: require('../assets/icons/ic_user.png'),
 
     HomeFocus: require('../assets/icons/ic_home_focus.png'),
     ScheduleFocus: require('../assets/icons/ic_schedule.png'),
+    GoFocus: require('../assets/icons/ic_motor_focus.png'),
     NotificationFocus: require('../assets/icons/ic_notification_focus.png'),
     ProfileFocus: require('../assets/icons/ic_user_focus.png'),
 
