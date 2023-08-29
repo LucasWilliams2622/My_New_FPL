@@ -9,6 +9,7 @@ import dayjs from 'dayjs'
 
 import { AppContext } from '../utils/AppContext';
 import AxiosInstance from '../constants/AxiosInstance';
+import Loading from '../components/Loading'
 const DataNewsStudy = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -116,9 +117,7 @@ const Study = (props) => {
             <Image style={[AppStyle.iconMedium, { position: "absolute", left: 110, bottom: 2 }]} source={require('../assets/icons/ic_new.png')} />
           </View>
           {isLoading ?
-            (<Image
-              source={require('../assets/gif/loading_bar.gif')}
-              style={{ width: 150, height: 100, alignSelf: 'center', }} />)
+            (<Loading />)
             : (<FlatList
               vertical
               showsHorizontalScrollIndicator={false}
@@ -128,15 +127,13 @@ const Study = (props) => {
               keyExtractor={item => item.id}
             />)}
         </View>
-        
+
         <View style={[AppStyle.column,]}>
           <View style={[AppStyle.column, { marginTop: 20 }]}>
             <Text style={AppStyle.titleBig}> Tin khác </Text>
           </View>
           {isLoading ?
-            (<Image
-              source={require('../assets/gif/loading_bar.gif')}
-              style={{ width: 150, height: 100, alignSelf: 'center', }} />)
+            (<Loading />)
             : (<FlatList
               vertical
               showsHorizontalScrollIndicator={false}

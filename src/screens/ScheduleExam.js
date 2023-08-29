@@ -8,6 +8,7 @@ import ItemSchedule from '../components/Schedule/ItemScheduleExam';
 import AxiosInstance from '../constants/AxiosInstance';
 import { AppContext } from '../utils/AppContext'
 import Swiper from 'react-native-swiper'
+import Loading from '../components/Loading';
 
 const data = [
   { label: '3 ngày tới', value: '1' },
@@ -112,9 +113,7 @@ const ItemTextSches = () => {
           <Text style={[AppStyle.titleBig, { marginBottom: 10 }]}>Lịch thi hôm nay</Text>
 
           {isLoading ?
-              (<Image
-                source={require('../assets/gif/loading_bar.gif')}
-                style={{width: 150, height: 100 ,alignSelf:'center',}} />)
+              (<Loading/>)
               :( <FlatList
                 vertical
                 showsVerticalScrollIndicator={false}

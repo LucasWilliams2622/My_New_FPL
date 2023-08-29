@@ -8,6 +8,7 @@ import ItemScheduleStudy from '../components/Schedule/ItemScheduleStudy';
 import AxiosInstance from '../constants/AxiosInstance';
 import { AppContext } from '../utils/AppContext'
 import Swiper from 'react-native-swiper'
+import Loading from '../components/Loading';
 
 const data = [
   { label: '7 ngày tới', value: '7' },
@@ -84,11 +85,10 @@ const ItemTextSches = (props) => {
       <Image style={[AppStyle.icon, { position: 'absolute', left: 30, top: 28, tintColor: isFocus ? COLOR.primary : COLOR.black }]} source={require('../assets/icons/ic_schedule.png')} />
       <View style={styles.BoxContent}>
         <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+          {/* <Loading/> */}
           <Text style={[AppStyle.titleBig, { marginBottom: 10 }]}>Lịch học hôm nay</Text>
           {isLoading ?
-            (<Image
-              source={require('../assets/gif/loading_bar.gif')}
-              style={{ width: 150, height: 100, alignSelf: 'center', }} />)
+            (<Loading/>)
             : (<FlatList
               vertical
               showsVerticalScrollIndicator={false}
