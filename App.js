@@ -23,10 +23,10 @@ import TestShare from './src/test/TestShare'
 // }
 import Icon from 'react-native-vector-icons/FontAwesome';
 Icon.loadFont();
-
+import numeral from 'numeral';
 
 const App = () => {
-
+  console.log("------------->",numeral(100000000).format('0,0'));
 
   // return (
   //   <AppProvider>

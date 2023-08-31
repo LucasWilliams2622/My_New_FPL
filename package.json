@@ -86,6 +86,7 @@
     "react-native-video": "^5.2.1",
     "react-native-webview": "^13.3.1",
     "socket.io-client": "^4.7.2",
+    "tailwind-rn": "^4.2.0",
     "yarn": "^1.22.19",
     "yup": "^1.2.0"
   },
