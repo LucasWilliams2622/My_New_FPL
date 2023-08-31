@@ -1,4 +1,4 @@
-export const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI0NDRlODAwNi1jMDI1LTQzMWEtYWExNC1jZjhiMTM1ZTFlZjIiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY5MDgwMDg4NiwiZXhwIjoxNjkxNDA1Njg2fQ.H1qkhzGHIFCeV7M9tVeCbb4lDqyN3sbmAVmQMdmtSDw"; // token should be in String format
+export const authToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlrZXkiOiI4YTZmZjUxNi0xNmU1LTQ1MDAtYjk0ZS03ODgwZTJjYjNlOTIiLCJwZXJtaXNzaW9ucyI6WyJhbGxvd19qb2luIl0sImlhdCI6MTY5MTQwMzUzMywiZXhwIjoxNjkyMDA4MzMzfQ.JMvZCaDRZ3M_JdLpj2GW7cG5cklBu0VxM6nJ-qr7qyM"; // token should be in String format
 
 // API call to create meeting
 export const createMeeting = async ({ token }) => {

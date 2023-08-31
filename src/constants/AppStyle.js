@@ -7,10 +7,11 @@ export const AppStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLOR.background,
+       
     },
     icon: {
         width: 24,
-        height: 24
+        height: 24,
     },
     iconSmall: {
         width: 12,
@@ -24,6 +25,15 @@ export const AppStyle = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 1000,
+    },
+    portrait: {
+        height: 160, width: 130, borderRadius: 8,
+    },
+    logo: {
+        width: 100,
+        height: 40,
+        borderRadius:20
+
     },
     border: {
         borderWidth: 0.5,
@@ -53,6 +63,13 @@ export const AppStyle = StyleSheet.create({
         fontSize: 10,
         fontWeight: '400',
         fontStyle: 'normal',
+
+    },
+    textNormal: {
+        color: COLOR.title,
+        fontWeight: '400',
+        fontStyle: 'normal',
+        fontSize: 12,
 
     },
     row: {
@@ -107,13 +124,13 @@ export const AppStyle = StyleSheet.create({
         shadowRadius: 4.59,
         elevation: 5
     },
-    buttonVideo:{
-        backgroundColor: '#1178F8', 
+    buttonVideo: {
+        backgroundColor: '#1178F8',
         flexDirection: 'row',
-        padding:8,
-        borderRadius:8,
-        alignItems:'center',
-        justifyContent:'center'
+        padding: 8,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
 
     dropdown: {
@@ -170,7 +187,15 @@ export const AppStyle = StyleSheet.create({
         color: COLOR.white,
         fontWeight: '500',
         fontSize: 16
-    }
+    },
+    textError: {
+        fontWeight: '400',
+        fontSize: 12,
+        fontStyle: 'normal',
+        color: COLOR.primary,
+        alignSelf: 'center',
+        marginTop: 8
+    },
 
 
 })

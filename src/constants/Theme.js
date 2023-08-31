@@ -34,8 +34,13 @@ export const COLOR = {
     white: "#ffffff",
     black: "#000000",
     blue:"#2f96eb",
-    green:"#39b878"
+    green:"#39b878",
 
+    Fcolor:'#1468b1',
+    Pcolor:'#f17126',
+    Tcolor:'#23b14b',
+    light:"#fec007",
+    textLight:"#bf920b",
 
 }
 
@@ -52,11 +57,14 @@ export const SIZES = {
 export const ICON = {
     Home: require('../assets/icons/ic_home.png'),
     Schedule: require('../assets/icons/ic_schedule.png'),
+    Walk:require('../assets/icons/ic_cross_walk.png'),
+    Go: require('../assets/icons/ic_motor.png'),
     Notification: require('../assets/icons/ic_notification.png'),
     Profile: require('../assets/icons/ic_user.png'),
 
     HomeFocus: require('../assets/icons/ic_home_focus.png'),
     ScheduleFocus: require('../assets/icons/ic_schedule.png'),
+    GoFocus: require('../assets/icons/ic_motor_focus.png'),
     NotificationFocus: require('../assets/icons/ic_notification_focus.png'),
     ProfileFocus: require('../assets/icons/ic_user_focus.png'),
 

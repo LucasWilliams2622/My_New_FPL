@@ -9,10 +9,10 @@ import {register} from '@videosdk.live/react-native-sdk';
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs([
-  'Require cycle:',
+  'Require cycle:', 
 ]);
 console.disableYellowBox = true;
 console.error = () => {};
-register();
+register(); 
 
 AppRegistry.registerComponent(appName, () => App);

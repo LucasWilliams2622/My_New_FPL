@@ -1,7 +1,7 @@
 import { SafeAreaView, Image, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigation } from '@react-navigation/native'
-import { GiftedChat } from 'react-native-gifted-chat';
+import { GiftedChat, InputToolbar } from 'react-native-gifted-chat';
 import { io } from "socket.io-client";
 import AppHeader from '../components/AppHeader'
 import { View, Text } from 'react-native';
@@ -18,11 +18,11 @@ export default function App() {
   const [messages, setMessages] = useState([]);
 
   const findUserChats = async () => {
-    try{
-      const response = await AxiosInstance().get("chat/api/find-user-chats/"+idUser);
+    try {
+      const response = await AxiosInstance().get("chat/api/find-user-chats/" + idUser);
 
-      console.log("response",response);
-    }catch(error){
+      console.log("response", response);
+    } catch (error) {
       console.log(error);
     }
   }
@@ -84,18 +84,43 @@ export default function App() {
       }}
     />
   }
+  const renderInputToolbar = (props) => {
+    return (
+      <InputToolbar
+        {...props}
+        containerStyle={{
+          backgroundColor: COLOR.background,
+          borderWidth: 1,
+          borderRadius: 8,
+          borderColor: COLOR.border,
+          marginHorizontal: 16,
+          marginBottom: 16
+        }}
+      />
+    );
+  };
   return (
-    <SafeAreaView style={AppStyle.container}>
+    <SafeAreaView style={[AppStyle.container, {}]}>
       <AppHeader />
-      <TouchableOpacity style={[AppStyle.row,]} onPress={() => { navigation.navigate("Home") }}>
-        <Image style={[AppStyle.iconMedium, { tintColor: COLOR.icon, height: 20 }]} source={require('../assets/icons/ic_back.png')} />
+      <TouchableOpacity style={[AppStyle.row, { marginLeft: 16, marginBottom: 16 }]} onPress={() => { navigation.navigate("Profile") }}>
+        <Image style={[AppStyle.iconSmall, { height: 20, tintColor: COLOR.primary }]} source={require('../assets/icons/ic_back.png')} />
         <Text style={[AppStyle.titleMedium, { marginLeft: 10 }]}>Quay lại</Text>
       </TouchableOpacity>
-      <View style={{ width: '100%', height: 500 }}>
+      <View style={{
+        width: '100%', height: 530, backgroundColor: COLOR.background2, borderRadius: 16,borderWidth:0.5, shadowColor: "#000000",
+        shadowOffset: {
+          width: 0,
+          height: 3,
+        },
+        shadowOpacity: 0.8,
+        shadowRadius: 4.59,
+        elevation: 5
+      }}>
         <GiftedChat
           placeholder="Hãy hỏi gì đó"
           messages={messages}
           onSend={onSend}
+          renderInputToolbar={renderInputToolbar}
           user={{
             _id: idUser,
             name: infoUser.name,
@@ -103,11 +128,6 @@ export default function App() {
             idReceiver: idReceiver,
 
           }}
-        // receiver={
-        //   {
-        //     _id:2
-        //   }
-        // }
         />
       </View>
     </SafeAreaView>

@@ -53,9 +53,12 @@ const ItemScheduleStudy = (props) => {
                         <Text>Lớp: </Text>
                         <Text style={[AppStyle.titleMedium, { color: COLOR.title }]}>CP17310</Text>
                     </View>
-                    <View style={AppStyle.row}>
-                        <Text>Buổi thứ: </Text>
-                        <Text style={[AppStyle.titleMedium, { color: COLOR.title }]}>{data.lesson}/15</Text>
+                    <View style={[AppStyle.row, { justifyContent: 'space-between', width: '100%' }]}>
+                        <View style={AppStyle.row}>
+                            <Text>Buổi thứ: </Text>
+                            <Text style={[AppStyle.titleMedium, { color: COLOR.title }]}>{data.lesson}/15</Text>
+                        </View>
+                        <Text style={[AppStyle.titleMedium, { color: COLOR.title,fontWeight:'500' }]}>{data.date.slice(0, 10)}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

@@ -9,13 +9,14 @@ import MapView, { Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppContext } from "../utils/AppContext";
-
-
-// console.log("AAAAAAAAAAAAA",AsyncStorage.getItem());
+import { WebView } from 'react-native-webview';
 const Profile = (props) => {
   const { navigation } = props;
-  const { infoUser, idUser } = useContext(AppContext);
+  const { infoUser, idUser, showWebView, setShowWebView } = useContext(AppContext);
 
+  const showWeb = () => {
+    setShowWebView(true);
+  };
   const handleGetDirections = () => {
     const data = {
       source: {
@@ -39,13 +40,11 @@ const Profile = (props) => {
     Linking.openURL(url);
   };
   const getInfoUserAsync = async () => {
-   const userInfomation =  AsyncStorage.getItem('userInfo')
-   console.log("userInfomation",userInfomation);
+    const userInfomation = AsyncStorage.getItem('userInfo')
   }
   const sendEmail = (email) => {
     const subject = 'Tiêu đề email';
     const body = 'Nội dung email';
-
     const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     Linking.openURL(url);
   };
@@ -80,10 +79,9 @@ const Profile = (props) => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
-  // add this to the component's useEffect hook
+
   useEffect(() => {
     getInfoUserAsync();
-
     Geolocation.getCurrentPosition(
       position => {
         setCurrentLocation({
@@ -130,21 +128,42 @@ const Profile = (props) => {
       </TouchableOpacity>
     </View>
   );
-  const goChat = () => {
+  const goVideoCall = () => {
     navigation.navigate("VideoCall");
+  }
+  const goChat = () => {
+    navigation.navigate("ChatTest");
+  }
+  const goScanner = () => {
+    navigation.navigate("ScanQRCode");
+  }
+  const goWebsite = () => {
+    // navigation.navigate("WebsiteFPL");
+    // navigation.replace("WebsiteFPL")
+    setShowWebView(true)
   }
   return (
     <SafeAreaView style={[AppStyle.container]}>
-      <View style={[AppStyle.column, AppStyle.boxShadow, { paddingHorizontal: 16, paddingVertical: 8, borderBottomStartRadius: 20, borderBottomEndRadius: 20, width: '102%', elevation: 4, top: -6, left: -4 }]}>
-        <View style={[AppStyle.row]}>
+      <View style={[AppStyle.column, AppStyle.boxShadow, { paddingHorizontal: 16, paddingVertical: 16, borderBottomStartRadius: 20, borderBottomEndRadius: 20, width: '102%', elevation: 4, top: '-1%', left: -4 }]}>
+        <View style={[AppStyle.row, {}]}>
           <Text style={[AppStyle.titleBig, { color: COLOR.primary, flex: 1 }]}>Hồ sơ cá nhân</Text>
-          <Image style={{ width: 100, height: 30 }} source={require('../assets/images/logo.jpg')} />
+          <TouchableOpacity onPress={() => { goWebsite() }}>
+            <Image style={{ width: 100, height: 30 }} source={require('../assets/images/logo.jpg')} />
+          </TouchableOpacity>
         </View>
+
         <ItemProfile />
-        <View style={{ marginLeft: 10, marginBottom: 8 }}>
-          <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
-          <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 100 }}></View>
+
+        <View style={[AppStyle.row, { width: '100%', justifyContent: 'space-between' }]}>
+          <View style={{ marginLeft: 10, marginBottom: 8 }}>
+            <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
+            <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 100 }}></View>
+          </View>
+          <TouchableOpacity onPress={() => { goScanner() }}>
+            <Image style={{ width: 24, height: 24, marginRight: 8 }} source={require('../assets/icons/ic_scan_qr_code.png')} />
+          </TouchableOpacity>
         </View>
+
         <View style={{ marginLeft: 10, marginBottom: 8 }}>
           <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Ngày sinh: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>08-06-2003</Text></Text>
           <View style={{ backgroundColor: COLOR.normalText, height: 1, width: 180 }}></View>
@@ -158,8 +177,8 @@ const Profile = (props) => {
         </View>
       </View>
 
-      <ScrollView style={{ paddingVertical: 12, paddingHorizontal: 16, marginBottom: 100 }} showsVerticalScrollIndicator={false}>
-        <View style={{ width: '100%', backgroundColor: 'gray', borderWidth: 1, height: 170, marginBottom: 10 }}>
+      <ScrollView style={{ paddingVertical: 12, paddingHorizontal: 16, marginBottom: '20%', flex: 1 }} showsVerticalScrollIndicator={false}>
+        <View style={{ width: '100%', backgroundColor: 'gray', borderWidth: 0.8, height: 170, marginBottom: 10 }}>
           <MapView
             style={styles.map}
             initialRegion={position}
@@ -172,11 +191,11 @@ const Profile = (props) => {
             pitchEnabled={true}
             rotateEnabled={true}>
             <Marker
-              title='Tòa F'
+              title='Tòa T'
               // description='This is a description'
               coordinate={position} />
             <Marker
-              title='Tòa T'
+              title='Tòa F'
               // description='This is a description'
               coordinate={position2} />
             <Marker
@@ -187,16 +206,26 @@ const Profile = (props) => {
           </MapView>
         </View>
         <Text style={[AppStyle.titleBig, { marginBottom: 8 }]}>Hỗ trợ</Text>
-        <TouchableOpacity style={[AppStyle.button, { marginBottom: 16 }]}
-          onPress={() => setOverlayVisible(true)}>
-          <Image style={AppStyle.icon} source={require('../assets/icons/Google.png')} />
-          <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Gửi Gmail hỗ trợ</Text>
+        <TouchableOpacity style={[AppStyle.button, { marginBottom: 16, marginHorizontal: 4 }]}
+          onPress={() => { { goVideoCall() } }}>
+          <Image style={[AppStyle.icon, { tintColor: COLOR.primary }]} source={require('../assets/icons/ic_camera.png')} />
+          <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Video Call</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[AppStyle.button, { marginBottom: 20 }]}
-          onPress={() => { { goChat() } }}>
-          <Image style={AppStyle.icon} source={require('../assets/icons/ic_message_color.png')} />
-          <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Nhắn tin hỗ trợ</Text>
-        </TouchableOpacity>
+
+        <View style={[AppStyle.row, { justifyContent: 'space-between', marginVertical: 6, marginHorizontal: 4, }]}>
+          <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
+            onPress={() => setOverlayVisible(true)}>
+            <Image style={AppStyle.icon} source={require('../assets/icons/Google.png')} />
+            <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Gửi Gmail hỗ trợ</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
+            onPress={() => { { goChat() } }}>
+            <Image style={AppStyle.icon} source={require('../assets/icons/ic_message_color.png')} />
+            <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Nhắn tin hỗ trợ</Text>
+          </TouchableOpacity>
+        </View>
+
       </ScrollView>
       <Modal visible={isOverlayVisible} transparent>
         <View style={styles.container}>
