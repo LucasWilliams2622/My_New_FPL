@@ -22,6 +22,9 @@ import TestShare from './src/test/TestShare'
 //   });
 // }
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Splash from './src/screens/Splash';
+import Login from './src/screens/Login';
+
 Icon.loadFont();
 import numeral from 'numeral';
 
@@ -39,11 +42,15 @@ const App = () => {
   return (
     <AppContextProvider>
       <NavigationContainer>
-        <BottomTabs />
+        <BottomTabs /> 
+       <Splash/>
         {/* <TestShare /> */}
-        {/* <TesTMap /> */}
+         {/* <TesTMap /> */}
+       
       </NavigationContainer>
+     
     </AppContextProvider>
   )
+  
 }
 export default App
