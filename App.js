@@ -43,7 +43,7 @@ const App = () => {
     <AppContextProvider>
       <NavigationContainer>
         <BottomTabs /> 
-       <Splash/>
+       {/* <Splash/> */}
         {/* <TestShare /> */}
          {/* <TesTMap /> */}
        

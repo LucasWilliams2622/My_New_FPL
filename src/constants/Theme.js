@@ -21,6 +21,8 @@ export const COLOR = {
     titlePrimary: "#FF7324",
     titleNews: "#161719",
     titleDistraction: "#6D6D6D",
+    textPhone:"#0075FF",
+    textMoney:"#0C9B34",
     text: "#757575",
     normalText: "#848484",
     icon:"#1f2328",
@@ -41,6 +43,21 @@ export const COLOR = {
     Tcolor:'#23b14b',
     light:"#fec007",
     textLight:"#bf920b",
+
+    headModalAdd:"#F38181",
+    headDetail:"#95E1D3",
+    left1:"#FCE38A",
+    left2:"#95E1D3",
+    left3:"#FF6969",
+    headItem:"#FFF5E0",
+
+    btnDelete:"#C62727",
+    btnDelete2:"#A42B32",
+    btnAccept:"#36AD2B",
+    btnEdit:"#00C738",
+    btnFind:"#FFC634",
+
+
 
 }
 

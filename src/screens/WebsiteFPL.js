@@ -1,11 +1,15 @@
-import { StyleSheet, Image, SafeAreaView, Text, View, ActivityIndicator, Modal, Animated, PanResponder } from 'react-native';
-import React, { useState, useRef } from 'react'
+import { StyleSheet, Image, SafeAreaView, Text, View, ActivityIndicator, Modal, Animated, PanResponder, TouchableOpacity } from 'react-native';
+import React, { useState, useRef, useContext } from 'react'
 import { WebView } from 'react-native-webview';
 import { AppStyle } from '../constants/AppStyle';
 import { COLOR } from '../constants/Theme';
+import { useNavigation } from '@react-navigation/native';
+import {AppContext} from '../utils/AppContext'
 const WebsiteFPL = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showModal, setShowModal] = useState(true);
+    const navigation = useNavigation();
+    const { infoUser, idUser, showWebView, setShowWebView } = useContext(AppContext);
 
     const handleWebViewLoad = () => {
         setIsLoading(false);
@@ -45,19 +49,23 @@ const WebsiteFPL = () => {
                     </View>
                 </View>
             </Modal>
-            <Image source={require('../assets/icons/ic_left.png')} />
+            <TouchableOpacity style={[AppStyle.row, { alignItems: 'center' }]} onPress={() => { setShowWebView(false) }}>
+                <Image style={AppStyle.icon} source={require('../assets/icons/ic_back_black.png')} />
+                <Text style={[AppStyle.titleMedium, { backgroundColor: 'white', color: COLOR.title }]}> Quay lại </Text>
+            </TouchableOpacity>
+
             <WebView
                 source={{ uri: 'https://caodang.fpt.edu.vn' }}
                 onLoad={handleWebViewLoad}
             />
-            <Animated.View
+            {/* <Animated.View
                 style={{
                     transform: [{ translateX: pan.x }, { translateY: pan.y }]
                 }}
                 {...panResponder.panHandlers}
             >
                 <View style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: 'red' ,zIndex:10}} />
-            </Animated.View>
+            </Animated.View> */}
 
         </SafeAreaView>
     );
