@@ -123,9 +123,8 @@ export default Home
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginTop: 17,
     height: 180,
-    top: -10,
+    borderRadius: 20,
 
   },
   slide: {

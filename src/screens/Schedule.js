@@ -15,7 +15,7 @@ const options = ({ route }) => ({
         color: focused ? "#F26F25" : '#787878',
         fontSize: 20,
         fontWeight: '600'
-      }}>Lịch Hoc</Text>
+      }}>Lịch Học</Text>
     } else if (route.name === 'ScheduleExam') {
       return <Text style={{
         color: focused ? "#F26F25" : '#787878',

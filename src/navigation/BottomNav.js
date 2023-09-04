@@ -168,14 +168,6 @@ const Main = () => {
                         <Tab.Screen name="StackProfile" component={StackProfile} />
                     </Tab.Navigator>)}
         </>
-
-
-
-
-
-
-
-
     )
 }
 const BottomTabNav = () => {

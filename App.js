@@ -22,11 +22,14 @@ import TestShare from './src/test/TestShare'
 //   });
 // }
 import Icon from 'react-native-vector-icons/FontAwesome';
-Icon.loadFont();
+import Splash from './src/screens/Splash';
+import Login from './src/screens/Login';
 
+Icon.loadFont();
+import numeral from 'numeral';
 
 const App = () => {
-
+  console.log("------------->",numeral(100000000).format('0,0'));
 
   // return (
   //   <AppProvider>
@@ -39,11 +42,15 @@ const App = () => {
   return (
     <AppContextProvider>
       <NavigationContainer>
-        <BottomTabs />
+        <BottomTabs /> 
+       {/* <Splash/> */}
         {/* <TestShare /> */}
-        {/* <TesTMap /> */}
+         {/* <TesTMap /> */}
+       
       </NavigationContainer>
+     
     </AppContextProvider>
   )
+  
 }
 export default App

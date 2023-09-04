@@ -10,8 +10,12 @@ import QRCode from 'react-native-qrcode-svg';
 const ItemProfile = () => {
   const { infoUser, idUser, setIsLogin } = useContext(AppContext);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
-  const [valueQRCode, setValueQRCode] = useState(infoUser.studentCode)
+  const [valueQRCode, setValueQRCode] = useState(studentCode)
 
+  const [avatar, setAvatar] = useState('')
+  const [name, setName] = useState('')
+  const [studentCode, setStudentCode] = useState('')
+  const [email, setEmail] = useState('')
   const Overlay = () => (
     <TouchableOpacity
       style={styles.overlay}
@@ -29,18 +33,18 @@ const ItemProfile = () => {
         <View style={{}}>
           <View style={[AppStyle.row, {}]}>
             {infoUser.avatar != "" ?
-              (<Image style={AppStyle.portrait} source={{ uri: infoUser.avatar }} />)
+              (<Image style={AppStyle.portrait} source={{ uri: avatar }} />)
               :
               (<Image style={AppStyle.portrait} source={require('../../assets/images/green_field.jpg')} />)
             }
             <View style={[AppStyle.column, { marginLeft: 8 }]}>
               <View style={{ marginBottom: 12 }} >
                 <Text style={AppStyle.textNormal}>Họ và tên/Name</Text>
-                <Text style={AppStyle.titleBig}>{infoUser.name}</Text>
+                <Text style={AppStyle.titleBig}>{name}</Text>
               </View>
               <View style={{ marginBottom: 12 }} >
                 <Text style={AppStyle.textNormal}>MSSV/Student ID</Text>
-                <Text style={[AppStyle.titleMedium, { width: 160, color: COLOR.title, letterSpacing: 1, textAlign: 'left' }]} numberOfLines={1}>{infoUser.studentCode}</Text>
+                <Text style={[AppStyle.titleMedium, { width: 160, color: COLOR.title, letterSpacing: 1, textAlign: 'left' }]} numberOfLines={1}>{studentCode}</Text>
               </View>
               <View >
                 <Text style={AppStyle.textNormal}>Chuyên ngành/Major</Text>
@@ -74,17 +78,15 @@ const ItemProfile = () => {
   );
   const getInfoUser = async () => {
     try {
-      const response = await AxiosInstance().get("user/api/get-by-id?id=" + idUser);
-      console.log(response);
-      console.log("infoUser", infoUser);
-
-      if (response.result) {
-
-        console.log(response.name);
-
-      } else {
-        console.log("Failed to get info user");
-
+      const userInfoString = await AsyncStorage.getItem('userInfo');
+      if (userInfoString !== null) {
+        const userInfo = JSON.parse(userInfoString);
+        // Sử dụng thông tin đã lưu ở đây
+        console.log("userInfooooooooooooádo", userInfo);
+        setAvatar(userInfo.avatar)
+        setStudentCode(userInfo.studentCode)
+        setName(userInfo.name)
+        setEmail(userInfo.email)
       }
     } catch (error) {
       console.log(error);
@@ -113,15 +115,15 @@ const ItemProfile = () => {
     <View style={[styles.boxShadow, AppStyle.row, { width: '100%', justifyContent: 'space-between' }]}>
       <View style={[AppStyle.row, { width: '100%', padding: 16, alignItems: 'center', borderRadius: 10 }]}>
         {infoUser.avatar != "" ?
-          (<Image style={{ width: 70, height: 70, borderRadius: 100 }} source={{ uri: infoUser.avatar }} />)
+          (<Image style={{ width: 70, height: 70, borderRadius: 100 }} source={{ uri: avatar }} />)
           :
           (<Image style={{ width: 70, height: 70, borderRadius: 100 }} source={require('../../assets/images/green_field.jpg')} />)
         }
 
         <View style={{ marginLeft: 15 }}>
-          <Text style={[AppStyle.titleMedium, { color: COLOR.black, marginBottom: 4 }]}>{infoUser.name}</Text>
-          <Text style={[AppStyle.titleMedium, { marginBottom: 4 }]}>{infoUser.studentCode}</Text>
-          <Text style={[AppStyle.titleSmall, { color: COLOR.normalText, marginBottom: 4 }]}>{infoUser.email}</Text>
+          <Text style={[AppStyle.titleMedium, { color: COLOR.black, marginBottom: 4 }]}>{name}</Text>
+          <Text style={[AppStyle.titleMedium, { marginBottom: 4 }]}>{studentCode}</Text>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.normalText, marginBottom: 4 }]}>{email}</Text>
         </View>
       </View>
       <View style={[AppStyle.column, { left: -30, top: 20 }]}>

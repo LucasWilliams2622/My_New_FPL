@@ -7,7 +7,6 @@ export const AppStyle = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLOR.background,
-       
     },
     icon: {
         width: 24,
@@ -32,7 +31,7 @@ export const AppStyle = StyleSheet.create({
     logo: {
         width: 100,
         height: 40,
-        borderRadius:20
+        borderRadius: 20
 
     },
     border: {
