@@ -10,7 +10,7 @@ import QRCode from 'react-native-qrcode-svg';
 const ItemProfile = () => {
   const { infoUser, idUser, setIsLogin } = useContext(AppContext);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
-  const [valueQRCode, setValueQRCode] = useState(infoUser.studentCode)
+  const [valueQRCode, setValueQRCode] = useState(studentCode)
 
   const [avatar, setAvatar] = useState('')
   const [name, setName] = useState('')
@@ -33,18 +33,18 @@ const ItemProfile = () => {
         <View style={{}}>
           <View style={[AppStyle.row, {}]}>
             {infoUser.avatar != "" ?
-              (<Image style={AppStyle.portrait} source={{ uri: infoUser.avatar }} />)
+              (<Image style={AppStyle.portrait} source={{ uri: avatar }} />)
               :
               (<Image style={AppStyle.portrait} source={require('../../assets/images/green_field.jpg')} />)
             }
             <View style={[AppStyle.column, { marginLeft: 8 }]}>
               <View style={{ marginBottom: 12 }} >
                 <Text style={AppStyle.textNormal}>Họ và tên/Name</Text>
-                <Text style={AppStyle.titleBig}>{infoUser.name}</Text>
+                <Text style={AppStyle.titleBig}>{name}</Text>
               </View>
               <View style={{ marginBottom: 12 }} >
                 <Text style={AppStyle.textNormal}>MSSV/Student ID</Text>
-                <Text style={[AppStyle.titleMedium, { width: 160, color: COLOR.title, letterSpacing: 1, textAlign: 'left' }]} numberOfLines={1}>{infoUser.studentCode}</Text>
+                <Text style={[AppStyle.titleMedium, { width: 160, color: COLOR.title, letterSpacing: 1, textAlign: 'left' }]} numberOfLines={1}>{studentCode}</Text>
               </View>
               <View >
                 <Text style={AppStyle.textNormal}>Chuyên ngành/Major</Text>

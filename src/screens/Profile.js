@@ -14,34 +14,26 @@ import { useNavigation } from '@react-navigation/native';
 const Profile = (props) => {
   const navigation = useNavigation();
   const { infoUser, idUser, showWebView, setShowWebView } = useContext(AppContext);
+  const [avatar, setAvatar] = useState('')
+  const [name, setName] = useState('')
+  const [studentCode, setStudentCode] = useState('')
+  const [email, setEmail] = useState('')
 
-  const showWeb = () => {
-    setShowWebView(true);
-  };
-  const handleGetDirections = () => {
-    const data = {
-      source: {
-        latitude: position.latitude,
-        longitude: position.longitude,
-      },
-      destination: {
-        latitude: destination.latitude,
-        longitude: destination.longitude,
-      },
-      params: [
-        {
-          key: 'travelmode',
-          value: 'driving', // Chế độ di chuyển (driving, walking, bicycling, transit)
-        },
-      ],
-    };
-
-    const url = `https://www.google.com/maps/dir/?api=1&destination=${data.destination.latitude},${data.destination.longitude}&travelmode=${data.params[0].value}`;
-
-    Linking.openURL(url);
-  };
-  const getInfoUserAsync = async () => {
-    const userInfomation = AsyncStorage.getItem('userInfo')
+  const getInfoUser = async () => {
+    try {
+      const userInfoString = await AsyncStorage.getItem('userInfo');
+      if (userInfoString !== null) {
+        const userInfo = JSON.parse(userInfoString);
+        // Sử dụng thông tin đã lưu ở đây
+        console.log("userInfooooooooooooádo", userInfo);
+        setAvatar(userInfo.avatar)
+        setStudentCode(userInfo.studentCode)
+        setName(userInfo.name)
+        setEmail(userInfo.email)
+      }
+    } catch (error) {
+      console.log(error);
+    }
   }
   const sendEmail = (email) => {
     const subject = 'Tiêu đề email';
@@ -82,7 +74,7 @@ const Profile = (props) => {
   });
 
   useEffect(() => {
-    getInfoUserAsync();
+    getInfoUser();
     Geolocation.getCurrentPosition(
       position => {
         setCurrentLocation({
@@ -157,7 +149,7 @@ const Profile = (props) => {
 
         <View style={[AppStyle.row, { width: '100%', justifyContent: 'space-between' }]}>
           <View style={{ marginLeft: 10, marginBottom: 8 }}>
-            <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
+            <Text style={[AppStyle.titleSmall, { color: COLOR.black, fontWeight: '500' }]}>Giới tính: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Nam</Text></Text>
           </View>
           <TouchableOpacity onPress={() => { goScanner() }}>
             <Image style={{ width: 24, height: 24, marginRight: 8 }} source={require('../assets/icons/ic_scan_qr_code.png')} />
@@ -165,13 +157,13 @@ const Profile = (props) => {
         </View>
 
         <View style={{ marginLeft: 10, marginBottom: 8 }}>
-          <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Ngày sinh: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>08-06-2003</Text></Text>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.black,  fontWeight: '500' }]}>Ngày sinh: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>08-06-2003</Text></Text>
         </View>
         <View style={{ marginLeft: 10, marginBottom: 8 }}>
-          <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 8, fontWeight: '500' }]}>Chuyên ngành: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Lập trình di động</Text></Text>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.black,  fontWeight: '500' }]}>Chuyên ngành: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Lập trình di động</Text></Text>
         </View>
         <View style={{ marginLeft: 10, marginBottom: 5 }}>
-          <Text style={[AppStyle.titleSmall, { color: COLOR.black, marginBottom: 14, fontWeight: '500' }]}>Địa chỉ:  <Text style={{ color: COLOR.normalText, fontWeight: '400', letterSpacing: 0.5, lineHeight: 20, }}>Địa chỉ: 12/23 khu phố 6, Đường abc, Phường XYZ, Quận 12, Tp.HCM</Text></Text>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.black, fontWeight: '500' }]}>Địa chỉ:  <Text style={{ color: COLOR.normalText, fontWeight: '400', letterSpacing: 0.5, lineHeight: 20, }}>Địa chỉ: 12/23 khu phố 6, Đường abc, Phường XYZ, Quận 12, Tp.HCM</Text></Text>
         </View>
       </View>
 
