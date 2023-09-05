@@ -42,7 +42,7 @@ export const COLOR = {
     Pcolor:'#f17126',
     Tcolor:'#23b14b',
     light:"#fec007",
-    textLight:"#bf920b",
+    textLight:"#bf920b",    
 
     headModalAdd:"#F38181",
     headDetail:"#95E1D3",

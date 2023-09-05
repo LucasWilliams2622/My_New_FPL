@@ -1702,6 +1702,11 @@
   resolved "https://registry.npmjs.org/@react-native-google-signin/google-signin/-/google-signin-10.0.1.tgz"
   integrity sha512-oZoU2lfKyn0s0GqqdFsi4v2FSENrxQYQU9DD/RSkxDdkIQ49Wwo6p5LKlgXY04GwZEVdYMuvZN3G89gQW0ig2g==
 
+"@react-native-masked-view/masked-view@^0.2.8", "@react-native-masked-view/masked-view@^0.2.9":
+  version "0.2.9"
+  resolved "https://registry.npmjs.org/@react-native-masked-view/masked-view/-/masked-view-0.2.9.tgz"
+  integrity sha512-Hs4vKBKj+15VxHZHFtMaFWSBxXoOE5Ea8saoigWhahp8Mepssm0ezU+2pTl7DK9z8Y9s5uOl/aPb4QmBZ3R3Zw==
+
 "@react-native/assets@1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@react-native/assets/-/assets-1.0.0.tgz"
@@ -7341,7 +7346,7 @@ react-native-lightbox-v2@0.9.0:
   resolved "https://registry.npmjs.org/react-native-lightbox-v2/-/react-native-lightbox-v2-0.9.0.tgz"
   integrity sha512-Fc5VFHFj2vokS+OegyTsANKb1CYoUlOtAv+EBH5wtpJn1b5cey6jVXH7136G5+8OC9JmKWSgKHc5thFwOoZTUg==
 
-react-native-linear-gradient@^2.8.1:
+react-native-linear-gradient@^2.5.6, react-native-linear-gradient@^2.8.1:
   version "2.8.1"
   resolved "https://registry.npmjs.org/react-native-linear-gradient/-/react-native-linear-gradient-2.8.1.tgz"
   integrity sha512-934R4Bnjo7mYT38W9ypS1Dq/YW6TgyGdkHg+w72HNxN0ZDKG1GqAnZ6XlicMUYJDh7ViiJAKN8eOF3Ho0N4J0Q==
@@ -7475,6 +7480,11 @@ react-native-share@^9.2.3:
   resolved "https://registry.npmjs.org/react-native-share/-/react-native-share-9.2.3.tgz"
   integrity sha512-y6ju4HS6ydJoPVoacZ/Hp3i47AfI9W4e76Jv00r01dVbr6SCCcuqk37kIbn+kYivdTxOW77UGEbhtBHHtXnhzg==
 
+react-native-skeleton-placeholder@^5.2.4:
+  version "5.2.4"
+  resolved "https://registry.npmjs.org/react-native-skeleton-placeholder/-/react-native-skeleton-placeholder-5.2.4.tgz"
+  integrity sha512-OZntVq1hU1UX33FltxK2ezT2v9vHIhV8YnEbnMWUCvxT0N9OsgD1qxiHm6qb9YRJVgq2o5z3S7dNPsPnDF/jNg==
+
 react-native-snap-carousel@^3.9.1:
   version "3.9.1"
   resolved "https://registry.npmjs.org/react-native-snap-carousel/-/react-native-snap-carousel-3.9.1.tgz"
@@ -7568,7 +7578,7 @@ react-native-webview@^13.3.1:
     escape-string-regexp "2.0.0"
     invariant "2.2.4"
 
-react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>= 0.59", "react-native@>= 0.64.3", react-native@>=0.23.1, react-native@>=0.35, react-native@>=0.40.0, react-native@>=0.42.0, react-native@>=0.46, react-native@>=0.48.4, react-native@>=0.57.0, react-native@>=0.59, react-native@>=0.60.0, react-native@>=0.61.0, react-native@>=0.63.3, react-native@>=0.63.4, react-native@>=0.64.0, react-native@>=0.65.0, react-native@0.71.7:
+react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-native@>= 0.59", "react-native@>= 0.64.3", react-native@>=0.23.1, react-native@>=0.35, react-native@>=0.40.0, react-native@>=0.42.0, react-native@>=0.46, react-native@>=0.48.4, react-native@>=0.50.1, react-native@>=0.57, react-native@>=0.57.0, react-native@>=0.59, react-native@>=0.60.0, react-native@>=0.61.0, react-native@>=0.63.3, react-native@>=0.63.4, react-native@>=0.64.0, react-native@>=0.65.0, react-native@0.71.7:
   version "0.71.7"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.71.7.tgz"
   integrity sha512-Id6iRLS581fJMFGbBl1jP5uSmjExtGOvw5Gvh7694zISXjsRAsFMmU+izs0pyCLqDBoHK7y4BT7WGPGw693nYw==
@@ -7630,7 +7640,7 @@ react-test-renderer@18.2.0:
     react-shallow-renderer "^16.15.0"
     scheduler "^0.23.0"
 
-react@*, "react@^16 || ^17 || ^18", "react@^16.0.0 || ^17.0.0 || ^18.0.0", react@^16.13.1, "react@^16.13.1 || ^17 || ^18", react@^16.3.0, "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17 || ^18", react@^18.0.0, react@^18.2.0, "react@>= 17.0.1", react@>=0.14.8, react@>=15.0.0, react@>=16.0, react@>=16.13.1, react@>=16.3.0, react@>=16.8, react@>=16.8.0, react@>=16.8.6, react@>=17.0.0, react@16.x.x, react@18.2.0:
+react@*, "react@^16 || ^17 || ^18", "react@^16.0.0 || ^17.0.0 || ^18.0.0", react@^16.13.1, "react@^16.13.1 || ^17 || ^18", react@^16.3.0, "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17 || ^18", react@^18.0.0, react@^18.2.0, "react@>= 17.0.1", react@>=0.14.8, react@>=15.0.0, react@>=16, react@>=16.0, react@>=16.13.1, react@>=16.3.0, react@>=16.8, react@>=16.8.0, react@>=16.8.6, react@>=17.0.0, react@16.x.x, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
