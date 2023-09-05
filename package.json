@@ -39,6 +39,7 @@
     "jsqr": "^1.4.0",
     "lottie-react-native": "^6.2.0",
     "moment": "^2.29.4",
+    "moti": "^0.26.0",
     "numeral": "^2.0.6",
     "patch-package": "^8.0.0",
     "react": "18.2.0",

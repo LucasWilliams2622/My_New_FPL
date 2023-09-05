@@ -14,13 +14,6 @@ import TestQRCode from './src/test/TestQRCode'
 import BottomTabNav from './src/app/navigation/BottomNav'
 import { Button, Input, CheckBox, RadioButton } from 'react-native-btr';
 import TestShare from './src/test/TestShare'
-// import { whyDidYouRender } from '@welldone-software/why-did-you-render';
-
-// if (__DEV__) {
-//   whyDidYouRender(React, {
-//     trackAllPureComponents: true,
-//   });
-// }
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Splash from './src/screens/Splash';
 import Login from './src/screens/Login';
@@ -37,7 +30,6 @@ const App = () => {
   //       <BottomTabNav />
   //     </NavigationContainer>
   //   </AppProvider>
-
   // )
   return (
     <AppContextProvider>
