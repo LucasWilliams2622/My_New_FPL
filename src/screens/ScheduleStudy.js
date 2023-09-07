@@ -2,7 +2,6 @@ import { View, Text, StyleSheet, SafeAreaView, ScrollView, FlatList, Image, Touc
 import React, { useState, useEffect, useContext } from 'react'
 import { AppStyle } from '../constants/AppStyle'
 import { Dropdown } from 'react-native-element-dropdown'
-import ItemScheduleExam from '../components/Schedule/ItemScheduleExam';
 import { COLOR } from '../constants/Theme';
 import ItemScheduleStudy from '../components/Schedule/ItemScheduleStudy';
 import AxiosInstance from '../constants/AxiosInstance';
@@ -24,17 +23,27 @@ const ItemTextSches = (props) => {
   const [isFocus, setIsFocus] = useState(false);
   const [value, setValue] = useState(7);
   const [isLoading, setIsLoading] = useState(true)
+  const [availableStudy, setAvailableStudy] = useState(false)
+
   const getCurrentSchedule = async (value) => {
     try {
-      console.log("value",value);
+      console.log("value", value);
       // const response = await AxiosInstance().get("scheduleStudy/api/get-all");
-      const response = await AxiosInstance().get("scheduleStudy/api/get-by-"+value+"-day?currentDay="+currentDay);
+      const response = await AxiosInstance().get("scheduleStudy/api/get-by-" + value + "-day?currentDay=" + currentDay);
 
       console.log("===================================response", response.scheduleStudy[1].idSubject);
 
       if (response.result) {
-        setDataScheduleByDay(response.scheduleStudy);
-        setIsLoading(false)
+        if (Array.isArray(response.scheduleStudy) && response.scheduleStudy.length === 0) {
+          setAvailableStudy(false)
+          console.log("scheduleStudy là một mảng rỗng");
+        } else {
+          console.log("scheduleStudy không phải là một mảng rỗng");
+          setAvailableStudy(true)
+          setDataScheduleByDay(response.scheduleStudy);
+          setIsLoading(false)
+        }
+
       } else {
         setIsLoading(true)
       }
@@ -82,25 +91,31 @@ const ItemTextSches = (props) => {
         }}
         renderItem={renderItem}
       />
+
       <Image style={[AppStyle.icon, { position: 'absolute', left: 30, top: 28, tintColor: isFocus ? COLOR.primary : COLOR.black }]} source={require('../assets/icons/ic_schedule.png')} />
+      
       <View style={styles.BoxContent}>
         <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
           {/* <Loading/> */}
-          <Text style={[AppStyle.titleBig, { marginBottom: 10 }]}>Lịch học hôm nay</Text>
-          {isLoading ?
-            (<Loading/>)
-            : (<FlatList
-              vertical
-              showsVerticalScrollIndicator={false}
-              data={dataScheduleByDay}
-              renderItem={({ item }) => <ItemScheduleStudy data={item} />}
-              keyExtractor={item => item.id}
-            />)}
-          {/* <View style={{ flexDirection: 'row', flexWrap: 'wrap', width: '100%' }}>
-            {DataScheduleToday.slice(0, Math.ceil(DataScheduleToday.length)).map((item) => (
-              <ItemScheduleStudy data={item} key={item.id}/>
-            ))}
-          </View> */}
+          {availableStudy ? (<Text style={[AppStyle.titleBig, { marginBottom: 10 }]}>Lịch học hôm nay</Text>) : (<></>)}
+          {availableStudy ? (
+            <>
+              {isLoading ?
+                (<Loading />)
+                : (<FlatList
+                  vertical
+                  showsVerticalScrollIndicator={false}
+                  data={dataScheduleByDay}
+                  renderItem={({ item }) => <ItemScheduleStudy data={item} />}
+                  keyExtractor={item => item.id}
+                />)}
+            </>
+          ) : (
+            <>
+              <Text style={[AppStyle.titleBig, { marginVertical: 16, alignSelf: 'center' }]}>Bạn không có lịch học hôm nay</Text>
+            </>
+          )}
+
         </ScrollView>
       </View>
     </SafeAreaView>

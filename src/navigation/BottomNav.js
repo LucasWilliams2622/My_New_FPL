@@ -19,7 +19,7 @@ import Activate from '../screens/Activate';
 import ItemNews from '../components/Home/ItemNews';
 import ScanQrCode from '../screens/ScanQrCode';
 import WebsiteFPL from '../screens/WebsiteFPL';
-import GoFPT from '../screens/GoFPT';
+import GoFPT from '../screens/GoFPT/GoFPT';
 
 
 const Tab = createBottomTabNavigator();
