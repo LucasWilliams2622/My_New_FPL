@@ -48,6 +48,7 @@ const App = () => {
       <NavigationContainer>
         
         {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
+       
       
        
         {/* <TestShare /> */}
