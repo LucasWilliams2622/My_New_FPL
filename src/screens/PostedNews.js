@@ -1,10 +1,10 @@
-import { View, Text } from 'react-native'
+import { View, Text, SafeAreaView } from 'react-native'
 import React from 'react'
-
+import ItemPostedNews from '../components/GoFPT/itemPostedNews'
 const PostedNews = () => {
   return (
     <View>
-      <Text>PostedNews</Text>
+      <ItemPostedNews />
     </View>
   )
 }

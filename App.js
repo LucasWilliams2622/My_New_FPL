@@ -27,6 +27,9 @@ import Login from './src/screens/Login';
 
 Icon.loadFont();
 import numeral from 'numeral';
+import ItemScheduleStudy from './src/components/Schedule/ItemScheduleStudy';
+import ItemNews from './src/components/Home/ItemNews';
+import Home from './src/app/screens/Home';
 
 const App = () => {
   // console.log("------------->",numeral(100000000).format('0,0'));
@@ -43,9 +46,11 @@ const App = () => {
 
    
   return (
+ 
     
     <AppContextProvider>
       <NavigationContainer>
+        
         
         {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
        
