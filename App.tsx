@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React ,{useState}   from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { AppContextProvider } from './src/utils/AppContext'
 import { AppProvider } from './src/app/constants/AppContext'
@@ -22,7 +22,7 @@ Icon.loadFont();
 import numeral from 'numeral';
 
 const App = () => {
-  console.log("------------->",numeral(100000000).format('0,0'));
+  // console.log("------------->",numeral(100000000).format('0,0'));
 
   // return (
   //   <AppProvider>
@@ -31,17 +31,25 @@ const App = () => {
   //     </NavigationContainer>
   //   </AppProvider>
   // )
+  const [isLoading, setIsLoading] = useState(true);
+
+   
   return (
+    
     <AppContextProvider>
       <NavigationContainer>
-        <BottomTabs /> 
-       {/* <Splash/> */}
+        
+        {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
+       
+      
+       
         {/* <TestShare /> */}
          {/* <TesTMap /> */}
        
       </NavigationContainer>
      
     </AppContextProvider>
+  
   )
   
 }
