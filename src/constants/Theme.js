@@ -56,6 +56,7 @@ export const COLOR = {
     btnAccept:"#36AD2B",
     btnEdit:"#00C738",
     btnFind:"#FFC634",
+    
 
 
 
