@@ -8,6 +8,12 @@ export const AppStyle = StyleSheet.create({
         flex: 1,
         backgroundColor: COLOR.background,
     },
+    main: {
+        flex: 1,
+        backgroundColor: COLOR.background,
+        paddingHorizontal: 16,
+        paddingVertical:12
+    },
     icon: {
         width: 24,
         height: 24,
@@ -57,6 +63,46 @@ export const AppStyle = StyleSheet.create({
         fontStyle: 'normal',
         color: COLOR.titlePrimary,
     },
+    text10: {
+        fontSize: 10,
+        color:COLOR.newText,
+        fontWeight:'400',
+        letterSpacing:0.5,
+        fontStyle:'normal',
+
+    },
+    text12: {
+        fontSize: 12,
+        color:COLOR.newText,
+        fontWeight:'400',
+        letterSpacing:0.5,
+        fontStyle:'normal',
+
+    },
+    text14: {
+        fontSize: 14,
+        color:COLOR.newText,
+        fontWeight:'400',
+        letterSpacing:0.5,
+        fontStyle:'normal',
+
+    },
+    text16: {
+        fontSize: 16,
+        color:COLOR.newText,
+        fontWeight:'400',
+        letterSpacing:0.5,
+        fontStyle:'normal',
+
+    },
+    text20: {
+        fontSize: 20,
+        color:COLOR.newText,
+        fontWeight:'400',
+        letterSpacing:0.5,
+        fontStyle:'normal',
+
+    },
     text: {
         color: COLOR.text,
         fontSize: 10,
@@ -74,6 +120,10 @@ export const AppStyle = StyleSheet.create({
     row: {
         flexDirection: 'row',
         alignItems: 'flex-start',
+    },
+    rowCenter: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     column: {
         flexDirection: 'column',

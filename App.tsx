@@ -38,19 +38,13 @@ const App = () => {
 
    
   return (
- 
-    
     <AppContextProvider>
       <NavigationContainer>
         
-        
         {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
-       
-      
        
         {/* <TestShare /> */}
          {/* <TesTMap /> */}
-       
       </NavigationContainer>
      
     </AppContextProvider>
