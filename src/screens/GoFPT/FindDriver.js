@@ -7,8 +7,8 @@ import { AppContext } from '../../utils/AppContext'
 import AxiosInstance from '../../constants/AxiosInstance';
 import ActionButton from 'react-native-action-button';
 import ItemFindDriver from '../../components/GoFPT/ItemFindDiver'
+import { MotiView, MotiText } from 'moti'
 
-const DATA = [{}, {}, {}, {}, {}, {}, {}, {}, {},]
 const FindDriver = () => {
   const [dataFindDriver, setDataFindDriver] = useState([])
   const [showSearch, setShowSearch] = useState(true)
@@ -45,9 +45,15 @@ const FindDriver = () => {
 
 
   return (
-    <View style={AppStyle.main}>
+    <MotiView style={AppStyle.main}
+      from={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        type: 'timing',
+        duration: 350,
+      }}>
       <FlatList
-        style={{ marginVertical: 0,  marginBottom: 70}}
+        style={{ marginVertical: 0, marginBottom: 70 }}
         data={dataFindDriver}
         showsHorizontalScrollIndicator={false}
         shouldRasterizeIOS
@@ -60,7 +66,7 @@ const FindDriver = () => {
           </View>
         )}
       />
-    </View>
+    </MotiView>
   )
 }
 

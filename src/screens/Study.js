@@ -89,7 +89,7 @@ const Study = (props) => {
   const getAllNews = async () => {
     try {
       const response = await AxiosInstance().get("/news/api/get-all");
-      console.log("===================================response", response.news);
+      // console.log("===================================response", response.news);
       if (response.result) {
         setdataCurrentNews(response.news);
         setIsLoading(false)

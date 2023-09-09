@@ -20,6 +20,14 @@ import ItemNews from '../components/Home/ItemNews';
 import ScanQrCode from '../screens/ScanQrCode';
 import WebsiteFPL from '../screens/WebsiteFPL';
 import GoFPT from '../screens/GoFPT/GoFPT';
+import DetailFindDriver from '../screens/GoFPT/DetailFindDriver';
+import FindDriver from '../screens/GoFPT/FindDriver';
+import DetailFindGoWith from '../screens/GoFPT/DetailFindGoWith';
+import FindGoWith from '../screens/GoFPT/FindGoWith';
+import HistoryPosted from '../screens/GoFPT/HistoryPosted';
+
+
+
 
 
 const Tab = createBottomTabNavigator();
@@ -80,6 +88,12 @@ const StackGoFPT = () => {
     return (
         <Stack.Navigator initialRouteName="GoFPT" screenOptions={{ headerShown: false }}>
             <Stack.Screen name="GoFPT" component={GoFPT} />
+            <Stack.Screen name="DetailFindDriver" component={DetailFindDriver} />
+            <Stack.Screen name="DetailFindGoWith" component={DetailFindGoWith} />
+            <Stack.Screen name="FindDriver" component={FindDriver} />
+            <Stack.Screen name="HistoryPosted" component={HistoryPosted} />
+            <Stack.Screen name="FindGoWith" component={FindGoWith} />
+            
 
         </Stack.Navigator>
     )
@@ -153,10 +167,7 @@ const Main = () => {
                                     height: 70,
                                     position: 'absolute',
                                     backgroundColor: COLOR.background,
-                                    bottom: 10,
-                                    right: 10,
-                                    left: 10,
-                                    borderRadius: 20,
+                                  
 
                                 },
                             })}

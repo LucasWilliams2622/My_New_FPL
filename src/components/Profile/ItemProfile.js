@@ -95,8 +95,9 @@ const ItemProfile = () => {
     try {
       await AsyncStorage.removeItem('userInfo');
       setIsLogin(false)
+      console.log('Thông tin người dùng đã được xóa thành công!');
     } catch (error) {
-      console.log(error);
+      console.log('Đã xảy ra lỗi khi xóa thông tin người dùng:', error);
     }
 
   }

@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import ActionButton from 'react-native-action-button';
-
+import { useNavigation } from '@react-navigation/native';
 const Tab = createMaterialTopTabNavigator();
 const options = ({ route }) => ({
   tabBarLabel: ({ focused, color, size }) => {
@@ -53,6 +53,7 @@ const options = ({ route }) => ({
 });
 
 const GoFPT = () => {
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={AppStyle.container}>
@@ -68,7 +69,7 @@ const GoFPT = () => {
           <Image style={{ width: 16, height: 16 }} source={require('../../assets/icons/ic_plus.png')} />
         </ActionButton.Item>
 
-        <ActionButton.Item buttonColor='#C8E4B2' title="Tin đã đăng" onPress={() => { }}>
+        <ActionButton.Item buttonColor='#C8E4B2' title="Tin đã đăng" onPress={() => {navigation.navigate("HistoryPosted") }}>
           <Image style={{ width: 16, height: 16, tintColor: 'black' }} source={require('../../assets/icons/ic_history.png')} />
         </ActionButton.Item>
       </ActionButton>

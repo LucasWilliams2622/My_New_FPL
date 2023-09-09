@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React ,{useState}   from 'react'
+import React, { useState, useRef } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { AppContextProvider } from './src/utils/AppContext'
 import { AppProvider } from './src/app/constants/AppContext'
@@ -12,7 +12,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import ScanQrCode from './src/screens/ScanQrCode';
 import TestQRCode from './src/test/TestQRCode'
 import BottomTabNav from './src/app/navigation/BottomNav'
-import { Button, Input, CheckBox, RadioButton } from 'react-native-btr';
+import { Input, CheckBox, RadioButton } from 'react-native-btr';
 import TestShare from './src/test/TestShare'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Splash from './src/screens/Splash';
@@ -24,9 +24,11 @@ import ItemScheduleStudy from './src/components/Schedule/ItemScheduleStudy';
 import ItemNews from './src/components/Home/ItemNews';
 import Home from './src/app/screens/Home';
 import { LogBox } from 'react-native';
+import Button from './src/components/Toast/Button';
+import ToastMessage from './src/components/Toast/ToastMessage';
 
 LogBox.ignoreLogs([
-  'Require cycle:', 
+  'Require cycle:',
 ]);
 console.disableYellowBox = true;
 const App = () => {
@@ -41,20 +43,20 @@ const App = () => {
   // )
   const [isLoading, setIsLoading] = useState(true);
 
-   
+ 
   return (
     <AppContextProvider>
       <NavigationContainer>
-        
+
         {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
-       
+
         {/* <TestShare /> */}
-         {/* <TesTMap /> */}
+        {/* <TesTMap /> */}
       </NavigationContainer>
-     
+
     </AppContextProvider>
-  
+
   )
-  
+
 }
 export default App

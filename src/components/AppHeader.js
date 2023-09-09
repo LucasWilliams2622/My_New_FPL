@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native'
+import { SafeAreaView, Dimensions, StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import { AppStyle } from '../constants/AppStyle'
 import { COLOR } from '../constants/Theme'
@@ -7,6 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import DeviceInfo from 'react-native-device-info';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
+import { MotiView } from 'moti';
+const { height } = Dimensions.get('window');
 
 const AppHeader = () => {
   const navigation = useNavigation();
@@ -58,8 +60,10 @@ const AppHeader = () => {
 
 
   return (
-    <SafeAreaView style={[AppStyle.header, AppStyle.row, { paddingTop: 20, paddingHorizontal: 16, justifyContent: 'space-between', }]}>
-      <View style={[AppStyle.row, {}]} >
+    <SafeAreaView style={[AppStyle.header, AppStyle.row, { paddingTop: 20, paddingHorizontal: 16, justifyContent: 'space-between', }]}
+    >
+      <View style={[AppStyle.row, {}]}
+       >
         {infoUser.avatar != "" ?
           (<Image style={AppStyle.avatar} source={{ uri: avatar }} />)
           :
