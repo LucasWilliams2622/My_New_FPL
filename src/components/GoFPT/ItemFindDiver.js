@@ -75,7 +75,7 @@ const ItemFindDriver = (props) => {
 
           <View style={[styles.boxItemInfo, { marginBottom: 0 }]}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
-              <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_vietnam_dong.png')} />
+              <Image style={[AppStyle.iconMedium,{tintColor:COLOR.textMoney}]} source={require('../../assets/icons/ic_vietnam_dong.png')} />
               <Text style={[AppStyle.text12, { fontWeight: '700', marginLeft: 6, fontStyle: 'italic', color: COLOR.textMoney }]}>{numeral(price).format('0,0')} ₫</Text>
             </View>
 

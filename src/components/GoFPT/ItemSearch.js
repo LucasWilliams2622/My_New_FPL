@@ -6,9 +6,9 @@ import { AppStyle } from '../../constants/AppStyle'
 const ItemSearch = (props) => {
     const { placeholder, placeholderTextColor,
         icon, tintColor,
-        backgroundColor,
+        backgroundColor,onChangeText,
         fontWeight, fontSize, textButtonColor, titleButton,
-        onPressRight,
+        onPressRight,onPressSearch,
         marginBottom,
     } = props;
     return (
@@ -21,9 +21,10 @@ const ItemSearch = (props) => {
                     <Image style={[styles.icon, {
                         tintColor: tintColor == null ? "black" : tintColor,
                     }]} source={icon == null ? require('../../assets/icons/ic_search.png') : icon} />
-                    <TextInput style={[AppStyle.text12, { height: 36, marginLeft: 8, width: '90%' }]} placeholder='Nhập địa điểm ...' placeholderTextColor={'#6D6D6D'} />
+                    <TextInput style={[AppStyle.text12, { height: 36, marginLeft: 8, width: '90%' }]} placeholder='Nhập địa điểm ...' placeholderTextColor={'#6D6D6D'} 
+                    onChangeText={onChangeText}/>
                 </View>
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={onPressSearch}>
                     <Text style={[AppStyle.text12, {
                         fontWeight:fontWeight==null? '700':fontWeight,
                         color: textButtonColor == null ? COLOR.white : textButtonColor,
