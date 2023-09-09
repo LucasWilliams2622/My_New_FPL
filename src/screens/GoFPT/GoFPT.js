@@ -1,14 +1,15 @@
-import { StyleSheet, Text, SafeAreaView, View } from "react-native";
+import { StyleSheet, Text, SafeAreaView, View, Image, Animated } from "react-native";
 import { AppStyle } from "../../constants/AppStyle";
 import AppHeader from "../../components/AppHeader";
-
-import React from "react";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import React, { Component, useState } from "react";
 import FindDriver from "./FindDriver";
 import FindGoWith from "./FindGoWith";
 import HistoryPosted from "./HistoryPosted";
-
+import Icon from 'react-native-vector-icons/Ionicons';
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import ActionButton from 'react-native-action-button';
 
 const Tab = createMaterialTopTabNavigator();
 const options = ({ route }) => ({
@@ -18,7 +19,7 @@ const options = ({ route }) => ({
         <Text
           style={{
             color: focused ? "#F26F25" : "#787878",
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: "600",
           }}
         >
@@ -30,33 +31,21 @@ const options = ({ route }) => ({
         <Text
           style={{
             color: focused ? "#F26F25" : "#787878",
-            fontSize: 20,
+            fontSize: 18,
             fontWeight: "600",
           }}
         >
           Tìm yên sau
         </Text>
       );
-    } else if (route.name === "HistoryPosted") {
-      return (
-        <Text
-          style={{
-            color: focused ? "#F26F25" : "#787878",
-            fontSize: 20,
-            fontWeight: "600",
-          }}
-        >
-          Tin đã đăng{" "}
-        </Text>
-      );
     }
   },
   tabBarIndicatorStyle: {
     backgroundColor: "#F26F25",
-    width: "23%",
-    height: 3,
+    width: "24%",
+    height: 4,
     borderRadius: 40,
-    left: "5%",
+    left: "13%",
   },
   tabBarStyle: {
     backgroundColor: "white",
@@ -64,14 +53,25 @@ const options = ({ route }) => ({
 });
 
 const GoFPT = () => {
+
   return (
     <SafeAreaView style={AppStyle.container}>
-      <AppHeader style={{ height: "45%" }} />
-      <Tab.Navigator screenOptions={options}>
+      <AppHeader style={{ height: "45%", }} />
+      <Tab.Navigator screenOptions={options} style={{}}>
         <Tab.Screen name="FindDriver" component={FindDriver} />
         <Tab.Screen name="FindGoWith" component={FindGoWith} />
-        <Tab.Screen name="HistoryPosted" component={HistoryPosted} />
       </Tab.Navigator>
+
+      <ActionButton buttonColor="#FFC634F5" style={{ bottom: '8%', right: '-5%' }} degrees={0}
+        renderIcon={() => <Image style={{ width: 30, height: 30 }} source={require('../../assets/icons/ic_find_user.png')} />}>
+        <ActionButton.Item buttonColor='#FFC6AC' title="Tìm bạn cho chuyến đi" onPress={() => console.log("notes tapped!")}>
+          <Image style={{ width: 16, height: 16 }} source={require('../../assets/icons/ic_plus.png')} />
+        </ActionButton.Item>
+
+        <ActionButton.Item buttonColor='#C8E4B2' title="Tin đã đăng" onPress={() => { }}>
+          <Image style={{ width: 16, height: 16, tintColor: 'black' }} source={require('../../assets/icons/ic_history.png')} />
+        </ActionButton.Item>
+      </ActionButton>
     </SafeAreaView>
   );
 };

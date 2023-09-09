@@ -5,7 +5,7 @@ import { COLOR } from '../../constants/Theme'
 import numeral from 'numeral';
 import ItemButton from "../ItemButton";
 
-const ItemHistoryPosted = (props) => {
+const ItemFindGoWith = (props) => {
   const { data } = props;
   const { typeFind, idUser, nameUser, phoneUser, dateStart, endPoint, price, startPoint, status, studentCode, timeStart, } = data;
 
@@ -93,7 +93,7 @@ const ItemHistoryPosted = (props) => {
   );
 };
 
-export default ItemHistoryPosted;
+export default ItemFindGoWith;
 
 const styles = StyleSheet.create({
   boxItem: {

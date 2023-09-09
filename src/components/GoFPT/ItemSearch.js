@@ -7,24 +7,34 @@ const ItemSearch = (props) => {
     const { placeholder, placeholderTextColor,
         icon, tintColor,
         backgroundColor,
-        fontWeight, fontSize, textButtonColor,titleButton,
-
+        fontWeight, fontSize, textButtonColor, titleButton,
+        onPressRight,
+        marginBottom,
     } = props;
     return (
-        <View style={styles.boxMain}>
+        <TouchableOpacity style={[styles.boxMain, {
+            backgroundColor: backgroundColor == null ? COLOR.background : backgroundColor,
+            marginBottom:marginBottom ==null?0:marginBottom
+        }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', width: '90%' }}>
                 <View style={styles.boxInput}>
-                    <Image style={styles.icon} source={require('../../assets/icons/ic_search.png')} />
+                    <Image style={[styles.icon, {
+                        tintColor: tintColor == null ? "black" : tintColor,
+                    }]} source={icon == null ? require('../../assets/icons/ic_search.png') : icon} />
                     <TextInput style={[AppStyle.text12, { height: 36, marginLeft: 8, width: '90%' }]} placeholder='Nhập địa điểm ...' placeholderTextColor={'#6D6D6D'} />
                 </View>
                 <TouchableOpacity style={styles.button}>
-                    <Text style={[AppStyle.text12, { fontWeight: '700', color: COLOR.white }]}>Tìm kiếm</Text>
+                    <Text style={[AppStyle.text12, {
+                        fontWeight:fontWeight==null? '700':fontWeight,
+                        color: textButtonColor == null ? COLOR.white : textButtonColor,
+                    }]}>{titleButton == null ? "Tìm kiếm" : titleButton}</Text>
                 </TouchableOpacity>
             </View>
-            <TouchableOpacity style={{ width: '10%', alignItems: 'center', justifyContent: 'center', }}>
+            <TouchableOpacity style={{ width: '10%', alignItems: 'center', justifyContent: 'center', }}
+            onPress={onPressRight}>
                 <Image style={styles.icon} source={require('../../assets/icons/ic_filter.png')} />
             </TouchableOpacity>
-        </View>
+        </TouchableOpacity>
     )
 }
 
@@ -35,7 +45,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         flexDirection: "row",
-        backgroundColor: COLOR.background,
     },
     boxInput: {
         flexDirection: 'row',
@@ -55,7 +64,7 @@ const styles = StyleSheet.create({
     icon: {
         width: 18,
         height: 18,
-        tintColor: COLOR.black,
+
 
     },
     button: {

@@ -13,13 +13,13 @@ const options = ({ route }) => ({
     if (route.name === 'ScheduleStudy') {
       return <Text style={{
         color: focused ? "#F26F25" : '#787878',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '600'
       }}>Lịch Học</Text>
     } else if (route.name === 'ScheduleExam') {
       return <Text style={{
         color: focused ? "#F26F25" : '#787878',
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: '600'
       }}>Lịch Thi</Text>
     }

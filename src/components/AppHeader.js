@@ -47,7 +47,6 @@ const AppHeader = () => {
       if (userInfoString !== null) {
         const userInfo = JSON.parse(userInfoString);
         // Sử dụng thông tin đã lưu ở đây
-        console.log("userInfooooooooooooádo", userInfo);
         setAvatar(userInfo.avatar)
         setStudentCode(userInfo.studentCode)
         setName(userInfo.name)

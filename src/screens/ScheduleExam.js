@@ -20,29 +20,6 @@ const data = [
   { label: '90 ngày tới', value: '7' },
 ];
 
-const DataScheduleToday = [
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-132123',
-    title: 'Game 2d',
-    location: "Phòng T123 (Tòa T)",
-    time: "Ca 4 | 15:15 - 17:15",
-    subJectCode: "MOB123",
-    lecturers: "dintnt24",
-    amphitheater: "Phần mềm quang trung",
-    layer: "MD18102",
-  },
-  {
-    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    title: 'Game 3D',
-    location: "Phòng T123 (Tòa F)",
-    time: "Ca 4 | 15:15 - 17:15",
-    subJectCode: "MOB123",
-    lecturers: "dintnt24",
-    amphitheater: "Phần mềm quang trung",
-    layer: "MD18102",
-  },
-];
-
 const ItemTextSches = () => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [dataCurrentScheduleExam, setDataCurrentScheduleExam] = useState([])

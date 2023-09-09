@@ -7,7 +7,9 @@ import App from './App';
 import {name as appName} from './app.json';
 import {register} from '@videosdk.live/react-native-sdk';
 import { LogBox } from 'react-native';
-
+import { YellowBox } from "react-native"
+YellowBox.ignoreWarnings(["Warning: ..."])
+LogBox.ignoreAllLogs(true)
 LogBox.ignoreLogs([
   'Require cycle:', 
 ]);

@@ -23,7 +23,12 @@ import numeral from 'numeral';
 import ItemScheduleStudy from './src/components/Schedule/ItemScheduleStudy';
 import ItemNews from './src/components/Home/ItemNews';
 import Home from './src/app/screens/Home';
+import { LogBox } from 'react-native';
 
+LogBox.ignoreLogs([
+  'Require cycle:', 
+]);
+console.disableYellowBox = true;
 const App = () => {
   // console.log("------------->",numeral(100000000).format('0,0'));
 
