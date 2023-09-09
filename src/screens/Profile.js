@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View, Image, Modal, ScrollView, TouchableOpacity } from 'react-native'
+import { SafeAreaView, Dimensions, StyleSheet, Text, View, Image, Modal, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect, useContext } from 'react';
 import { AppStyle } from '../constants/AppStyle'
 import { COLOR } from '../constants/Theme'
@@ -11,6 +11,9 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppContext } from "../utils/AppContext";
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
+import { MotiView, MotiText } from 'moti'
+const { height } = Dimensions.get('window');
+
 const Profile = (props) => {
   const navigation = useNavigation();
   const { infoUser, idUser, showWebView, setShowWebView } = useContext(AppContext);
@@ -34,12 +37,14 @@ const Profile = (props) => {
       console.log(error);
     }
   }
+
   const sendEmail = (email) => {
     const subject = 'Tiêu đề email';
     const body = 'Nội dung email';
     const url = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     Linking.openURL(url);
   };
+
   const [origin, setOrigin] = useState(null);
   const [destination, setDestination] = useState(null);
   const [directions, setDirections] = useState(null);
@@ -53,6 +58,7 @@ const Profile = (props) => {
       });
     }
   };
+
   const [position, setPosition] = useState({
     latitude: 10.853864,
     longitude: 106.627351,
@@ -136,7 +142,13 @@ const Profile = (props) => {
   }
   return (
     <SafeAreaView style={[AppStyle.container]}>
-      <View style={[AppStyle.column, AppStyle.boxShadow, { paddingHorizontal: 16, paddingVertical: 12, borderBottomStartRadius: 20, borderBottomEndRadius: 20, width: '102%', elevation: 4, top: '-1%', left: -4 }]}>
+      <MotiView style={[AppStyle.column, AppStyle.boxShadow, { paddingHorizontal: 16, paddingVertical: 12, borderBottomStartRadius: 20, borderBottomEndRadius: 20, width: '102%', elevation: 4, top: '-1%', left: -4 }]}
+        from={{ translateY: -height }}
+        animate={{ translateY: 0 }}
+        transition={{
+          type: 'timing',
+          duration: 1000,
+        }}>
         <View style={[AppStyle.row, {}]}>
           <Text style={[AppStyle.titleBig, { color: COLOR.primary, flex: 1 }]}>Hồ sơ cá nhân</Text>
           <TouchableOpacity >
@@ -156,15 +168,15 @@ const Profile = (props) => {
         </View>
 
         <View style={{ marginLeft: 10, marginBottom: 8 }}>
-          <Text style={[AppStyle.titleSmall, { color: COLOR.black,  fontWeight: '500' }]}>Ngày sinh: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>08-06-2003</Text></Text>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.black, fontWeight: '500' }]}>Ngày sinh: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>08-06-2003</Text></Text>
         </View>
         <View style={{ marginLeft: 10, marginBottom: 8 }}>
-          <Text style={[AppStyle.titleSmall, { color: COLOR.black,  fontWeight: '500' }]}>Chuyên ngành: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Lập trình di động</Text></Text>
+          <Text style={[AppStyle.titleSmall, { color: COLOR.black, fontWeight: '500' }]}>Chuyên ngành: <Text style={{ color: COLOR.normalText, fontWeight: '400' }}>Lập trình di động</Text></Text>
         </View>
         <View style={{ marginLeft: 10, marginBottom: 5 }}>
           <Text style={[AppStyle.titleSmall, { color: COLOR.black, fontWeight: '500' }]}>Địa chỉ:  <Text style={{ color: COLOR.normalText, fontWeight: '400', letterSpacing: 0.5, lineHeight: 20, }}>Địa chỉ: 12/23 khu phố 6, Đường abc, Phường XYZ, Quận 12, Tp.HCM</Text></Text>
         </View>
-      </View>
+      </MotiView>
 
       <ScrollView style={{ paddingVertical: 12, paddingHorizontal: 16, marginBottom: '20%', flex: 1 }} showsVerticalScrollIndicator={false}>
         <View style={{ width: '100%', backgroundColor: 'gray', borderWidth: 0.8, height: 170, marginBottom: 10 }}>

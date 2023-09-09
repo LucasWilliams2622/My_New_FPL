@@ -49,7 +49,7 @@ const options = ({ route }) => ({
 
 const News = (props) => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
-  const [dataCurrentNews, setdataCurrentNews] = useState([])
+  const [dataCurrentNews, setDataCurrentNews] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
  
@@ -57,11 +57,9 @@ const News = (props) => {
     try {
       // const response = await AxiosInstance().get("SchedulesSubject/api/get-by-current-day&currentDay=" + currentDay);
       const response = await AxiosInstance().get("/news/api/get-all");
-      console.log("===================================response", response);
 
       if (response.result) {
-        // console.log("===================================response", isLoading);
-        setdataCurrentNews(response.SchedulesSubject);
+        setDataCurrentNews(response.SchedulesSubject);
         setIsLoading(false)
       } else {
         setIsLoading(true)

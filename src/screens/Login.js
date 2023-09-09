@@ -1,5 +1,5 @@
-import { SafeAreaView, StyleSheet, Text, Image, View, TouchableOpacity, ToastAndroid, KeyboardAvoidingView } from 'react-native'
-import React, { useState, useEffect, useContext } from 'react'
+import { SafeAreaView, StyleSheet, Text, Image, View, TouchableOpacity, ToastAndroid, KeyboardAvoidingView, ImageBackground } from 'react-native'
+import React, { useState, useEffect, useContext,useRef } from 'react'
 import { COLOR } from '../constants/Theme'
 import LinearGradient from 'react-native-linear-gradient';
 import { AppStyle } from '../constants/AppStyle';
@@ -11,6 +11,7 @@ import { TextInput } from 'react-native-paper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import ToastMessage from '../components/Toast/ToastMessage';
 const dataLocation = [
   { labelLocation: 'Cơ sở Hồ Chí Minh', valueLocation: '1' },
   { labelLocation: 'Cơ sở Hà Nội', valueLocation: '2' },
@@ -24,14 +25,19 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('')
   const { isLogin, setIsLogin, setInfoUser, setIdUser, idUser } = useContext(AppContext);
+
   const validationSchema = Yup.object().shape({
     email: Yup.string().email('Email không hợp lệ').required('Email không được để trống'),
     password: Yup.string().required('Password không được để trống'),
   });
+
   useEffect(() => {
 
     GoogleSignin.configure({ webClientId: '203283551475-ogvoc8nku450g54posg3esufgds86ht0.apps.googleusercontent.com' });
   }, [])
+
+
+  //----------------------------------------- LOGIN -----------------------------------
   const signInGoogle = async () => {
     try {
       console.log("CLICK");
@@ -83,12 +89,8 @@ const Login = () => {
       // }
     }
   };
+
   const renderLabel = () => {
-    if (value || isFocus) {
-      return (
-        <></>
-      );
-    }
     return null;
   };
 
@@ -116,7 +118,7 @@ const Login = () => {
         ToastAndroid.show("Đăng nhập thất bại hãy thử lại", ToastAndroid.SHORT);
       }
     } catch (error) {
-      ToastAndroid.show("Sai thông tin đăng nhập !", ToastAndroid.SHORT,ToastAndroid.CENTER);
+      ToastAndroid.show("Sai thông tin đăng nhập !", ToastAndroid.SHORT, ToastAndroid.CENTER);
 
       console.log(error);
     }
@@ -125,7 +127,7 @@ const Login = () => {
   // Hàm lưu thông tin đăng nhập vào AsyncStorage
   const saveLoginInfo = async (userInfo) => {
     try {
-      console.log("userInfo",userInfo.avatar);
+      console.log("userInfo", userInfo.avatar);
       await AsyncStorage.setItem('userInfo', JSON.stringify(userInfo));
       console.log('Thông tin đăng nhập đã được lưu.');
     } catch (error) {
@@ -150,6 +152,8 @@ const Login = () => {
       console.log('Lỗi khi kiểm tra thông tin đăng nhập:', error);
     }
   };
+
+
   return (
     <KeyboardAvoidingView style={AppStyle.container}>
       <Image style={styles.image} source={require('../assets/images/ban_tin.png')} />
@@ -234,6 +238,7 @@ const Login = () => {
           </View>
         </TouchableOpacity> */}
       </View>
+     
       <Image style={{ top: -120, width: 130, height: 40, alignSelf: 'center', }} source={require('../assets/images/logo.jpg')} />
     </KeyboardAvoidingView>
   )
