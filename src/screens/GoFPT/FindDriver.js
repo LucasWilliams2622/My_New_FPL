@@ -8,13 +8,17 @@ import AxiosInstance from '../../constants/AxiosInstance';
 import ActionButton from 'react-native-action-button';
 import ItemFindDriver from '../../components/GoFPT/ItemFindDiver'
 import { MotiView, MotiText } from 'moti'
+import TimerMixin from 'react-timer-mixin';
+import Toast from 'react-native-toast-message';
 
 const FindDriver = () => {
   const [dataFindDriver, setDataFindDriver] = useState([])
-  const [showSearch, setShowSearch] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
+  //http://103.57.129.166:3000/gofpt/api/get-by-location?keyword=Go&typeFind=1
+  const [availaBle, setAvailaBle] = useState(true)
 
+  const [keyword, setKeyword] = useState('')
   useEffect(() => {
     getListDriver()
     return () => {
@@ -23,6 +27,7 @@ const FindDriver = () => {
   }, [appState])
 
   const getListDriver = async () => {
+    console.log("aaaaa");
     try {
       const response = await AxiosInstance().get("gofpt/api/get-by-typeFind?typeFind=1");
       // console.log("===================================response", response);
@@ -40,6 +45,41 @@ const FindDriver = () => {
       }
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  const handleSearch = async (keyword) => {
+    TimerMixin.setTimeout(() => {
+      onSearch(keyword)
+    }, 2000);
+  }
+
+  const onSearch = async (keyword) => {
+    try {
+      console.log("==============>", keyword);
+      // const response = await AxiosInstance().get("gofpt/api/get-by-location", { keyword: keyword, typeFind: 1});
+      const response = await AxiosInstance().get("gofpt/api/get-by-location?keyword=" + keyword + "&typeFind=1");
+      console.log(response);
+      if (response.result) {
+
+        if (Array.isArray(response.post) && response.post.length === 0) {
+          Toast.show({
+            position: 'top',
+            type: 'success',
+            text1: 'KhÔng tìm thấy kết quả phù hợp',
+          });
+          console.log("get-by-location " + keyword + " là một mảng rỗng");
+        } else {
+          console.log("get-by-location " + keyword + " không phải là một mảng rỗng");
+          setDataFindDriver(response.post)
+          setIsLoading(false);
+          setAvailaBle(true)
+        }
+      } else {
+        setAvailaBle(false)
+      }
+    } catch (error) {
+      console.log("ERROR", error);
     }
   }
 
@@ -62,10 +102,13 @@ const FindDriver = () => {
         keyExtractor={item => item.id}
         ListHeaderComponent={() => (
           <View>
-            {showSearch ? <ItemSearch marginBottom={10} onPressRight={() => { { } }} /> : null}
+            <ItemSearch marginBottom={10}
+              onPressSearch={() => { getListDriver() }}
+              onChangeText={(keyword) => handleSearch(keyword)} />
           </View>
         )}
       />
+
     </MotiView>
   )
 }
