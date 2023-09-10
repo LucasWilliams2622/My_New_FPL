@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView, View, Image, Animated } from "react-native";
+import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable, TextInput } from "react-native";
 import { AppStyle } from "../../constants/AppStyle";
 import AppHeader from "../../components/AppHeader";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -11,6 +11,8 @@ import { TabView, SceneMap, TabBar } from "react-native-tab-view";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import ActionButton from 'react-native-action-button';
 import { useNavigation } from '@react-navigation/native';
+import PhoneInput from 'react-native-phone-input'
+
 const Tab = createMaterialTopTabNavigator();
 const options = ({ route }) => ({
   tabBarLabel: ({ focused, color, size }) => {
@@ -54,9 +56,11 @@ const options = ({ route }) => ({
 
 const GoFPT = () => {
   const navigation = useNavigation();
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <SafeAreaView style={AppStyle.container}>
+      {/* <PhoneInput ref='phone'/> */}
       <AppHeader style={{ height: "45%", }} />
       <Tab.Navigator screenOptions={options} style={{}}>
         <Tab.Screen name="FindDriver" component={FindDriver} />
@@ -65,15 +69,70 @@ const GoFPT = () => {
 
       <ActionButton buttonColor="#FFC634F5" style={{ bottom: '8%', right: '-5%' }} degrees={0}
         renderIcon={() => <Image style={{ width: 30, height: 30 }} source={require('../../assets/icons/ic_find_user.png')} />}>
-        <ActionButton.Item buttonColor='#FFC6AC' title="Tìm bạn cho chuyến đi" onPress={() => console.log("notes tapped!")}>
+        <ActionButton.Item buttonColor='#FFC6AC' title="Tìm bạn cho chuyến đi" onPress={() => setModalVisible(true)}>
           <Image style={{ width: 16, height: 16 }} source={require('../../assets/icons/ic_plus.png')} />
         </ActionButton.Item>
 
-        <ActionButton.Item buttonColor='#C8E4B2' title="Tin đã đăng" onPress={() => {navigation.navigate("HistoryPosted") }}>
+        <ActionButton.Item buttonColor='#C8E4B2' title="Tin đã đăng" onPress={() => { navigation.navigate("HistoryPosted") }}>
           <Image style={{ width: 16, height: 16, tintColor: 'black' }} source={require('../../assets/icons/ic_history.png')} />
         </ActionButton.Item>
       </ActionButton>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}>
+        <KeyboardAwareScrollView
+          style={{}}
+          contentContainerStyle={{}}
+          enableOnAndroid={true}
+          enableAutomaticScroll={true}
+        >
+          <View style={AppStyle.modalBackground}>
+            <View style={AppStyle.modalView}>
+              <View style={AppStyle.viewheadModal}>
+                <Pressable
+                  style={AppStyle.btnX}
+                  onPress={() => setModalVisible(false)}>
+                  <Text style={AppStyle.txtModal2}>X</Text>
+                </Pressable>
+                <Text style={AppStyle.txtModal1}>Tìm bạn cho chuyến đi</Text>
+              </View>
+              <View style={AppStyle.ddinputModal}>
+                <Image source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, { left: 10 }]} />
+                <View style={AppStyle.viewinputModal}>
+                  <TextInput
+                    style={AppStyle.inputModal}
+                    placeholder="Điền điểm bắt đầu"
+                  />
+                </View>
+              </View>
+              <View style={AppStyle.ddinputModal}>
+                <Image source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, {  }]} />
+                <PhoneInput
+                  ref={(ref) => {
+                    this.phone = ref;
+                  }}
+                  style={[AppStyle.inputModal, {left: 5}]}
+                  initialCountry="us"
+                  value="+123456789"
+                  onSelectCountry={(iso2) => {
+                    console.log(`Selected country: ${iso2}`);
+                  }}
+                  onChangePhoneNumber={(number) => {
+                    console.log(`Phone number: ${number}`);
+                  }}
+                />
+              </View>
+              <View >
+
+              </View>
+            </View>
+          </View>
+        </KeyboardAwareScrollView>
+      </Modal>
     </SafeAreaView>
+
   );
 };
 
