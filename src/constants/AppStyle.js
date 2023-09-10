@@ -245,6 +245,74 @@ export const AppStyle = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 8
     },
-
+    inputModal: {
+        width: 300,
+        height: 40,
+        borderWidth: 0.5,
+        borderColor: 'gray',
+        paddingLeft: 15,
+        borderRadius: 15,
+      },
+    viewinputModal: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft:12
+      },
+    ddinputModal: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10
+      },
+    txtModal1: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        color: 'white',
+        marginTop: '-3%',
+      },
+    txtModal2: {
+        color: 'black',
+        fontSize: 15,
+        fontWeight: 'bold',
+      },
+    btnX: {
+        marginLeft: '90%',
+        marginTop: '-1%',
+      },
+    viewheadModal: {
+        height: 60,
+        width: '100%',
+        backgroundColor: '#F38181',
+        borderTopStartRadius: 20,
+        borderTopEndRadius: 20,
+        justifyContent: 'center',
+      },
+    modalView: {
+        height: 500,
+        width: 350,
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+      },
+    modalBackground: {
+        flex: 1,
+        height:700,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+      },
+    
+    switchButton: {
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 50, // Để làm cho nút tròn
+      padding: 10,
+    },
+    image: {
+      width: 100,
+      height: 100,
+    },
 
 })
