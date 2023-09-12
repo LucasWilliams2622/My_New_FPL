@@ -303,6 +303,47 @@ export const AppStyle = StyleSheet.create({
         alignSelf: 'center',
         marginTop: 8
     },
+    header1: {
+        width: 355,
+        height: 40,
+        top: -30,
+        right: 28,
+   
+        shadowColor: "#000000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.17,
+        shadowRadius: 2.54,
+        elevation: 3,
+        backgroundColor:"#95E1D3"
+
+    },
+    header3: {
+        width: "102%",
+        height: 150,
+        top: 4,
+        right: 2,
+       borderRadius:8,
+     
+        
+    },
+    item1: {
+        borderRadius: 8,
+        backgroundColor: COLOR.background,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        shadowColor: "#000000",
+        shadowOffset: {
+            width: -2,
+            width: 3,
+        },
+        shadowOpacity: 0.18,
+        shadowRadius: 4.59,
+        elevation: 5,
+        
+    },
 
 
 })

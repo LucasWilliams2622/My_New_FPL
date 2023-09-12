@@ -3,7 +3,8 @@ import { AppStyle } from "../../constants/AppStyle";
 import AppHeader from "../../components/AppHeader";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import React, { Component, useState } from "react";
-import FindDriver from "./FindDriver";
+import FindDriver1 from "./FindDriver1";
+
 import FindGoWith from "./FindGoWith";
 import HistoryPosted from "./HistoryPosted";
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -16,7 +17,7 @@ import PhoneInput from 'react-native-phone-input'
 const Tab = createMaterialTopTabNavigator();
 const options = ({ route }) => ({
   tabBarLabel: ({ focused, color, size }) => {
-    if (route.name === "FindDriver") {
+    if (route.name === "FindDriver1") {
       return (
         <Text
           style={{
@@ -41,6 +42,7 @@ const options = ({ route }) => ({
         </Text>
       );
     }
+    
   },
   tabBarIndicatorStyle: {
     backgroundColor: "#F26F25",
@@ -63,7 +65,7 @@ const GoFPT = () => {
       {/* <PhoneInput ref='phone'/> */}
       <AppHeader style={{ height: "45%", }} />
       <Tab.Navigator screenOptions={options} style={{}}>
-        <Tab.Screen name="FindDriver" component={FindDriver} />
+        <Tab.Screen name="FindDriver1" component={FindDriver1} />
         <Tab.Screen name="FindGoWith" component={FindGoWith} />
       </Tab.Navigator>
 
