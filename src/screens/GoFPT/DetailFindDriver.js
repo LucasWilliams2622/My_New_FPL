@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { COLOR } from "../../constants/Theme";
 import { white } from "react-native-paper/lib/typescript/styles/themes/v2/colors";
 import { appStyle } from "../../app/theme/appStyle";
-import ItemButton from "../ItemButton";
+import ItemButton from "../../components/ItemButton";
 
 const DetailFindDriver = () => {
   return (

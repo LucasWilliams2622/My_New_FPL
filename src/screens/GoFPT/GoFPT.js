@@ -210,12 +210,12 @@ const GoFPT = () => {
                       source={require('../../assets/icons/ic_calendar.png')}
                       style={[AppStyle.iconMedium, { top: '25%', marginLeft: '8%' }]}
                     />
-                    <DateTimePickerModal
+                    {/* <DateTimePickerModal
                       isVisible={isDatePickerVisible}
                       mode="date"
                       onConfirm={handleConfirm}
                       onCancel={hideDatePicker}
-                    />
+                    /> */}
                   </TouchableOpacity>
                 </View>
                 <View style={{ height: 35, width: 150, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row', left: '3%' }} >
