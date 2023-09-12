@@ -389,7 +389,7 @@ export const AppStyle = StyleSheet.create({
         justifyContent: 'center',
       },
     modalView: {
-        height: 500,
+        height: 540,
         width: 350,
         margin: 20,
         backgroundColor: 'white',
