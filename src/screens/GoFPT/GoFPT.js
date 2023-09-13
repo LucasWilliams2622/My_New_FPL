@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable, TextInput, TouchableOpacity, Switch } from "react-native";
+import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable, TextInput, TouchableOpacity, Alert } from "react-native";
 import { AppStyle } from "../../constants/AppStyle";
 import AppHeader from "../../components/AppHeader";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -13,6 +13,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import ActionButton from 'react-native-action-button';
 import { useNavigation } from '@react-navigation/native';
 import PhoneInput from 'react-native-phone-input'
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -71,10 +72,10 @@ const GoFPT = () => {
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
 
   const [isSwitchOn, setSwitchOn] = useState(false);
 
+  const [selectedImageURI, setSelectedImageURI] = useState(null);
 
   const toggleSwitch = () => {
     setSwitchOn(!isSwitchOn);
@@ -128,8 +129,29 @@ const GoFPT = () => {
 
   };
 
-  console.log(modalVisible, 'modalVisible');
-  console.log(isNestedModalVisible, 'isNestedModalVisible');
+  const dialogImageChoose = () => {
+    return Alert.alert(
+      "Thông báo",
+      "Mời bạn chọn ảnh",
+      [
+        {
+          text: "Tải ảnh lên",
+          onPress: () => {
+            getImageLibrary()
+          }
+        },
+        {
+          text: "Hủy",
+        }])
+  }
+
+  const getImageLibrary = async () => {
+    const result = await launchImageLibrary();
+    if (result.assets.length > 0) {
+      const imageURI = result.assets[0].uri;
+      setSelectedImageURI(imageURI); 
+    }
+  }
 
   return (
     <SafeAreaView style={AppStyle.container}>
@@ -210,12 +232,6 @@ const GoFPT = () => {
                       source={require('../../assets/icons/ic_calendar.png')}
                       style={[AppStyle.iconMedium, { top: '25%', marginLeft: '8%' }]}
                     />
-                    {/* <DateTimePickerModal
-                      isVisible={isDatePickerVisible}
-                      mode="date"
-                      onConfirm={handleConfirm}
-                      onCancel={hideDatePicker}
-                    /> */}
                   </TouchableOpacity>
                 </View>
                 <View style={{ height: 35, width: 150, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row', left: '3%' }} >
@@ -245,7 +261,7 @@ const GoFPT = () => {
                     style={[AppStyle.icon, { top: '3.4%', left: '12%' }]}
                   />
 
-                  <Text style={[AppStyle.titleMedium, { color: '#0C9B34', top: '4%',fontStyle: 'italic' }]}>10.000 </Text>
+                  <Text style={[AppStyle.titleMedium, { color: '#0C9B34', top: '4%', fontStyle: 'italic' }]}>10.000 </Text>
 
                   <Text style={{ fontSize: 16, color: '#0C9B34', top: '3.5%', left: '-15%', fontWeight: '500' }}>đ</Text>
                 </View>
@@ -257,8 +273,6 @@ const GoFPT = () => {
                       style={[AppStyle.icon, { top: '-85%', left: '10%' }]}
                     />
                   </View>
-
-
                 </View>
               </View>
               <View style={{ height: 50, width: 320, flexDirection: 'row', marginTop: 11, marginLeft: 15, justifyContent: 'space-between' }}>
@@ -269,7 +283,6 @@ const GoFPT = () => {
                   />
                   <Text style={[AppStyle.titleMedium, { color: 'black' }]}>Chọn địa điểm và chụp quãng đường</Text>
                 </View>
-
                 <TouchableOpacity onPress={toggleNestedModal}>
                   <Image
                     source={require('../../assets/icons/ic_question_mark.png')}
@@ -379,22 +392,28 @@ const GoFPT = () => {
                 maxLength={35}
                 style={[AppStyle.inputModal, { height: 80, width: 320, borderRadius: 6, fontSize: 16, padding: 10, marginLeft: '5%' }]}>
               </TextInput>
-                    <View style={{alignItems:'center', marginTop:10}}>
-                      <TouchableOpacity>
-                        <View style={[AppStyle.viewheadModal,{height:38, width:326,backgroundColor:'#FCE38A',borderTopStartRadius: 8,borderTopEndRadius: 8,alignItems:'center'}]}>
-                          <Text style={[AppStyle.titleMedium,{color:'black'}]}>+ Tải ảnh quãng đường của bạn</Text>
-                        </View>
-                      </TouchableOpacity>
+              <View style={{ alignItems: 'center', marginTop: 10 }}>
+                <TouchableOpacity
+                  onPress={() => { dialogImageChoose() }}
+                >
+                  <View style={[AppStyle.viewheadModal, { height: 38, width: 326, backgroundColor: '#FCE38A', borderTopStartRadius: 8, borderTopEndRadius: 8, alignItems: 'center' }]}>
+                    <Text style={[AppStyle.titleMedium, { color: 'black' }]}>+ Tải ảnh quãng đường của bạn</Text>
+                  </View>
+                  <View style={AppStyle.image}>
+                    {selectedImageURI && (
                       <Image
-                      source={require('../../assets/images/image23.png')}
-                      style={[AppStyle.image,{width:326,height:236,borderBottomLeftRadius: 8,borderBottomRightRadius: 8}]}
+                        style={{ height: 200, width: 326 }}
+                        source={{ uri: selectedImageURI }}
                       />
-                    </View>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              </View>
               <Pressable
-                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: 15, marginLeft: '5%' }]}
+                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '33%', marginLeft: '5%' }]}
                 onPress={() => setThirdModal(false)}
               >
-                <Text style={[AppStyle.titleButton, { marginTop: -6 }]}>Đăng tin</Text>
+                <Text style={[AppStyle.titleButton, { marginTop: '-3%' }]}>Đăng tin</Text>
               </Pressable>
             </View>
           </View>
