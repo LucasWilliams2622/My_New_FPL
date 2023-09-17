@@ -8,38 +8,38 @@ export const AppStyle = StyleSheet.create({
         width: 300,
         height: 40,
         borderWidth: 0.5,
-        borderColor: 'gray',
+        borderColor: '#DBDBDB',
         paddingLeft: 15,
         borderRadius: 15,
-      },
+    },
     viewinputModal: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft:12
-      },
+        marginLeft: 12
+    },
     ddinputModal: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginTop: 10
-      },
+    },
     txtModal1: {
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'white',
         marginTop: '-3%',
-      },
+    },
     txtModal2: {
         color: 'black',
         fontSize: 15,
         fontWeight: 'bold',
-      },
+    },
     btnX: {
         marginLeft: '90%',
         marginTop: '-1%',
-      },
+    },
     viewheadModal: {
         height: 60,
         width: '100%',
@@ -47,21 +47,21 @@ export const AppStyle = StyleSheet.create({
         borderTopStartRadius: 20,
         borderTopEndRadius: 20,
         justifyContent: 'center',
-      },
+    },
     modalView: {
         height: 500,
         width: 350,
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,
-      },
+    },
     modalBackground: {
         flex: 1,
-        height:700,
+        height: 700,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)', // Màu nền mờ
-      },
+    },
     container: {
         flex: 1,
         backgroundColor: COLOR.background,
@@ -70,7 +70,7 @@ export const AppStyle = StyleSheet.create({
         flex: 1,
         backgroundColor: COLOR.background,
         paddingHorizontal: 16,
-        paddingVertical:12
+        paddingVertical: 8
     },
     icon: {
         width: 24,
@@ -123,42 +123,42 @@ export const AppStyle = StyleSheet.create({
     },
     text10: {
         fontSize: 10,
-        color:COLOR.newText,
-        fontWeight:'400',
-        letterSpacing:0.5,
-        fontStyle:'normal',
+        color: COLOR.newText,
+        fontWeight: '400',
+        letterSpacing: 0.5,
+        fontStyle: 'normal',
 
     },
     text12: {
         fontSize: 12,
-        color:COLOR.newText,
-        fontWeight:'400',
-        letterSpacing:0.5,
-        fontStyle:'normal',
+        color: COLOR.newText,
+        fontWeight: '400',
+        letterSpacing: 0.5,
+        fontStyle: 'normal',
 
     },
     text14: {
         fontSize: 14,
-        color:COLOR.newText,
-        fontWeight:'400',
-        letterSpacing:0.5,
-        fontStyle:'normal',
+        color: COLOR.newText,
+        fontWeight: '400',
+        letterSpacing: 0.5,
+        fontStyle: 'normal',
 
     },
     text16: {
         fontSize: 16,
-        color:COLOR.newText,
-        fontWeight:'400',
-        letterSpacing:0.5,
-        fontStyle:'normal',
+        color: COLOR.newText,
+        fontWeight: '400',
+        letterSpacing: 0.5,
+        fontStyle: 'normal',
 
     },
     text20: {
         fontSize: 20,
-        color:COLOR.newText,
-        fontWeight:'400',
-        letterSpacing:0.5,
-        fontStyle:'normal',
+        color: COLOR.newText,
+        fontWeight: '400',
+        letterSpacing: 0.5,
+        fontStyle: 'normal',
 
     },
     text: {
@@ -311,7 +311,7 @@ export const AppStyle = StyleSheet.create({
         height: 40,
         top: -29,
         right: 30,
-        backgroundColor:"#95E1D3"
+        backgroundColor: "#95E1D3"
 
     },
     header3: {
@@ -319,9 +319,9 @@ export const AppStyle = StyleSheet.create({
         height: 150,
         top: 4,
         right: 2,
-       borderRadius:8,
-     
-        
+        borderRadius: 8,
+
+
     },
     item1: {
         borderRadius: 8,
@@ -336,77 +336,86 @@ export const AppStyle = StyleSheet.create({
         shadowOpacity: 0.18,
         shadowRadius: 4.59,
         elevation: 5,
-        
+
     },
     inputModal: {
-        width: 300,
+        width: '90%',
         height: 40,
         borderWidth: 0.5,
-        borderColor: 'gray',
+        borderColor: '#DBDBDB',
         paddingLeft: 15,
-        borderRadius: 15,
-      },
+        borderRadius: 8,
+        paddingVertical: 2,
+    },
     viewinputModal: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginLeft:12
-      },
+
+    },
     ddinputModal: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        marginTop: 10
-      },
+        marginTop: 10,
+        borderWidth: 2
+    },
     txtModal1: {
         fontSize: 18,
         fontWeight: 'bold',
         textAlign: 'center',
         color: 'white',
         marginTop: '-3%',
-      },
+    },
     txtModal2: {
         color: 'black',
         fontSize: 15,
         fontWeight: 'bold',
-      },
+    },
     btnX: {
         marginLeft: '90%',
         marginTop: '-1%',
-      },
+    },
     viewheadModal: {
         height: 60,
         width: '100%',
         backgroundColor: '#F38181',
-        borderTopStartRadius: 20,
-        borderTopEndRadius: 20,
+        borderTopStartRadius: 16,
+        borderTopEndRadius: 16,
         justifyContent: 'center',
-      },
+    },
     modalView: {
         height: 540,
         width: 350,
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,
-      },
+    },
     modalBackground: {
         flex: 1,
-        height:700,
+        height: windowHeight,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      },
-    
+    },
+
     switchButton: {
-      borderWidth: 1,
-      borderColor: 'gray',
-      borderRadius: 50, // Để làm cho nút tròn
-      padding: 10,
+        borderWidth: 1,
+        borderColor: '#DBDBDB',
+        borderRadius: 50, // Để làm cho nút tròn
+        padding: 10,
     },
     image: {
-      width: 100,
-      height: 100,
+        width: 100,
+        height: 100,
     },
+    rowBtw: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    boxCenter: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    }
 
 
 })

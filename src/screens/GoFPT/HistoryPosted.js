@@ -1,42 +1,80 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useState, useContext,useEffect, } from 'react'
-import { AppStyle } from '../../constants/AppStyle'
+import { StyleSheet, ActivityIndicator, FlatList, RefreshControl, Animated, Text, Image, View, ScrollView, SafeAreaView, TouchableOpacity } from 'react-native'
+import React, { useContext, useRef, useCallback, useEffect, useState } from 'react'
 import ItemSearch from '../../components/GoFPT/ItemSearch'
 import ItemHistoryPosted from '../../components/GoFPT/ItemHistoryPosted'
 import { AppContext } from '../../utils/AppContext'
 import AxiosInstance from '../../constants/AxiosInstance';
 import ActionButton from 'react-native-action-button';
-import { MotiView, MotiText } from 'moti'
 import TimerMixin from 'react-timer-mixin';
 import Toast from 'react-native-toast-message';
+import AppHeader from '../../components/AppHeader'
+import { AppStyle } from '../../constants/AppStyle'
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { useNavigation } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import HistoryFindDriver from './HistoryFindDriver'
+import HistoryFindGoWith from './HistoryFindGoWith'
+
+const Tab = createMaterialTopTabNavigator();
+const options = ({ route }) => ({
+  swipeEnabled: false,
+  tabBarLabel: ({ focused, color, size }) => {
+    if (route.name === 'HistoryFindDriver') {
+      return <Text style={{
+        color: focused ? "#F26F25" : '#787878',
+        fontSize: 18,
+        fontWeight: '600'
+      }}>Tìm tài xế</Text>
+    } else if (route.name === 'HistoryFindGoWith') {
+      return <Text style={{
+        color: focused ? "#F26F25" : '#787878',
+        fontSize: 18,
+        fontWeight: '600'
+      }}>Tìm yên sau</Text>
+    }
+  },
+  tabBarIndicatorStyle: {
+    backgroundColor: '#F26F25',
+    width: "15%",
+    height: 3,
+    borderRadius: 40,
+    left: '18%',
+  },
+  tabBarStyle: {
+    backgroundColor: 'white',
+  },
+})
+
+
 const HistoryPosted = () => {
-  const [dataHistoryPosted, setDataHistoryPosted] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false)
+  const [dataFindDriver, setDataFindDriver] = useState([])
+  const [stateList, setStateList] = useState(0)
+  const [refreshControl, setRefreshControl] = useState(false)
+  const animatedValue = useRef(new Animated.Value(0)).current;
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
 
-  //http://103.57.129.166:3000/gofpt/api/get-by-idUser?idUser=
-  const [availaBle, setAvailaBle] = useState(true)
-
-  const [keyword, setKeyword] = useState('')
+  console.log(idUser, "idUser", infoUser);
   useEffect(() => {
-    getListHistoryPosted()
+    getListDriver()
     return () => {
 
     }
-  }, [appState])
-  const getListHistoryPosted = async () => {
-    console.log("aaaaa");
-    try {
-      const response = await AxiosInstance().get("gofpt/api/get-by-typeFind?typeFind=1");
-      // console.log("===================================response", response);
+  }, [])
 
+  const getListDriver = async () => {
+    try {
+      //gofpt/api/get-by-idUser?idUser=6507177073342287aa1b01fd&typeFind=1
+      const response = await AxiosInstance().get("gofpt/api/get-by-idUser?idUser=" + idUser + "&typeFind=1");
+      console.log("===================================response", response);
       if (response.result) {
         if (Array.isArray(response.post) && response.post.length === 0) {
           console.log("post là một mảng rỗng");
         } else {
           console.log("post không phải là một mảng rỗng");
           setIsLoading(false)
-          setDataHistoryPosted(response.post);
+          setDataFindDriver(response.post);
         }
       } else {
         setIsLoading(true)
@@ -46,66 +84,32 @@ const HistoryPosted = () => {
     }
   }
 
-  const handleSearch = async (keyword) => {
-    TimerMixin.setTimeout(() => {
-      onSearch(keyword)
-    }, 2000);
-  }
 
-  const onSearch = async (keyword) => {
-    try {
-      console.log("==============>", keyword);
-      // const response = await AxiosInstance().get("gofpt/api/get-by-location", { keyword: keyword, typeFind: 1});
-      const response = await AxiosInstance().get("gofpt/api/get-by-location?keyword=" + keyword + "&typeFind=1");
-      console.log(response);
-      if (response.result) {
 
-        if (Array.isArray(response.post) && response.post.length === 0) {
-          Toast.show({
-            position: 'top',
-            type: 'success',
-            text1: 'KhÔng tìm thấy kết quả phù hợp',
-          });
-          console.log("get-by-location " + keyword + " là một mảng rỗng");
-        } else {
-          console.log("get-by-location " + keyword + " không phải là một mảng rỗng");
-          setDataHistoryPosted(response.post)
-          setIsLoading(false);
-          setAvailaBle(true)
-        }
-      } else {
-        setAvailaBle(false)
-      }
-    } catch (error) {
-      console.log("ERROR", error);
-    }
-  }
   return (
-    <MotiView style={AppStyle.main}
-      from={{ opacity: 0, scale: 0.5 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{
-        type: 'timing',
-        duration: 350,
-      }}>
-      <FlatList
-        style={{ marginVertical: 0, marginBottom: 70 }}
-        data={dataFindDriver}
-        showsHorizontalScrollIndicator={false}
-        shouldRasterizeIOS
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <ItemHistoryPosted data={item} />}
-        keyExtractor={item => item.id}
-        ListHeaderComponent={() => (
-          <View>
-            <ItemSearch marginBottom={10}
-              onPressSearch={() => { getListHistoryPosted() }}
-              onChangeText={(keyword) => handleSearch(keyword)} />
-          </View>
-        )}
-      />
+    <SafeAreaView style={AppStyle.container}>
+      <AppHeader />
 
-    </MotiView>
+      <View style={AppStyle.main}>
+        <View style={AppStyle.rowBtw}>
+          <TouchableOpacity onPress={() => { navigation.goBack() }}>
+            <Image style={{ width: 24, height: 24 }} source={require('../../assets/icons/ic_left.png')} />
+          </TouchableOpacity>
+          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={[AppStyle.text16, { fontSize: 18, fontWeight: '600', color: '#FF640D' }]}>Tin đã đăng</Text>
+            <View style={{ backgroundColor: '#FF640D', height: 4, borderRadius: 99, width: '100%', marginTop: 6 }} />
+          </View>
+          <Text>   </Text>
+        </View>
+
+        <Tab.Navigator screenOptions={options} >
+          <Tab.Screen name='HistoryFindDriver' component={HistoryFindDriver} />
+          <Tab.Screen name='HistoryFindGoWith' component={HistoryFindGoWith} />
+        </Tab.Navigator>
+
+
+      </View>
+    </SafeAreaView>
   )
 }
 

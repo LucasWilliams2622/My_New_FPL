@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, Text, Image, View, ScrollView } from 'react-native'
+import { StyleSheet, FlatList, Text, Image, View, ScrollView, Alert } from 'react-native'
 import React, { useContext, useCallback, useEffect, useState } from 'react'
 import { AppStyle } from '../../constants/AppStyle'
 import ItemSearch from '../../components/GoFPT/ItemSearch'
@@ -103,6 +103,7 @@ const FindDriver = () => {
         ListHeaderComponent={() => (
           <View>
             <ItemSearch marginBottom={10}
+              onPressRight={() => { { } }}
               onPressSearch={() => { getListDriver() }}
               onChangeText={(keyword) => handleSearch(keyword)} />
           </View>

@@ -1,5 +1,6 @@
-import React,{ createContext, useState, useMemo } from "react";
+import React, { createContext, useState,useEffect, useMemo } from "react";
 import moment from 'moment';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AppContext = createContext();
 
@@ -11,18 +12,37 @@ export const AppContextProvider = (props) => {
     const [appState, setAppState] = useState(0)
     const [showWebView, setShowWebView] = React.useState(false);
 
-    let date = new Date();
-    let year = date.getFullYear();
-    let month = date.getMonth() + 1;
-    let day = date.getDate();
+    useEffect(() => {
+        getInfoUser()
+
+        return () => {
+
+        }
+    }, [isLogin])
+
+    const getInfoUser = async () => {
+        try {
+            const userInfoString = await AsyncStorage.getItem('userInfo');
+            if (userInfoString !== null) {
+                const userInfo = JSON.parse(userInfoString);
+                // Sử dụng thông tin đã lưu ở đây
+                setInfoUser(userInfo)
+                setIdUser(userInfo._id)
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     const currentDay = moment().format('YYYY-MM-DD');
 
     const contextValue = useMemo(() => {
-        return { isLogin, setIsLogin, infoUser, setInfoUser, idUser, setIdUser,
-             currentDay, appState, setAppState,showWebView, setShowWebView };
-    }, [isLogin, setIsLogin, infoUser, setInfoUser, idUser, setIdUser, 
-        currentDay, appState, setAppState,showWebView, setShowWebView]);
+        return {
+            isLogin, setIsLogin, infoUser, setInfoUser, idUser, setIdUser,
+            currentDay, appState, setAppState, showWebView, setShowWebView
+        };
+    }, [isLogin, setIsLogin, infoUser, setInfoUser, idUser, setIdUser,
+        currentDay, appState, setAppState, showWebView, setShowWebView]);
     return (
         <AppContext.Provider
             value={contextValue}>

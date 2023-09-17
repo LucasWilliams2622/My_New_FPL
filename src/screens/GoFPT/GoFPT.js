@@ -220,7 +220,7 @@ const GoFPT = () => {
         </ActionButton.Item>
 
         <ActionButton.Item buttonColor='#C8E4B2' title="Tin đã đăng" onPress={() => { navigation.navigate("HistoryPosted") }}>
-          <Image style={{ width: 16, height: 16, tintColor: 'black' }} source={require('../../assets/icons/ic_history.png')} />
+          <Image style={{ width: 24, height: 24, tintColor: 'black' }} source={require('../../assets/icons/ic_history.png')} />
         </ActionButton.Item>
       </ActionButton>
       <Modal
@@ -235,168 +235,199 @@ const GoFPT = () => {
           enableAutomaticScroll={true}
         >
           <View style={AppStyle.modalBackground}>
-            <View style={[AppStyle.modalView, { width: 376 }]}>
+            <View style={[AppStyle.modalView, { width: '90%', borderWidth: 2 }]}>
               <View style={AppStyle.viewheadModal}>
-                <Pressable
+                <TouchableOpacity
                   style={AppStyle.btnX}
                   onPress={() => setModalVisible(false)}>
-                  <Image
+                  <Image style={{ width: 18, height: 18, }}
                     source={require('../../assets/icons/ic_close.png')}
                   />
-                </Pressable>
+                </TouchableOpacity>
                 <Text style={AppStyle.txtModal1}>Tìm bạn cho chuyến đi</Text>
               </View>
-              <View style={AppStyle.ddinputModal}>
-                <Image source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, { left: '40%' }]} />
-                <View style={AppStyle.viewinputModal}>
+
+              {/* CONTENT */}
+              <View style={{ paddingHorizontal: 10 }}>
+                {/* LOCATION */}
+                <View style={AppStyle.ddinputModal}>
+                  <View style={[AppStyle.boxCenter, { width: '10%' }]}>
+                    <Image source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, {}]} />
+                  </View>
+
                   <TextInput
                     style={AppStyle.inputModal}
                     placeholder="Điền điểm bắt đầu"
                   />
                 </View>
-              </View>
-              <View style={AppStyle.ddinputModal}>
-                <Image source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, { left: '-20%' }]} />
-                <PhoneInput
-                  ref={(ref) => {
-                    this.phone = ref;
-                  }}
-                  style={[AppStyle.inputModal, { left: 5 }]}
-                  initialCountry="vn"
-                  value="+123456789"
-                  onSelectCountry={(iso2) => {
-                    console.log(`Selected country: ${iso2}`);
-                  }}
-                  onChangePhoneNumber={(number) => {
-                    console.log(`Phone number: ${number}`);
-                  }}
-                />
-              </View>
-              <View style={{ height: 50, width: '100%', flexDirection: 'row' }}>
-                <View style={{ height: 35, width: 160, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row' }} >
-                  <View style={{ backgroundColor: '#FCE38A', height: 33, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }}></View>
-                  {selectedDate && (
-                    <Text style={{ top: '4%' }}> {formattedDate}</Text>
-                  )}
-                  <TouchableOpacity onPress={showDatePicker} >
-                    <Image
-                      source={require('../../assets/icons/ic_calendar.png')}
-                      style={[AppStyle.iconMedium, { top: '25%', marginLeft: '8%' }]}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={{ height: 35, width: 160, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row', left: '3%' }} >
-                  <View style={{ backgroundColor: '#95E1D3', height: 33, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8, left: '-1%' }}></View>
-                  {selectedTime && (
-                    <Text style={{ top: '4%' }}> {selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
-                  )}
-                  <TouchableOpacity onPress={showTimePicker} >
-                    <Image
-                      source={require('../../assets/icons/ic_clock.png')}
-                      style={[AppStyle.iconMedium, { top: '25%', marginLeft: '10%' }]}
-                    />
-                    <DateTimePickerModal
-                      isVisible={isTimePickerVisible}
-                      mode="time"
-                      is24Hour={true}
-                      onConfirm={handleTimeConfirm}
-                      onCancel={hideTimePicker}
-                    />
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={{ height: 50, width: '100%', flexDirection: 'row', }}>
-                <View style={{ height: 35, width: 160, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row' }} >
-                  <Image
-                    source={require('../../assets/icons/ic_vietnam_dong.png')}
-                    style={[AppStyle.icon, { top: '3.4%', left: '12%' }]}
-                  />
 
-                  <Text style={[AppStyle.titleMedium, { color: '#0C9B34', top: '4%', fontStyle: 'italic' }]}>{numeral(10000).format('0,0')} </Text>
-
-                  <Text style={{ fontSize: 16, color: '#0C9B34', top: '3.5%', left: '-15%', fontWeight: '500' }}>đ</Text>
-                </View>
-                <View style={{ height: 35, width: 160, borderWidth: 1, borderColor: 'gray', borderRadius: 8, left: '6.5%', top: '22%', flexDirection: 'row' }}>
-                  <View>
-                    <View style={{ backgroundColor: '#EAFFD0', height: 33, width: 30, borderTopLeftRadius: 6, borderBottomLeftRadius: 8 }}></View>
-                    <Image
-                      source={require('../../assets/icons/ic_cross_walk.png')}
-                      style={[AppStyle.icon, { top: '-85%', left: '10%' }]}
-                    />
+                {/* PHONE NUM */}
+                <View style={AppStyle.ddinputModal}>
+                  <View style={[AppStyle.boxCenter, { width: '10%' }]}>
+                    <Image source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, {}]} />
                   </View>
-                  <View style={{ flexDirection: 'row', top: '18%' }}>
-                    <View style={{ flexDirection: 'row' }}>
-                      <TouchableOpacity onPress={handleDriverPress}>
-                        <View style={{ flexDirection: 'row' }}>
-                          <Image
-                            source={driverChecked ? checkImage : uncheckImage}
-                            style={{ height: 20, width: 20 }}
-                          />
-                          <Text style={{ color: driverChecked ? '#0C9B34' : 'black' }}>Tài xế</Text>
-                        </View>
-                      </TouchableOpacity>
 
-                      <TouchableOpacity onPress={handlePassengerPress}>
-                        <View style={{ flexDirection: 'row' }}>
-                          <Image
-                            source={passengerChecked ? checkImage : uncheckImage}
-                            style={{ height: 20, width: 20 }}
-                          />
-                          <Text style={{ color: passengerChecked ? '#0C9B34' : 'black' }}>Yên sau</Text>
-                        </View>
-                      </TouchableOpacity>
+                  <PhoneInput
+                    ref={(ref) => {
+                      this.phone = ref;
+                    }}
+                    style={[AppStyle.inputModal, {}]}
+                    initialCountry="vn"
+                    value="+123456789"
+                    onSelectCountry={(iso2) => {
+                      console.log(`Selected country: ${iso2}`);
+                    }}
+                    onChangePhoneNumber={(number) => {
+                      console.log(`Phone number: ${number}`);
+                    }}
+                  />
+                </View>
+
+                {/* DATE TIME */}
+                <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
+                  <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
+                    <View style={{ backgroundColor: '#FCE38A', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
+                    {selectedDate && (
+                      <Text style={{}}> {formattedDate}</Text>
+                    )}
+                    <TouchableOpacity onPress={showDatePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
+                      <Image
+                        source={require('../../assets/icons/ic_calendar.png')}
+                        style={[AppStyle.iconMedium, {}]}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                  <View style={{ height: 40, width: '48%', borderWidth: .8, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
+                    <View style={{ backgroundColor: '#95E1D3', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
+                    {/* {selectedTime && (
+                      <Text style={{}}> {selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
+                    )} */}
+                    {
+                      selectedTime == null ?
+                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>Hãy chọn giờ</Text>
+                        :
+                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
+                    }
+                    <TouchableOpacity onPress={showTimePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
+                      <Image
+                        source={require('../../assets/icons/ic_clock.png')}
+                        style={[AppStyle.iconMedium, {}]}
+                      />
+                      <DateTimePickerModal
+                        isVisible={isTimePickerVisible}
+                        mode="time"
+                        is24Hour={true}
+                        onConfirm={handleTimeConfirm}
+                        onCancel={hideTimePicker}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
+
+                  <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row', alignItems: "center", paddingHorizontal: 6 }} >
+                    <View style={[AppStyle.boxCenter, {}]}>
+                      <Image
+                        source={require('../../assets/icons/ic_vietnam_dong.png')}
+                        style={[AppStyle.icon, {}]}
+                      />
+                    </View>
+                    {/* <Text style={[AppStyle.titleMedium, { color: '#0C9B34', fontStyle: 'italic' }]}>{numeral(10000).format('0,0')} </Text> */}
+                    <TextInput
+                      keyboardType="number-pad"
+                      numberOfLines={1}
+                      returnKeyType="go"
+                      style={[AppStyle.titleMedium, { color: '#0C9B34', fontStyle: 'italic' }]}
+                    />
+                    <Text style={{ fontSize: 16, color: '#0C9B34', fontWeight: '500' }}>đ</Text>
+                  </View>
+
+                  {/* ROLE */}
+                  <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'flex-start', flexDirection: 'row', alignItems: "center", }} >
+                    <View style={{width:"20%"}}>
+                      <View style={[AppStyle.boxCenter, { backgroundColor: '#EAFFD0', height: 40,  borderTopLeftRadius: 6, borderBottomLeftRadius: 8 }]}>
+                        <Image
+                          source={require('../../assets/icons/ic_cross_walk.png')}
+                          style={[AppStyle.icon, {width:20,height:20}]}
+                        />
+                      </View>
+
+                    </View>
+                    <View style={{ flexDirection: 'row',width:"78%",}}>
+                      <View style={[AppStyle.rowBtw,{width:'100%'}]}>
+                        <TouchableOpacity onPress={handleDriverPress}>
+                          <View style={AppStyle.rowCenter}>
+                            <Image
+                              source={driverChecked ? checkImage : uncheckImage}
+                              style={{ height: 16, width: 16 }}
+                            />
+                            <Text style={[AppStyle.text12,{ color: driverChecked ? '#0C9B34' : '#626262' }]}>Tài xế</Text>
+                          </View>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity onPress={handlePassengerPress}>
+                          <View style={AppStyle.rowCenter}>
+                            <Image
+                              source={passengerChecked ? checkImage : uncheckImage}
+                              style={{ height: 16, width: 16 }}
+                            />
+                            <Text style={[AppStyle.text12,{ color: passengerChecked ? '#0C9B34' : '#626262' }]}>Yên sau</Text>
+                          </View>
+                        </TouchableOpacity>
+                      </View>
                     </View>
                   </View>
                 </View>
-              </View>
-              <View style={{ height: 50, width: 320, flexDirection: 'row', marginTop: 11, marginLeft: 15, justifyContent: 'space-between' }}>
-                <View style={{ flexDirection: 'row' }}>
-                  <Image
-                    source={require('../../assets/icons/ic_destination.png')}
-                    style={[AppStyle.icon, {}]}
-                  />
-                  <Text style={[AppStyle.titleMedium, { color: 'black' }]}>Chọn địa điểm và chụp quãng đường</Text>
+                <View style={{ height: 50, width: 320, flexDirection: 'row', marginTop: 11, marginLeft: 15, justifyContent: 'space-between' }}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Image
+                      source={require('../../assets/icons/ic_destination.png')}
+                      style={[AppStyle.icon, {}]}
+                    />
+                    <Text style={[AppStyle.titleMedium, { color: 'black' }]}>Chọn địa điểm và chụp quãng đường</Text>
+                  </View>
+                  <TouchableOpacity onPress={toggleNestedModal}>
+                    <Image
+                      source={require('../../assets/icons/ic_question_mark.png')}
+                      style={[AppStyle.icon, {}]}
+                    />
+                  </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={toggleNestedModal}>
-                  <Image
-                    source={require('../../assets/icons/ic_question_mark.png')}
-                    style={[AppStyle.icon, {}]}
-                  />
-                </TouchableOpacity>
-              </View>
-              <View style={{ width: '88%', backgroundColor: 'gray', borderRadius:8, height: 150,left:'5%',top:'-3%' }}>
-                <MapView
-                  style={[styles.map,{borderRadius:8}]}
-                  initialRegion={position}
-                  showsUserLocation={true}
-                  showsMyLocationButton={true}
-                  followsUserLocation={true}
-                  showsCompass={true}
-                  scrollEnabled={true}
-                  zoomEnabled={true}
-                  pitchEnabled={true}
-                  rotateEnabled={true}>
-                  <Marker
-                    title='Tòa T'
-                    // description='This is a description'
-                    coordinate={position} />
-                  <Marker
-                    title='Tòa F'
-                    // description='This is a description'
-                    coordinate={position2} />
-                  <Marker
-                    title='Tòa P'
-                    // description='This is a description'
-                    coordinate={position3} />
+                <View style={{ width: '88%', backgroundColor: '#DBDBDB', borderRadius: 8, height: 150, left: '5%', top: '-3%' }}>
+                  <MapView
+                    style={[styles.map, { borderRadius: 8 }]}
+                    initialRegion={position}
+                    showsUserLocation={true}
+                    showsMyLocationButton={true}
+                    followsUserLocation={true}
+                    showsCompass={true}
+                    scrollEnabled={true}
+                    zoomEnabled={true}
+                    pitchEnabled={true}
+                    rotateEnabled={true}>
+                    <Marker
+                      title='Tòa T'
+                      // description='This is a description'
+                      coordinate={position} />
+                    <Marker
+                      title='Tòa F'
+                      // description='This is a description'
+                      coordinate={position2} />
+                    <Marker
+                      title='Tòa P'
+                      // description='This is a description'
+                      coordinate={position3} />
 
-                </MapView>
+                  </MapView>
+                </View>
+                <Pressable
+                  onPress={toggleThirdModal}
+                  style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '-1%', marginLeft: '5%' }]}
+                >
+                  <Text style={[AppStyle.titleButton, { marginTop: -6 }]}>Tiếp theo</Text>
+                </Pressable>
               </View>
-              <Pressable
-                onPress={toggleThirdModal}
-                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '-1%', marginLeft: '5%' }]}
-              >
-                <Text style={[AppStyle.titleButton, { marginTop: -6 }]}>Tiếp theo</Text>
-              </Pressable>
+
             </View>
           </View>
         </KeyboardAwareScrollView>
@@ -413,7 +444,7 @@ const GoFPT = () => {
               <Pressable
                 style={AppStyle.btnX}
                 onPress={() => setNestedModalVisible(false)}>
-                <Image
+                <Image style={{ width: 24, height: 24, }}
                   source={require('../../assets/icons/ic_close.png')}
                 />
               </Pressable>
@@ -425,7 +456,7 @@ const GoFPT = () => {
                 <Text style={[AppStyle.titleSmall, { color: 'black', left: 8, top: 2, fontWeight: 400 }]}>Nhấn vào vị trí bạn muốn đến trong bản đồ</Text>
               </View>
               <Image
-                source={require('../../assets/images/image23.png')}
+                source={require('../../assets/images/default_map.png')}
                 style={{ height: 100, width: 168, marginTop: '2%' }}
               />
               <View style={{ flexDirection: 'row', marginTop: '3%' }}>

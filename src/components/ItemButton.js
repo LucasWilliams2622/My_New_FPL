@@ -4,18 +4,20 @@ import { COLOR } from '../constants/Theme'
 
 const ItemButton = (props) => {
     const { title, textColor, fontSize, fontWeight, textAlign, fontStyle,
-        backgroundColor, borderRadius, width, paddingVertical,
-        onPress
+        backgroundColor, borderRadius, width, paddingVertical, borderColor,
+        onPress, borderWidth,
     } = props
     return (
         <TouchableOpacity style={[styles.ItemButton, {
+            borderWidth: borderWidth == null ? 1 : borderWidth,
+            borderColor: borderColor == null ? COLOR.primary : borderColor,
             backgroundColor: backgroundColor == null ? COLOR.primary : backgroundColor,
             borderRadius: borderRadius == null ? 8 : borderRadius,
             paddingVertical: paddingVertical == null ? 4 : paddingVertical,
             width: width == null ? '100%' : width,
 
         }]}
-        onPress={onPress}>
+            onPress={onPress}>
             <Text style={[styles.textButton, {
                 textAlign: textAlign == null ? "center" : textAlign,
                 color: textColor == null ? COLOR.white : textColor,

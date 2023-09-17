@@ -28,12 +28,12 @@ const ItemFindGoWith = (props) => {
         <View style={styles.boxLocation}>
           <View style={[AppStyle.row, { alignItems: 'center', width: '48%' }]}>
             <Image style={styles.iconLocation} source={require('../../assets/icons/ic_location.png')} />
-            <Text style={[AppStyle.text12, { fontWeight: '600', marginLeft: 4 }]}>{startPoint}</Text>
+            <Text style={[AppStyle.text14, { fontWeight: '600', marginLeft: 4 }]}>{startPoint}</Text>
           </View>
 
           <View style={[AppStyle.row, { alignItems: 'center', width: '48%' }]}>
             <Image style={styles.iconLocation} source={require('../../assets/icons/ic_destination.png')} />
-            <Text style={[AppStyle.text12, { fontWeight: '600', marginLeft: 4 }]}>{endPoint}</Text>
+            <Text style={[AppStyle.text14, { fontWeight: '600', marginLeft: 4 }]}>{endPoint}</Text>
           </View>
         </View>
 
@@ -41,13 +41,13 @@ const ItemFindGoWith = (props) => {
           <View style={styles.boxItemInfo}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_calendar.png')} />
-              <Text style={[AppStyle.text10, { fontWeight: '500', marginLeft: 6 }]}>{dateStart}</Text>
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{dateStart}</Text>
             </View>
 
             <View style={[AppStyle.rowCenter, { width: '50%', justifyContent: 'space-between' }]}>
               <View style={AppStyle.rowCenter}>
                 <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_phone.png')} />
-                <Text style={[AppStyle.text10, { fontWeight: '500', marginLeft: 6, letterSpacing: .8, color: COLOR.textPhone, }]}
+                <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6, letterSpacing: .8, color: COLOR.textPhone, }]}
                 >{getDisplayedText()}</Text>
               </View>
 
@@ -63,12 +63,12 @@ const ItemFindGoWith = (props) => {
           <View style={styles.boxItemInfo}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_time.png')} />
-              <Text style={[AppStyle.text10, { fontWeight: '500', marginLeft: 6 }]}>{timeStart}</Text>
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{timeStart}</Text>
             </View>
 
             <TouchableOpacity style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_chat.png')} />
-              <Text style={[AppStyle.text10, { fontWeight: '500', marginLeft: 6, }]}
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6, }]}
               >Nhắn tin</Text>
             </TouchableOpacity>
           </View>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
 
-    marginBottom: 12,
+    marginBottom: 14,
   },
   left: {
     backgroundColor: COLOR.left3,

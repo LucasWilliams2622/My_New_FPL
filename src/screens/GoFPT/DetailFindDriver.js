@@ -1,249 +1,250 @@
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, Linking, View, Image, Clipboard, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { AppStyle } from "../../constants/AppStyle";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { COLOR } from "../../constants/Theme";
 import ItemButton from "../../components/ItemButton";
-
+import AppHeader from "../../components/AppHeader";
+import { ScrollView } from "moti";
+import { useNavigation } from '@react-navigation/native';
+import numeral from 'numeral';
+import Toast from 'react-native-toast-message';
+import call from 'react-native-phone-call';
 
 const DetailFindDriver = (props) => {
-  // const { data } = props;
-  // const { typeFind, idUser, nameUser, phoneUser, dateStart, endPoint, price, startPoint, status, studentCode, timeStart, } = data;
+  const navigation = useNavigation();
+  const { data } = props.route.params;
+  console.log(data.phoneUser);
+  const { nameUser, phoneUser, dateStart, endPoint,
+    price, startPoint, status, studentCode, timeStart,
+    note, image } = data;
 
-  // const [hidden, setHidden] = useState(true);
-  // const toggleHidden = () => {
-  //   setHidden(!hidden);
-  // };
+  //CALL PHONE
+  const handleCall = () => {
+    const phoneNumber = phoneUser;
+    const args = {
+      number: phoneNumber,
+      prompt: true,
+    };
+    console.log("asdasdas");
+    call(args).catch(console.error);
+  };
+  // COPY PHONE NUMBER
+  const handleCopy = () => {
+    const content = phoneUser; // Nội dung cần sao chép
+    Clipboard.setString(content);
+    console.log("ASDASD");
+    Toast.show({
+      ToastPosition: 'top',
+      type: 'success',
+      text1: "Copy ✅"
+    });
+  };
 
-  // const getDisplayedText = () => {
-  //   if (hidden) {
-  //     return phoneUser.substring(0, phoneUser.length - 5) + '*****';
-  //   } else {
-  //     return phoneUser;
-  //   }
-  // };
+  // SHOW HIDE PHONE NUMBER
+  const [hidden, setHidden] = useState(true);
+  const toggleHidden = () => {
+    setHidden(!hidden);
+  };
+
+  const getDisplayedText = () => {
+    if (hidden) {
+      return phoneUser.substring(0, phoneUser.length - 5) + '*****';
+    } else {
+      return phoneUser;
+    }
+  };
   return (
-    <SafeAreaView>
-      <View style={[AppStyle.column]}>
-        <View style={[AppStyle.column, { margin: 5, padding: 5 }]}>
-          <Text style={AppStyle.titleBig}> Tìm tài xế </Text>
+    <SafeAreaView style={AppStyle.container}>
+      <AppHeader />
+      <ScrollView style={[AppStyle.main, { paddingHorizontal: 6 }]} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+        <View style={AppStyle.rowBtw}>
+          <TouchableOpacity onPress={() => { navigation.goBack() }}>
+            <Image style={{ width: 20, height: 20, tintColor: '#4D4C4C' }} source={require('../../assets/icons/ic_left.png')} />
+          </TouchableOpacity>
+          <Text style={styles.title}>Tìm tài xế</Text>
+          <Text>   </Text>
         </View>
-      </View>
-      <SafeAreaView
-        style={[
-          AppStyle.header,
-          { padding: 30 },
-          { height: 530, width: 360, left: 16, borderRadius: 10, backgroundColor: "white" },
-        ]}
-      >
-        <View
-          style={[AppStyle.header1, AppStyle.row, { alignItems: "center", height: 55, right: 30 }]}
-        >
-          <Image
-            style={[styles.iconLocation, { width: 24, height: 24 }]}
-            source={require("../../assets/icons/ic_location.png")}
-          />
-          <Text
-            style={[
-              AppStyle.text16,
-              { fontWeight: "600", marginLeft: 4, left: 19, color: "white" },
-            ]}
-          >
-            Quận Bình Thạnh
-          </Text>
 
-          <View style={[AppStyle.row, { alignItems: "center" }]}>
-            <Image
-              style={[styles.iconLocation1, { height: 24, width: 24, left: 58 }]}
-              source={require("../../assets/icons/ic_destination.png")}
-            />
-            <Text
-              style={[
-                AppStyle.text16,
-                { fontWeight: "600", marginLeft: 4, left: 62, color: "white" },
-              ]}
-            >
-              Tòa T
-            </Text>
-          </View>
-        </View>
-        <View style={[AppStyle.row, { alignItems: "center", marginTop: -20 }]}>
-          <Image
-            style={[styles.iconLocation2, AppStyle.iconSmall]}
-            source={require("../../assets/icons/ic_user_focus.png")}
-          />
-          <Text
-            style={[AppStyle.text12, { fontWeight: "600", top: -2, right: 8, fontFamily: "DM Sans" }]}
-          >
-            {" "}
-            Nguyễn Văn A
-          </Text>
-          <Image
-            style={[styles.iconLocation3, AppStyle.iconSmall]}
-            source={require("../../assets/icons/ic_id_verify.png")}
-          />
-          <Text
-            style={[AppStyle.text12, { fontWeight: "600", top: -2, left: 82, fontFamily: "DM Sans" }]}
-          >
-            {" "}
-            PS12345
-          </Text>
-        </View>
-        <View>
-          <View style={[AppStyle.rowCenter, { width: "50%" }]}>
-            <Image
-              style={[styles.iconLocation4, AppStyle.iconSmall]}
-              source={require("../../assets/icons/ic_calendar.png")}
-            />
-            <Text
-              style={[AppStyle.text12, { fontWeight: "600", top: 6, right: 8, fontFamily: "DM Sans" }]}
-            >
-              {" "}
-              Ngày:<Text style={{ color: COLOR.textPhone }}>12/02/2023</Text>
-            </Text>
+        <ScrollView style={styles.boxDetail} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
+          <View style={styles.header}>
+            <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+              <Image style={styles.iconBig} source={require('../../assets/icons/ic_location.png')} />
+              <Text style={[AppStyle.text16, { fontWeight: '600', color: '#ffffff' }]} numberOfLines={1}>{startPoint}</Text>
+            </View>
+            <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+              <Image style={styles.iconBig} source={require('../../assets/icons/ic_destination.png')} />
+              <Text style={[AppStyle.text16, { fontWeight: '600', color: '#ffffff' }]} numberOfLines={1}>{endPoint}</Text >
+            </View>
           </View>
 
-        </View>
-        <View style={[AppStyle.rowCenter, { left: 180, top: -14 }, { width: '50%', justifyContent: 'space-between' }]}>
-          <View style={AppStyle.rowCenter}>
-            <Image style={AppStyle.iconSmall} source={require('../../assets/icons/ic_phone.png')} />
-            <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 4, letterSpacing: .8, color: COLOR.textPhone, }]}
-            >01925*****</Text>
-            <Image style={[AppStyle.iconSmall, { right: -12 }]} source={require('../../assets/icons/ic_invisible.png')} />
-            <Image style={[AppStyle.iconSmall, { right: -20 }]} source={require('../../assets/icons/ic_copy.png')} />
-          </View>
-        </View>
-        <View>
-          <View style={[AppStyle.rowCenter, { width: "50%" }]}>
-            <Image
-              style={[styles.iconLocation4, { top: -15 }, AppStyle.iconSmall]}
-              source={require("../../assets/icons/ic_time.png")}
-            />
-            <Text
-              style={[
-                AppStyle.text12,
-                { fontWeight: "600", top: 6, right: 5 }, { top: -9 }, { fontFamily: "DM Sans" }
-              ]}
-            >
-              Thời gian:<Text style={{ color: COLOR.textPhone }}>14h00</Text>
-            </Text>
-            <View style={[AppStyle.rowCenter, { width: "50%" }]}>
-              <Image
-                style={[
-                  styles.iconLocation3,
-                  { tintColor: COLOR.textMoney, top: 7, left: 72 }, { top: -10 }, AppStyle.iconSmall
-                ]}
-                source={require("../../assets/icons/ic_vietnam_dong.png")}
-              />
-              <Text
-                style={[
-                  AppStyle.text12,
-                  {
-                    fontWeight: "600",
-                    top: -10,
-                    left: 78,
-                    fontStyle: "italic",
-                    color: COLOR.textMoney,
-                  },
-                ]}
-              >
-                10.000 ₫
-              </Text>
+          <View style={styles.boxContent}>
+            {/* NAME AND STUDENT ID */}
+            <View style={[AppStyle.rowBtw, { marginBottom: 14 }]}>
+              <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+                <Image style={styles.icon} source={require('../../assets/icons/ic_user_focus.png')} />
+                <Text style={[AppStyle.text14, { fontWeight: '600', marginLeft: 6, color: '#4D4C4C' }]} numberOfLines={1}>{nameUser}</Text >
+              </View>
+
+              <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+                <Image style={styles.icon} source={require('../../assets/icons/ic_id_verify.png')} />
+                <Text style={[AppStyle.text14, { fontWeight: '500', marginLeft: 6, color: '#4D4C4C' }]} numberOfLines={1}>{studentCode}</Text >
+              </View>
             </View>
-          </View>
-          <View>
-            <View style={[AppStyle.rowCenter, { width: "50%", top: -14 }]}>
-              <Image
-                style={[styles.iconLocation4, AppStyle.iconSmall]}
-                source={require("../../assets/icons/ic_road_map.png")}
-              />
-              <Text
-                style={[
-                  AppStyle.text12,
-                  { fontWeight: "600", top: 6, right: 4 }, { fontFamily: "DM Sans" }
-                ]}
-              >
-                Quãng đường
-              </Text>
+
+            {/* DATE AND PHONE NUMBER */}
+            <View style={[AppStyle.rowBtw, { marginBottom: 14 }]}>
+              <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+                <Image style={styles.icon} source={require('../../assets/icons/ic_calendar.png')} />
+                <View style={[AppStyle.row, { marginLeft: 2 }]}>
+                  <Text style={[AppStyle.text14, { marginLeft: 4, color: '#4D4C4C' }]} numberOfLines={1}>Ngày: </Text >
+                  <Text style={[AppStyle.text14, { fontWeight: '600', color: COLOR.blue }]} numberOfLines={1}>{dateStart}</Text >
+                </View>
+              </View>
+
+              <View style={[AppStyle.rowBtw, { width: '50%', alignItems: 'center', }]}>
+                <View style={AppStyle.row}>
+                  <Image style={styles.icon} source={require('../../assets/icons/ic_phone.png')} />
+                  <Text style={[AppStyle.text14, { marginLeft: 4, color: '#0075FF' }]} numberOfLines={1}>{getDisplayedText()}</Text >
+                </View>
+
+                <View style={AppStyle.row}>
+                  <TouchableOpacity onPress={toggleHidden}>
+                    {
+                      hidden ? (<Image style={[styles.icon,]} source={require('../../assets/icons/ic_invisible.png')} />)
+                        : (<Image style={[styles.icon,]} source={require('../../assets/icons/ic_visible.png')} />)
+                    }
+                  </TouchableOpacity>
+
+                  <TouchableOpacity onPress={() => { handleCopy() }}>
+                    <Image style={[styles.icon, { marginLeft: 8 }]} source={require('../../assets/icons/ic_copy.png')} />
+                  </TouchableOpacity>
+                </View>
+
+              </View>
             </View>
-            <View style={[AppStyle.header3]}>
-              <Image
-                style={[
-                  AppStyle.header3,
-                  , { top: -10, right: 14 }
-                ]}
-                source={require("../../assets/images/image23.png")}
-              ></Image>
+
+            {/* TIME AND PRICE */}
+            <View style={[AppStyle.rowBtw, { marginBottom: 14 }]}>
+              <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+                <Image style={[styles.icon, { width: 20, height: 20, left: -2, }]} source={require('../../assets/icons/ic_time.png')} />
+                <View style={[AppStyle.row, { marginLeft: 2 }]}>
+                  <Text style={[AppStyle.text14, { color: '#4D4C4C' }]} numberOfLines={1}>Thời gian: </Text >
+                  <Text style={[AppStyle.text14, { fontWeight: '600', color: COLOR.blue }]} numberOfLines={1}>{timeStart}</Text >
+                </View>
+              </View>
+
+              <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+                <Image style={[styles.icon, { tintColor: '#0C9B34' }]} source={require('../../assets/icons/ic_vietnam_dong.png')} />
+                <Text style={[AppStyle.text14, { fontWeight: '500', marginLeft: 4, color: '#0C9B34', letterSpacing: 0.8 }]} numberOfLines={1}>
+                  {numeral(price).format('0,0')} ₫</Text >
+              </View>
             </View>
+
+            {/* IMAGE */}
             <View>
-              <View style={[AppStyle.rowCenter, { width: "50%" }]}>
-                <Image
-                  style={[styles.iconLocation4, { top: -6 }, AppStyle.iconSmall]}
-                  source={require("../../assets/icons/ic_note.png")}
-                />
-                <Text
-                  style={[
-                    AppStyle.text12,
-                    { fontWeight: "600", top: -1, right: 10 }, { fontFamily: "DM Sans" }
-                  ]}
-                >
-                  Ghi chú
-                </Text>
+              <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+                <Image style={[styles.icon, {}]} source={require('../../assets/icons/ic_road_map.png')} />
+                <Text style={[AppStyle.text14, { marginLeft: 6, color: '#4D4C4C' }]} numberOfLines={1}
+                >Quãng đường</Text >
               </View>
-              <View style={[AppStyle.item1, { height: 99, width: 320, left: -10 }, { borderWidth: 0.35, borderColor: COLOR.border, right: 5 }]}>
-                <Text style={[AppStyle.text12, { fontFamily: "DM Sans" }]}>
-                  mình cần tìm 1 bạn đi đi ghép đường 12 phường 3 khu phố 4 quận
-                  Bình Thạnh tới toà T{" "}
-                </Text>
-
-              </View>
-
+              <Image style={{ width: '100%', height: 200, borderRadius: 10, marginTop: 10 }} source={require('../../assets/images/default_map.png')} />
             </View>
-            <View>
-              <View style={[AppStyle.rowCenter, { width: '50%', top: 36, right: 10 }]}>
-                <ItemButton title={"Nhắn tin"} paddingVertical={10}
-                />
+
+            {/* NOTE */}
+            <View style={{ marginTop: 18, marginBottom: 24 }}>
+              <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
+                <Image style={[styles.icon, {}]} source={require('../../assets/icons/ic_note.png')} />
+                <Text style={[AppStyle.text14, { marginLeft: 6, color: '#4D4C4C' }]} numberOfLines={1}
+                >Ghi chú</Text >
               </View>
-              <View style={[AppStyle.rowCenter, { width: '50%', top: -3, left: 157, }]}>
-                <ItemButton title={"Gọi điện"} paddingVertical={8.5}
-                />
+              <View style={styles.boxNote}>
+                <Text style={[AppStyle.text12, { color: '#4D4C4C' }]}>{note}</Text>
               </View>
+            </View>
+
+            <View style={AppStyle.rowBtw}>
+              <ItemButton width={"45%"} title={"Nhắn tin"} paddingVertical={10} />
+              <ItemButton width={"45%"} title={"Gọi điện"} paddingVertical={10} backgroundColor={COLOR.background} textColor={COLOR.primary}
+                onPress={() => { handleCall() }} />
             </View>
           </View>
-        </View>
-      </SafeAreaView>
-    </SafeAreaView>
+        </ScrollView>
+      </ScrollView >
+    </SafeAreaView >
   );
 };
 
 export default DetailFindDriver;
 
 const styles = StyleSheet.create({
-  iconLocation: {
-    width: 20,
-    height: 20,
-    left: 12,
+  boxDetail: {
+    marginTop: 24,
+    borderRadius: 12,
+    backgroundColor: COLOR.background,
+    marginBottom: 200,
+    margin: 6,
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.17,
+    shadowRadius: 3.05,
+    elevation: 4
   },
-  iconLocation1: {
-    width: 20,
-    height: 20,
-    left: 90,
+  header: {
+    backgroundColor: COLOR.headDetail,
+    borderTopLeftRadius: 12,
+    borderTopRightRadius: 12,
+    paddingHorizontal: 8,
+    paddingVertical: 14,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
-  iconLocation2: {
-    width: 20,
-    height: 20,
-    right: 16,
-  },
-  iconLocation3: {
-    width: 20,
-    height: 20,
-    left: 80,
-  },
-  iconLocation4: {
+  boxContent: {
+    backgroundColor: COLOR.background,
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    paddingBottom: 24,
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
 
-    marginTop: 10,
-    width: 20,
-    height: 20,
-    right: 16,
+
   },
+  lineContent: {
+
+  },
+  icon: {
+    width: 16,
+    height: 16,
+    tintColor: '#4D4C4C',
+
+  },
+  iconBig: {
+    width: 18,
+    height: 18,
+    tintColor: '#4D4C4C',
+    marginRight: 4
+
+  },
+  boxNote: {
+    borderWidth: 0.5,
+    borderColor: '#949494',
+    paddingHorizontal: 8,
+    paddingTop: 8,
+    paddingBottom: 24,
+    borderRadius: 6,
+    marginTop: 4,
+
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '700',
+    color: '#FF640D',
+
+
+  }
 });
