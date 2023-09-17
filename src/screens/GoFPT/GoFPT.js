@@ -1,8 +1,10 @@
-import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable, TextInput, TouchableOpacity, Switch } from "react-native";
+import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable, TextInput, TouchableOpacity, Alert } from "react-native";
 import { AppStyle } from "../../constants/AppStyle";
 import AppHeader from "../../components/AppHeader";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import React, { Component, useState } from "react";
+import MapView, { Marker } from 'react-native-maps';
+
 
 import FindGoWith from "./FindGoWith";
 import FindDriver from "./FindDriver";
@@ -14,7 +16,8 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import ActionButton from 'react-native-action-button';
 import { useNavigation } from '@react-navigation/native';
 import PhoneInput from 'react-native-phone-input'
-
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
+import numeral from 'numeral';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
@@ -72,13 +75,60 @@ const GoFPT = () => {
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(null);
 
-  const [isSwitchOn, setSwitchOn] = useState(false);
+  const [selectedImageURI, setSelectedImageURI] = useState(null);
+
+  const [imageIndex, setImageIndex] = useState(0);
+  const [textColor, setTextColor] = useState('black');
 
 
-  const toggleSwitch = () => {
-    setSwitchOn(!isSwitchOn);
+  const [driverChecked, setDriverChecked] = useState(false);
+  const [passengerChecked, setPassengerChecked] = useState(false);
+
+  const checkImage = require('../../assets/icons/ic_check.png');
+  const uncheckImage = require('../../assets/icons/ic_uncheck.png');
+
+  const [position, setPosition] = useState({
+    latitude: 10.853864,
+    longitude: 106.627351,
+    latitudeDelta: 0.001,
+    longitudeDelta: 0.01,
+  });
+  const [position2, setPosition2] = useState({
+    latitude: 10.8529642,
+    longitude: 106.6282855,
+    latitudeDelta: 0.1,
+    longitudeDelta: 0.01,
+  });
+  const [position3, setPosition3] = useState({
+    latitude: 10.8529096,
+    longitude: 106.6291175,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.01,
+  });
+
+  const handleDriverPress = () => {
+    setDriverChecked(true);
+    setPassengerChecked(false);
+  };
+
+  const handlePassengerPress = () => {
+    setDriverChecked(false);
+    setPassengerChecked(true);
+  };
+
+
+  const images = [
+    require('../../assets/icons/ic_check.png'),
+    require('../../assets/icons/ic_uncheck.png'),
+  ];
+
+  const handlePress = () => {
+    // Thay đổi chỉ số của hình ảnh để chuyển đổi giữa hai hình ảnh
+    setImageIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
+
+    // Thay đổi màu chữ
+    setTextColor((prevColor) => (prevColor === 'black' ? 'blue' : 'black'));
   };
 
   const toggleThirdModal = () => {
@@ -129,8 +179,30 @@ const GoFPT = () => {
 
   };
 
-  console.log(modalVisible, 'modalVisible');
-  console.log(isNestedModalVisible, 'isNestedModalVisible');
+
+  const dialogImageChoose = () => {
+    return Alert.alert(
+      "Thông báo",
+      "Mời bạn chọn ảnh",
+      [
+        {
+          text: "Tải ảnh lên",
+          onPress: () => {
+            getImageLibrary()
+          }
+        },
+        {
+          text: "Hủy",
+        }])
+  }
+
+  const getImageLibrary = async () => {
+    const result = await launchImageLibrary();
+    if (result.assets.length > 0) {
+      const imageURI = result.assets[0].uri;
+      setSelectedImageURI(imageURI);
+    }
+  }
 
   return (
     <SafeAreaView style={AppStyle.container}>
@@ -163,7 +235,7 @@ const GoFPT = () => {
           enableAutomaticScroll={true}
         >
           <View style={AppStyle.modalBackground}>
-            <View style={AppStyle.modalView}>
+            <View style={[AppStyle.modalView, { width: 376 }]}>
               <View style={AppStyle.viewheadModal}>
                 <Pressable
                   style={AppStyle.btnX}
@@ -175,7 +247,7 @@ const GoFPT = () => {
                 <Text style={AppStyle.txtModal1}>Tìm bạn cho chuyến đi</Text>
               </View>
               <View style={AppStyle.ddinputModal}>
-                <Image source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, { left: 10 }]} />
+                <Image source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, { left: '40%' }]} />
                 <View style={AppStyle.viewinputModal}>
                   <TextInput
                     style={AppStyle.inputModal}
@@ -184,7 +256,7 @@ const GoFPT = () => {
                 </View>
               </View>
               <View style={AppStyle.ddinputModal}>
-                <Image source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, {}]} />
+                <Image source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, { left: '-20%' }]} />
                 <PhoneInput
                   ref={(ref) => {
                     this.phone = ref;
@@ -201,7 +273,7 @@ const GoFPT = () => {
                 />
               </View>
               <View style={{ height: 50, width: '100%', flexDirection: 'row' }}>
-                <View style={{ height: 35, width: 150, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row' }} >
+                <View style={{ height: 35, width: 160, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row' }} >
                   <View style={{ backgroundColor: '#FCE38A', height: 33, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }}></View>
                   {selectedDate && (
                     <Text style={{ top: '4%' }}> {formattedDate}</Text>
@@ -211,15 +283,9 @@ const GoFPT = () => {
                       source={require('../../assets/icons/ic_calendar.png')}
                       style={[AppStyle.iconMedium, { top: '25%', marginLeft: '8%' }]}
                     />
-                    {/* <DateTimePickerModal
-                      isVisible={isDatePickerVisible}
-                      mode="date"
-                      onConfirm={handleConfirm}
-                      onCancel={hideDatePicker}
-                    /> */}
                   </TouchableOpacity>
                 </View>
-                <View style={{ height: 35, width: 150, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row', left: '3%' }} >
+                <View style={{ height: 35, width: 160, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row', left: '3%' }} >
                   <View style={{ backgroundColor: '#95E1D3', height: 33, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8, left: '-1%' }}></View>
                   {selectedTime && (
                     <Text style={{ top: '4%' }}> {selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
@@ -240,17 +306,17 @@ const GoFPT = () => {
                 </View>
               </View>
               <View style={{ height: 50, width: '100%', flexDirection: 'row', }}>
-                <View style={{ height: 35, width: 150, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row' }} >
+                <View style={{ height: 35, width: 160, borderWidth: 1, borderColor: 'gray', borderRadius: 8, marginTop: '3%', marginLeft: '4%', justifyContent: 'space-between', flexDirection: 'row' }} >
                   <Image
                     source={require('../../assets/icons/ic_vietnam_dong.png')}
                     style={[AppStyle.icon, { top: '3.4%', left: '12%' }]}
                   />
 
-                  <Text style={[AppStyle.titleMedium, { color: '#0C9B34', top: '4%',fontStyle: 'italic' }]}>10.000 </Text>
+                  <Text style={[AppStyle.titleMedium, { color: '#0C9B34', top: '4%', fontStyle: 'italic' }]}>{numeral(10000).format('0,0')} </Text>
 
                   <Text style={{ fontSize: 16, color: '#0C9B34', top: '3.5%', left: '-15%', fontWeight: '500' }}>đ</Text>
                 </View>
-                <View style={{ height: 35, width: 150, borderWidth: 1, borderColor: 'gray', borderRadius: 8, left: '6.5%', top: '22%', flexDirection: 'row' }}>
+                <View style={{ height: 35, width: 160, borderWidth: 1, borderColor: 'gray', borderRadius: 8, left: '6.5%', top: '22%', flexDirection: 'row' }}>
                   <View>
                     <View style={{ backgroundColor: '#EAFFD0', height: 33, width: 30, borderTopLeftRadius: 6, borderBottomLeftRadius: 8 }}></View>
                     <Image
@@ -258,8 +324,29 @@ const GoFPT = () => {
                       style={[AppStyle.icon, { top: '-85%', left: '10%' }]}
                     />
                   </View>
+                  <View style={{ flexDirection: 'row', top: '18%' }}>
+                    <View style={{ flexDirection: 'row' }}>
+                      <TouchableOpacity onPress={handleDriverPress}>
+                        <View style={{ flexDirection: 'row' }}>
+                          <Image
+                            source={driverChecked ? checkImage : uncheckImage}
+                            style={{ height: 20, width: 20 }}
+                          />
+                          <Text style={{ color: driverChecked ? '#0C9B34' : 'black' }}>Tài xế</Text>
+                        </View>
+                      </TouchableOpacity>
 
-
+                      <TouchableOpacity onPress={handlePassengerPress}>
+                        <View style={{ flexDirection: 'row' }}>
+                          <Image
+                            source={passengerChecked ? checkImage : uncheckImage}
+                            style={{ height: 20, width: 20 }}
+                          />
+                          <Text style={{ color: passengerChecked ? '#0C9B34' : 'black' }}>Yên sau</Text>
+                        </View>
+                      </TouchableOpacity>
+                    </View>
+                  </View>
                 </View>
               </View>
               <View style={{ height: 50, width: 320, flexDirection: 'row', marginTop: 11, marginLeft: 15, justifyContent: 'space-between' }}>
@@ -270,7 +357,6 @@ const GoFPT = () => {
                   />
                   <Text style={[AppStyle.titleMedium, { color: 'black' }]}>Chọn địa điểm và chụp quãng đường</Text>
                 </View>
-
                 <TouchableOpacity onPress={toggleNestedModal}>
                   <Image
                     source={require('../../assets/icons/ic_question_mark.png')}
@@ -278,13 +364,36 @@ const GoFPT = () => {
                   />
                 </TouchableOpacity>
               </View>
-              <Image
-                source={require('../../assets/images/image23.png')}
-                style={[AppStyle.image, { height: '30%', width: '90%', marginLeft: '5%', borderRadius: 16, marginTop: '-5%' }]}
-              />
+              <View style={{ width: '88%', backgroundColor: 'gray', borderRadius:8, height: 150,left:'5%',top:'-3%' }}>
+                <MapView
+                  style={[styles.map,{borderRadius:8}]}
+                  initialRegion={position}
+                  showsUserLocation={true}
+                  showsMyLocationButton={true}
+                  followsUserLocation={true}
+                  showsCompass={true}
+                  scrollEnabled={true}
+                  zoomEnabled={true}
+                  pitchEnabled={true}
+                  rotateEnabled={true}>
+                  <Marker
+                    title='Tòa T'
+                    // description='This is a description'
+                    coordinate={position} />
+                  <Marker
+                    title='Tòa F'
+                    // description='This is a description'
+                    coordinate={position2} />
+                  <Marker
+                    title='Tòa P'
+                    // description='This is a description'
+                    coordinate={position3} />
+
+                </MapView>
+              </View>
               <Pressable
                 onPress={toggleThirdModal}
-                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '5%', marginLeft: '5%' }]}
+                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '-1%', marginLeft: '5%' }]}
               >
                 <Text style={[AppStyle.titleButton, { marginTop: -6 }]}>Tiếp theo</Text>
               </Pressable>
@@ -380,22 +489,28 @@ const GoFPT = () => {
                 maxLength={35}
                 style={[AppStyle.inputModal, { height: 80, width: 320, borderRadius: 6, fontSize: 16, padding: 10, marginLeft: '5%' }]}>
               </TextInput>
-                    <View style={{alignItems:'center', marginTop:10}}>
-                      <TouchableOpacity>
-                        <View style={[AppStyle.viewheadModal,{height:38, width:326,backgroundColor:'#FCE38A',borderTopStartRadius: 8,borderTopEndRadius: 8,alignItems:'center'}]}>
-                          <Text style={[AppStyle.titleMedium,{color:'black'}]}>+ Tải ảnh quãng đường của bạn</Text>
-                        </View>
-                      </TouchableOpacity>
+              <View style={{ alignItems: 'center', marginTop: 10 }}>
+                <TouchableOpacity
+                  onPress={() => { dialogImageChoose() }}
+                >
+                  <View style={[AppStyle.viewheadModal, { height: 38, width: 326, backgroundColor: '#FCE38A', borderTopStartRadius: 8, borderTopEndRadius: 8, alignItems: 'center' }]}>
+                    <Text style={[AppStyle.titleMedium, { color: 'black' }]}>+ Tải ảnh quãng đường của bạn</Text>
+                  </View>
+                  <View style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}>
+                    {selectedImageURI && (
                       <Image
-                      source={require('../../assets/images/image23.png')}
-                      style={[AppStyle.image,{width:326,height:236,borderBottomLeftRadius: 8,borderBottomRightRadius: 8}]}
+                        style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}
+                        source={{ uri: selectedImageURI }}
                       />
-                    </View>
+                    )}
+                  </View>
+                </TouchableOpacity>
+              </View>
               <Pressable
-                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: 15, marginLeft: '5%' }]}
+                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '33%', marginLeft: '5%' }]}
                 onPress={() => setThirdModal(false)}
               >
-                <Text style={[AppStyle.titleButton, { marginTop: -6 }]}>Đăng tin</Text>
+                <Text style={[AppStyle.titleButton, { marginTop: '-3%' }]}>Đăng tin</Text>
               </Pressable>
             </View>
           </View>
@@ -408,4 +523,9 @@ const GoFPT = () => {
 
 export default GoFPT;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  map: {
+    ...StyleSheet.absoluteFillObject,
+    borderRadius: 8,
+  },
+});
