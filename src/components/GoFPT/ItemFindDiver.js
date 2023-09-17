@@ -4,11 +4,12 @@ import { AppStyle } from '../../constants/AppStyle'
 import { COLOR } from '../../constants/Theme'
 import numeral from 'numeral';
 import ItemButton from "../ItemButton";
+import { useNavigation } from '@react-navigation/native';
 
 const ItemFindDriver = (props) => {
   const { data } = props;
   const { typeFind, idUser, nameUser, phoneUser, dateStart, endPoint, price, startPoint, status, studentCode, timeStart, } = data;
-
+  const navigation = useNavigation();
   const [hidden, setHidden] = useState(true);
   const toggleHidden = () => {
     setHidden(!hidden);
@@ -81,7 +82,7 @@ const ItemFindDriver = (props) => {
 
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <ItemButton title={"Xem chi tiết"} paddingVertical={6}
-                onPress={() => { { } }} />
+                onPress={() => { { navigation.navigate('DetailFindDriver')} }} />
             </View>
 
           </View>

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React,{useState} from 'react'
+import React, { useState, useContext,useEffect, } from 'react'
 import { AppStyle } from '../../constants/AppStyle'
 import ItemSearch from '../../components/GoFPT/ItemSearch'
 import ItemHistoryPosted from '../../components/GoFPT/ItemHistoryPosted'
@@ -82,30 +82,30 @@ const HistoryPosted = () => {
   }
   return (
     <MotiView style={AppStyle.main}
-    from={{ opacity: 0, scale: 0.5 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{
-      type: 'timing',
-      duration: 350,
-    }}>
-    <FlatList
-      style={{ marginVertical: 0, marginBottom: 70 }}
-      data={dataFindDriver}
-      showsHorizontalScrollIndicator={false}
-      shouldRasterizeIOS
-      showsVerticalScrollIndicator={false}
-      renderItem={({ item }) => <ItemHistoryPosted data={item} />}
-      keyExtractor={item => item.id}
-      ListHeaderComponent={() => (
-        <View>
-          <ItemSearch marginBottom={10}
-            onPressSearch={() => { getListHistoryPosted() }}
-            onChangeText={(keyword) => handleSearch(keyword)} />
-        </View>
-      )}
-    />
+      from={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        type: 'timing',
+        duration: 350,
+      }}>
+      <FlatList
+        style={{ marginVertical: 0, marginBottom: 70 }}
+        data={dataFindDriver}
+        showsHorizontalScrollIndicator={false}
+        shouldRasterizeIOS
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => <ItemHistoryPosted data={item} />}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={() => (
+          <View>
+            <ItemSearch marginBottom={10}
+              onPressSearch={() => { getListHistoryPosted() }}
+              onChangeText={(keyword) => handleSearch(keyword)} />
+          </View>
+        )}
+      />
 
-  </MotiView>
+    </MotiView>
   )
 }
 
