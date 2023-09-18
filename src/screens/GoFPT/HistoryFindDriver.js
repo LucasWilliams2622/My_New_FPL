@@ -12,16 +12,18 @@ import { AppStyle } from '../../constants/AppStyle'
 import { SwipeListView } from 'react-native-swipe-list-view';
 import { useNavigation } from '@react-navigation/native';
 import { COLOR } from '../../constants/Theme'
+import ItemButton from '../../components/ItemButton'
 
 const HistoryFindDriver = () => {
     const navigation = useNavigation();
     const [isLoading, setIsLoading] = useState(false)
     const [dataFindDriver, setDataFindDriver] = useState([])
     const [stateList, setStateList] = useState(0)
+
     const [refreshControl, setRefreshControl] = useState(false)
     const animatedValue = useRef(new Animated.Value(0)).current;
     const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
-
+    const [modalDeleteVisible, setModalDeleteVisible] = useState(false);
     console.log(idUser, "idUser", infoUser);
     useEffect(() => {
         getListDriver()
@@ -29,6 +31,17 @@ const HistoryFindDriver = () => {
 
         }
     }, [])
+
+    const handleDelete = () => {
+        Toast.show({
+            ToastPosition: "top",
+            type: "success", // Loại toast (success, error, info)
+            text1: "Xoá thành công ✅",
+            visibilityTime: 2000, // Thời gian hiển thị (ms)
+            autoHide: true, // Tự động ẩn sau khi hiển thị
+        });
+        setModalDeleteVisible(false);
+    };
 
     const getListDriver = async () => {
         try {
@@ -134,7 +147,7 @@ const HistoryFindDriver = () => {
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={{}}
+                            onPress={() => { setModalDeleteVisible(true) }}
                             style={{
                                 height: '45%',
                                 backgroundColor: '#A42B32',
@@ -153,13 +166,72 @@ const HistoryFindDriver = () => {
                                 }}
                             />
                         </TouchableOpacity>
-
                     </>
-
                 )}
-
                 rightOpenValue={-85}
             />
+            {/* MODAL DELETE */}
+            <Modal
+                visible={modalDeleteVisible}
+                transparent={true}
+                animationType="fade"
+                onRequestClose={() => setModalDeleteVisible(false)}
+            >
+                <View style={AppStyle.modalContainer}>
+                    <View style={[AppStyle.modalContentCenter, {}]}>
+
+                        <View style={[{ marginTop: 2 }]}>
+                            <Text
+                                style={[
+                                    AppStyle.text20,
+                                    { marginBottom: 10, fontWeight: "600", color: "#DD0D05" },
+                                ]}
+                            >
+                                Cảnh báo !!!
+                            </Text>
+                            <Text
+                                style={[
+                                    AppStyle.text16,
+                                    { marginBottom: 10, fontWeight: "500" },
+                                ]}
+                            >
+                                Xóa sẽ không khôi phục được
+                            </Text>
+
+                            <View
+                                style={[
+                                    AppStyle.row,
+                                    {
+                                        justifyContent: "space-between",
+                                        marginTop: 24,
+                                        width: "100%",
+                                    },
+                                ]}
+                            >
+                                <TouchableOpacity style={{ width: "48%" }}>
+                                    <ItemButton
+                                        paddingVertical={8}
+                                        borderColor={"#028F5C"}
+                                        title={"Hủy"}
+                                        backgroundColor={"#028F5C"}
+                                        onPress={() => setModalDeleteVisible(false)}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{ width: "48%" }}>
+                                    <ItemButton
+                                        title={"Xác nhận"}
+                                        backgroundColor={"#DD0D05"}
+                                        paddingVertical={8}
+                                        borderColor={"#DD0D05"}
+                                        onPress={handleDelete}
+                                    />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
 
         </View>
     )

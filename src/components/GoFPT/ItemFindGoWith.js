@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
 
   },
   boxLocation: {
-    backgroundColor: COLOR.headItem,
+    backgroundColor: "#E8FFCE",
     borderTopRightRadius: 8,
     alignItems: 'center',
     justifyContent: 'space-evenly',

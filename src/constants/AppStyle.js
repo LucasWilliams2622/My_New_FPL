@@ -415,7 +415,51 @@ export const AppStyle = StyleSheet.create({
     boxCenter: {
         justifyContent: 'center',
         alignItems: 'center',
-    }
+    },
+    //----------- MODAL -----------
+    modalContainer: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalContainerBottom: {
+        flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+    },
+
+
+    modalContentAdd: {
+        backgroundColor: 'white',
+        paddingHorizontal: 24,
+        paddingVertical: 12,
+        width: '100%',
+        alignItems: 'flex-start',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+    },
+
+    modalContentCenter: {
+        backgroundColor: 'white',
+        paddingHorizontal: 24,
+        paddingVertical: 24,
+        width: '80%',
+        alignItems: 'flex-start',
+        borderRadius: 16,
+    },
+
+    modalContentBottom: {
+        backgroundColor: 'white',
+        paddingHorizontal: 20,
+        paddingVertical: 12,
+        height: "50%",
+        width: '100%',
+        alignItems: 'flex-start',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+    },
 
 
 })

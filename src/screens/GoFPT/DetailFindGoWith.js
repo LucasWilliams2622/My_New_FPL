@@ -75,11 +75,11 @@ const DetailFindGoWith = (props) => {
         <View style={styles.header}>
           <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
             <Image style={styles.iconBig} source={require('../../assets/icons/ic_location.png')} />
-            <Text style={[AppStyle.text16, { fontWeight: '600', color: '#ffffff' }]} numberOfLines={1}>{startPoint}</Text>
+            <Text style={[AppStyle.text16, { fontWeight: '600',  }]} numberOfLines={1}>{startPoint}</Text>
           </View>
           <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
             <Image style={styles.iconBig} source={require('../../assets/icons/ic_destination.png')} />
-            <Text style={[AppStyle.text16, { fontWeight: '600', color: '#ffffff' }]} numberOfLines={1}>{endPoint}</Text >
+            <Text style={[AppStyle.text16, { fontWeight: '600',  }]} numberOfLines={1}>{endPoint}</Text >
           </View>
         </View>
 
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   header: {
-    backgroundColor: COLOR.headDetail,
+    backgroundColor: "#E8FFCE",
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
     paddingHorizontal: 8,

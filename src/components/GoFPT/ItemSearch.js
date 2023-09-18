@@ -6,33 +6,33 @@ import { AppStyle } from '../../constants/AppStyle'
 const ItemSearch = (props) => {
     const { placeholder, placeholderTextColor,
         icon, tintColor,
-        backgroundColor,onChangeText,
+        backgroundColor, onChangeText,
         fontWeight, fontSize, textButtonColor, titleButton,
-        onPressRight,onPressSearch,
+        onPressRight, onPressSearch,
         marginBottom,
     } = props;
     return (
         <TouchableOpacity style={[styles.boxMain, {
             backgroundColor: backgroundColor == null ? COLOR.background : backgroundColor,
-            marginBottom:marginBottom ==null?0:marginBottom
+            marginBottom: marginBottom == null ? 0 : marginBottom
         }]}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', width: '90%' }}>
                 <View style={styles.boxInput}>
                     <Image style={[styles.icon, {
                         tintColor: tintColor == null ? "black" : tintColor,
                     }]} source={icon == null ? require('../../assets/icons/ic_search.png') : icon} />
-                    <TextInput style={[AppStyle.text12, { height: 36, marginLeft: 8, width: '90%' }]} placeholder='Nhập địa điểm ...' placeholderTextColor={'#6D6D6D'} 
-                    onChangeText={onChangeText}/>
+                    <TextInput style={[AppStyle.text12, { height: 36, marginLeft: 8, width: '90%' }]} placeholder='Nhập địa điểm ...' placeholderTextColor={'#6D6D6D'}
+                        onChangeText={onChangeText} />
                 </View>
                 <TouchableOpacity style={styles.button} onPress={onPressSearch}>
                     <Text style={[AppStyle.text12, {
-                        fontWeight:fontWeight==null? '700':fontWeight,
+                        fontWeight: fontWeight == null ? '700' : fontWeight,
                         color: textButtonColor == null ? COLOR.white : textButtonColor,
                     }]}>{titleButton == null ? "Tìm kiếm" : titleButton}</Text>
                 </TouchableOpacity>
             </View>
             <TouchableOpacity style={{ width: '10%', alignItems: 'center', justifyContent: 'center', }}
-            onPress={onPressRight}>
+                onPress={onPressRight}>
                 <Image style={styles.icon} source={require('../../assets/icons/ic_filter.png')} />
             </TouchableOpacity>
         </TouchableOpacity>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         paddingHorizontal: 8,
-
+        height: 40,
         width: '75%',
         borderTopWidth: 0.5,
         borderBottomWidth: 0.5,
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '25%',
-        height: 36,
+        height: 40,
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10,
         borderRightWidth: 0.5,

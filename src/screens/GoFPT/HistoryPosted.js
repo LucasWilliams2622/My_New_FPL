@@ -97,7 +97,7 @@ const HistoryPosted = () => {
           </TouchableOpacity>
           <View style={{ alignItems: 'center', justifyContent: 'center' }}>
             <Text style={[AppStyle.text16, { fontSize: 18, fontWeight: '600', color: '#FF640D' }]}>Tin đã đăng</Text>
-            <View style={{ backgroundColor: '#FF640D', height: 4, borderRadius: 99, width: '100%', marginTop: 6 }} />
+            {/* <View style={{ backgroundColor: '#FF640D', height: 4, borderRadius: 99, width: '100%', marginTop: 6 }} /> */}
           </View>
           <Text>   </Text>
         </View>
