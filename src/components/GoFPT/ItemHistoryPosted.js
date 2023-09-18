@@ -4,11 +4,12 @@ import { AppStyle } from '../../constants/AppStyle'
 import { COLOR } from '../../constants/Theme'
 import numeral from 'numeral';
 import ItemButton from "../ItemButton";
+import { useNavigation } from '@react-navigation/native';
 
 const ItemHistoryPosted = (props) => {
   const { data } = props;
   const { typeFind, idUser, nameUser, phoneUser, dateStart, endPoint, price, startPoint, status, studentCode, timeStart, } = data;
-
+  const navigation = useNavigation();
   const [hidden, setHidden] = useState(true);
   const toggleHidden = () => {
     setHidden(!hidden);
@@ -81,7 +82,7 @@ const ItemHistoryPosted = (props) => {
 
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <ItemButton title={"Xem chi tiết"} paddingVertical={6}
-                onPress={() => { { } }} />
+               onPress={() => { { navigation.navigate('DetailFindDriver', { data: data }) } }} />
             </View>
 
           </View>
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#B5B5B5',
     marginBottom: 12,
+    
 
 
   },
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-    backgroundColor: COLOR.background,
+    
 
     marginBottom: 14,
   },

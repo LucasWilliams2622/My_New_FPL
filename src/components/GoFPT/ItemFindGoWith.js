@@ -4,11 +4,12 @@ import { AppStyle } from '../../constants/AppStyle'
 import { COLOR } from '../../constants/Theme'
 import numeral from 'numeral';
 import ItemButton from "../ItemButton";
+import { useNavigation } from '@react-navigation/native';
 
 const ItemFindGoWith = (props) => {
   const { data } = props;
   const { typeFind, idUser, nameUser, phoneUser, dateStart, endPoint, price, startPoint, status, studentCode, timeStart, } = data;
-
+  const navigation = useNavigation();
   const [hidden, setHidden] = useState(true);
   const toggleHidden = () => {
     setHidden(!hidden);
@@ -81,7 +82,7 @@ const ItemFindGoWith = (props) => {
 
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <ItemButton title={"Xem chi tiết"} paddingVertical={6}
-                onPress={() => { { } }} />
+               onPress={() => { { navigation.navigate('DetailFindGoWith', { data: data }) } }} />
             </View>
 
           </View>
@@ -126,13 +127,14 @@ const styles = StyleSheet.create({
   boxInfo: {
     paddingHorizontal: 8,
     paddingVertical: 10,
+    backgroundColor:COLOR.background,
   },
   boxItemInfo: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     width: '100%',
-
+    backgroundColor: COLOR.background,
     marginBottom: 14,
   },
   left: {
