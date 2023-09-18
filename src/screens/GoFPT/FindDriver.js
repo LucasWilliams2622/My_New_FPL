@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, Text, Image, View, ScrollView, Alert } from 'react-native'
+import { StyleSheet, FlatList, Text, Image, View, ScrollView, Alert, Modal, TouchableOpacity, Pressable } from 'react-native'
 import React, { useContext, useCallback, useEffect, useState } from 'react'
 import { AppStyle } from '../../constants/AppStyle'
 import ItemSearch from '../../components/GoFPT/ItemSearch'
@@ -17,6 +17,25 @@ const FindDriver = () => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   //http://103.57.129.166:3000/gofpt/api/get-by-location?keyword=Go&typeFind=1
   const [availaBle, setAvailaBle] = useState(true)
+
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [sortBy, setSortBy] = useState(null);
+
+  const toggleModal = async () => {
+    setModalVisible(!isModalVisible);
+  };
+
+  const handleSortBy = (criteria) => {
+    setSortBy(criteria);
+    toggleModal();
+
+  };
+
+  const resetSort = () => {
+    setSortBy(null);
+    toggleModal();
+  };
+
 
   const [keyword, setKeyword] = useState('')
   useEffect(() => {
@@ -103,12 +122,49 @@ const FindDriver = () => {
         ListHeaderComponent={() => (
           <View>
             <ItemSearch marginBottom={10}
-              onPressRight={() => { { } }}
+              onPressRight={() => { { toggleModal(true) } }}
               onPressSearch={() => { getListDriver() }}
               onChangeText={(keyword) => handleSearch(keyword)} />
           </View>
         )}
-      />
+      >
+        <Modal
+          animationType="fade"
+          transparent={true}
+          isVisible={isModalVisible}
+          onRequestClose={() => setModalVisible(false)}>
+          <View style={AppStyle.modalBackground}>
+            <View style={[AppStyle.modalView, { height: 540 }]}>
+              <View style={AppStyle.viewheadModal}>
+                <Pressable
+                  style={AppStyle.btnX}
+                  onPress={() => setModalVisible(false)}>
+                  <Image
+                    source={require('../../assets/icons/ic_close.png')}
+                  />
+                </Pressable>
+                <Text style={AppStyle.txtModal1}>Tìm bạn cho chuyến đi</Text>
+              </View>
+              <Text>Chọn tiêu chí sắp xếp:</Text>
+              <TouchableOpacity onPress={() => handleSortBy('price')}>
+                <Text>Sắp xếp theo giá</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleSortBy('date')}>
+                <Text>Sắp xếp theo ngày</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleSortBy('time')}>
+                <Text>Sắp xếp theo giờ</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={resetSort}>
+                <Text>Reset</Text>
+              </TouchableOpacity>
+              {/* <TouchableOpacity onPress={toggleModal}>
+                <Text>Áp dụng sắp xếp</Text>
+              </TouchableOpacity> */}
+            </View>
+          </View>
+        </Modal>
+      </FlatList>
 
     </MotiView>
   )
@@ -116,4 +172,9 @@ const FindDriver = () => {
 
 export default FindDriver
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  modalContainer: {
+    backgroundColor: 'white',
+    padding: 20,
+  },
+})

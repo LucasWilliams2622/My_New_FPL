@@ -10,6 +10,7 @@ import AxiosInstance from '../constants/AxiosInstance';
 import ItemScheduleToday from '../components/Home/ItemScheduleToday'
 import ItemNews from '../components/Home/ItemNews'
 import ItemNewsEnterprise from '../components/Home/ItemNewsEnterprise'
+import LoadingHome1 from '../components/Loading/LoadingHome1'
 
 const Home = () => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
@@ -84,9 +85,8 @@ const Home = () => {
           <View style={[AppStyle.column]}>
             <Text style={AppStyle.titleBig}>Tin tức mới !</Text>
             {
-              isLoading ? (<Image
-                source={require('../assets/gif/loading_bar.gif')}
-                style={{width: 150, height: 100 ,alignSelf:'center',}} />)
+              isLoading ? 
+              (<LoadingHome1/>)
                 :
                 (<FlatList
                   horizontal

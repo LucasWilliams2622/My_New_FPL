@@ -82,7 +82,7 @@ const GoFPT = () => {
   const [textColor, setTextColor] = useState('black');
 
 
-  const [driverChecked, setDriverChecked] = useState(false);
+  const [driverChecked, setDriverChecked] = useState(true);
   const [passengerChecked, setPassengerChecked] = useState(false);
 
   const checkImage = require('../../assets/icons/ic_check.png');
@@ -179,6 +179,14 @@ const GoFPT = () => {
 
   };
 
+  const currentDate = new Date();
+
+  const DateNow = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
+  
+  const currentTime = new Date();
+
+  const TimeNow = `${currentTime.getHours()}:${currentTime.getMinutes()}`;
+  
 
   const dialogImageChoose = () => {
     return Alert.alert(
@@ -287,9 +295,15 @@ const GoFPT = () => {
                 <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
                   <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
                     <View style={{ backgroundColor: '#FCE38A', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
-                    {selectedDate && (
+                    {/* {selectedDate && (
                       <Text style={{}}> {formattedDate}</Text>
-                    )}
+                    )} */}
+                    {
+                      selectedDate == null ?
+                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{DateNow}</Text>
+                        :
+                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{formattedDate}</Text>
+                    }
                     <TouchableOpacity onPress={showDatePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
                       <Image
                         source={require('../../assets/icons/ic_calendar.png')}
@@ -304,7 +318,7 @@ const GoFPT = () => {
                     )} */}
                     {
                       selectedTime == null ?
-                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>Hãy chọn giờ</Text>
+                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{TimeNow}</Text>
                         :
                         <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
                     }
@@ -344,24 +358,24 @@ const GoFPT = () => {
 
                   {/* ROLE */}
                   <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'flex-start', flexDirection: 'row', alignItems: "center", }} >
-                    <View style={{width:"20%"}}>
-                      <View style={[AppStyle.boxCenter, { backgroundColor: '#EAFFD0', height: 40,  borderTopLeftRadius: 6, borderBottomLeftRadius: 8 }]}>
+                    <View style={{ width: "20%" }}>
+                      <View style={[AppStyle.boxCenter, { backgroundColor: '#EAFFD0', height: 40, borderTopLeftRadius: 6, borderBottomLeftRadius: 8 }]}>
                         <Image
                           source={require('../../assets/icons/ic_cross_walk.png')}
-                          style={[AppStyle.icon, {width:20,height:20}]}
+                          style={[AppStyle.icon, { width: 20, height: 20 }]}
                         />
                       </View>
 
                     </View>
-                    <View style={{ flexDirection: 'row',width:"78%",}}>
-                      <View style={[AppStyle.rowBtw,{width:'100%'}]}>
+                    <View style={{ flexDirection: 'row', width: "78%", }}>
+                      <View style={[AppStyle.rowBtw, { width: '100%' }]}>
                         <TouchableOpacity onPress={handleDriverPress}>
                           <View style={AppStyle.rowCenter}>
                             <Image
                               source={driverChecked ? checkImage : uncheckImage}
                               style={{ height: 16, width: 16 }}
                             />
-                            <Text style={[AppStyle.text12,{ color: driverChecked ? '#0C9B34' : '#626262' }]}>Tài xế</Text>
+                            <Text style={[AppStyle.text12, { color: driverChecked ? '#0C9B34' : '#626262' }]}>Tài xế</Text>
                           </View>
                         </TouchableOpacity>
 
@@ -371,7 +385,7 @@ const GoFPT = () => {
                               source={passengerChecked ? checkImage : uncheckImage}
                               style={{ height: 16, width: 16 }}
                             />
-                            <Text style={[AppStyle.text12,{ color: passengerChecked ? '#0C9B34' : '#626262' }]}>Yên sau</Text>
+                            <Text style={[AppStyle.text12, { color: passengerChecked ? '#0C9B34' : '#626262' }]}>Yên sau</Text>
                           </View>
                         </TouchableOpacity>
                       </View>
@@ -538,7 +552,7 @@ const GoFPT = () => {
                 </TouchableOpacity>
               </View>
               <Pressable
-                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '33%', marginLeft: '5%' }]}
+                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '8%', marginLeft: '5%' }]}
                 onPress={() => setThirdModal(false)}
               >
                 <Text style={[AppStyle.titleButton, { marginTop: '-3%' }]}>Đăng tin</Text>

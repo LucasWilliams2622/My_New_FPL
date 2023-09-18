@@ -26,6 +26,7 @@ import Home from './src/app/screens/Home';
 import { LogBox } from 'react-native';
 import Button from './src/components/Toast/Button';
 import ToastMessage from './src/components/Toast/ToastMessage';
+import Loading from './src/components/Loading/Loading';
 
 LogBox.ignoreLogs([
   'Require cycle:',
@@ -43,7 +44,6 @@ const App = () => {
   // )
   const [isLoading, setIsLoading] = useState(true);
 
- 
   return (
     <AppContextProvider>
       <NavigationContainer>

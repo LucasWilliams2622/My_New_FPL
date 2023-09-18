@@ -9,7 +9,7 @@ import dayjs from 'dayjs'
 
 import { AppContext } from '../utils/AppContext';
 import AxiosInstance from '../constants/AxiosInstance';
-import Loading from '../components/Loading'
+import Loading from '../components/Loading/Loading'
 const DataNewsStudy = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -110,7 +110,7 @@ const Study = (props) => {
   }, [appState])
   return (
     <SafeAreaView style={styles.BoxContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
-      <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%", marginBottom: 75 }}>
+      <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%", marginBottom: 75, }}>
         <View style={[AppStyle.column,]}>
           <View style={[AppStyle.column,]}>
             <Text style={AppStyle.titleBig}> Tin mới nhất </Text>

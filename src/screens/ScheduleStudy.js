@@ -7,7 +7,7 @@ import ItemScheduleStudy from '../components/Schedule/ItemScheduleStudy';
 import AxiosInstance from '../constants/AxiosInstance';
 import { AppContext } from '../utils/AppContext'
 import Swiper from 'react-native-swiper'
-import Loading from '../components/Loading';
+import Loading from '../components/Loading/Loading';
 
 const data = [
   { label: '7 ngày tới', value: '7' },
