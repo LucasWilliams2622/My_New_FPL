@@ -94,11 +94,11 @@ const HistoryFindDriver = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: COLOR.background }}>
-            <LoadingHistoryFindDriver/>
             {
-                listAvailable
+                isLoading ? 
+                ( <LoadingHistoryFindDriver/>) :
+                (listAvailable
                     ? (<SwipeListView
-                        
                         onScroll={e => {
                             animatedValue.setValue(e.nativeEvent.contentOffset.y)
                         }}
@@ -209,6 +209,7 @@ const HistoryFindDriver = () => {
                             <Text style={{ fontWeight: '600', color: COLOR.primary, fontSize: 18, }}>Bạn chưa có tin tìm tài xế nào</Text>
                         </View>
                     )
+                )
             }
 
             {/* MODAL DELETE */}
