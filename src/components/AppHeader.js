@@ -8,6 +8,8 @@ import DeviceInfo from 'react-native-device-info';
 import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import { MotiView } from 'moti';
+import FastImage from 'react-native-fast-image';
+
 const { height } = Dimensions.get('window');
 
 const AppHeader = () => {
@@ -63,9 +65,18 @@ const AppHeader = () => {
     <SafeAreaView style={[AppStyle.header, AppStyle.row, { paddingTop: 20, paddingHorizontal: 16, justifyContent: 'space-between', }]}
     >
       <View style={[AppStyle.row, {}]}
-       >
+      >
         {infoUser.avatar != "" ?
-          (<Image style={AppStyle.avatar} source={{ uri: avatar }} />)
+          (
+            <FastImage
+              style={AppStyle.avatar}
+              source={{
+                uri: avatar,
+                priority: FastImage.priority.normal,
+              }}
+            // resizeMode={FastImage.resizeMode.contain}
+            />
+          )
           :
           (<Image style={AppStyle.avatar} source={require('../assets/images/defaultAvatar.png')} />)
         }
@@ -74,7 +85,10 @@ const AppHeader = () => {
           <Text style={[AppStyle.titleSmall, { paddingTop: 4 }]}>{studentCode}</Text>
         </View>
       </View>
-      <Image style={{ width: 88, height: 27, marginTop: 10, paddingRight: 16, }} source={require('../assets/images/logo.jpg')} />
+      <FastImage
+        style={{ width: 88, height: 27, marginTop: 10, paddingRight: 16 }}
+        source={require('../assets/images/logo.jpg')}
+      />
     </SafeAreaView>
   )
 }
