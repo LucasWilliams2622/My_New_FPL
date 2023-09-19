@@ -13,6 +13,8 @@ import { SwipeListView } from 'react-native-swipe-list-view';
 import { useNavigation } from '@react-navigation/native';
 import { COLOR } from '../../constants/Theme'
 import ItemButton from '../../components/ItemButton'
+import Loading from '../../components/Loading/Loading'
+import LoadingHistoryFindDriver from '../../components/Loading/LoadingHistoryFindDriver'
 
 const HistoryFindDriver = () => {
     const navigation = useNavigation();
@@ -92,6 +94,7 @@ const HistoryFindDriver = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: COLOR.background }}>
+            <LoadingHistoryFindDriver/>
             {
                 listAvailable
                     ? (<SwipeListView
