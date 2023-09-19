@@ -78,7 +78,12 @@ const AppHeader = () => {
             />
           )
           :
-          (<Image style={AppStyle.avatar} source={require('../assets/images/defaultAvatar.png')} />)
+          (
+            <FastImage
+              style={AppStyle.avatar}
+              source={require('../assets/images/defaultAvatar.png')}
+            />
+          )
         }
         <View style={[AppStyle.column, { marginLeft: 12, justifyContent: 'space-between', paddingVertical: 4 }]}>
           <Text style={[AppStyle.titleSmall, { color: COLOR.title }]}>{name}</Text>

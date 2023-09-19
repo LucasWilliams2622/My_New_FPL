@@ -6,7 +6,7 @@ import Swiper from 'react-native-swiper'
 import { COLOR } from '../constants/Theme'
 import { AppContext } from '../utils/AppContext'
 import AxiosInstance from '../constants/AxiosInstance';
-
+import FastImage from 'react-native-fast-image';
 import ItemScheduleToday from '../components/Home/ItemScheduleToday'
 import ItemNews from '../components/Home/ItemNews'
 import ItemNewsEnterprise from '../components/Home/ItemNewsEnterprise'
@@ -44,32 +44,33 @@ const Home = () => {
 
     }
   }, [appState])
-  
+
   return (
     <SafeAreaView style={AppStyle.container}>
       <AppHeader />
       <ScrollView showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
         <View style={styles.wrapper} >
-          <Swiper showsButtons={false} autoplay={true}showsPagination={false} >
+          <Swiper showsButtons={false} autoplay={true} showsPagination={false} >
             <View style={styles.slide}>
-              <Image style={styles.image} source={require('../assets/images/Banner1.png')} />
+              <FastImage style={styles.image} source={require('../assets/images/Banner1.png')} />
             </View>
             <View style={styles.slide}>
-              <Image style={styles.image} source={require('../assets/images/Banner2.png')} />
+              <FastImage style={styles.image} source={require('../assets/images/Banner2.png')} />
             </View>
             <View style={styles.slide}>
-              <Image style={styles.image} source={require('../assets/images/Banner3.jpg')} />
+
+              <FastImage style={styles.image} source={require('../assets/images/Banner3.jpg')} />
             </View>
           </Swiper>
         </View>
 
         <View style={styles.BoxContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
-          <View style={[AppStyle.column,{display: dataCurrentSchedule.length > 0 ? 'flex':'none',marginBottom:20 }]}>
+          <View style={[AppStyle.column, { display: dataCurrentSchedule.length > 0 ? 'flex' : 'none', marginBottom: 20 }]}>
             <Text style={AppStyle.titleBig}>Lịch học hôm nay</Text>
             {isLoading ?
-              (<Image
+              (<FastImage
                 source={require('../assets/gif/loading_bar.gif')}
-                style={{width: 150, height: 100 ,alignSelf:'center',}} />)
+                style={{ width: 150, height: 100, alignSelf: 'center', }} />)
               :
               (<FlatList
                 horizontal
@@ -85,8 +86,8 @@ const Home = () => {
           <View style={[AppStyle.column]}>
             <Text style={AppStyle.titleBig}>Tin tức mới !</Text>
             {
-              isLoading ? 
-              (<LoadingHome1/>)
+              isLoading ?
+                (<LoadingHome1 />)
                 :
                 (<FlatList
                   horizontal
@@ -100,7 +101,7 @@ const Home = () => {
           </View>
 
           <View style={[AppStyle.column, { marginTop: 20, marginBottom: 80 }]}>
-            <Text style={[AppStyle.titleBig,{marginBottom:6}]}>Tin tức doanh nghiệp !</Text>
+            <Text style={[AppStyle.titleBig, { marginBottom: 6 }]}>Tin tức doanh nghiệp !</Text>
             <FlatList
               numColumns={2}
               showsHorizontalScrollIndicator={false}
@@ -110,7 +111,7 @@ const Home = () => {
               renderItem={({ item }) => <ItemNewsEnterprise data={item} />}
               keyExtractor={item => item.id}
             />
-           
+
           </View>
         </View>
       </ScrollView>
@@ -147,9 +148,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     marginTop: 10,
-    height: '100%',
-    width: '100%',
-
+    flex: 1,
     paddingHorizontal: 16,
     paddingVertical: 20,
   },
