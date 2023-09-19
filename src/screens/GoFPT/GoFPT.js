@@ -223,7 +223,7 @@ const GoFPT = () => {
         <Tab.Screen name="FindGoWith" component={FindGoWith} />
       </Tab.Navigator>
 
-      <ActionButton buttonColor="#FFC634F5" style={{ bottom: '8%', right: '-5%' }} degrees={0}
+      <ActionButton buttonColor="#FFC634F5" style={{ bottom: '8%', right: '-5%' }} degrees={-20}
         renderIcon={() => <FastImage style={{ width: 30, height: 30 }} source={require('../../assets/icons/ic_find_user.png')} />}>
         <ActionButton.Item buttonColor='#FFC6AC' title="Tìm bạn cho chuyến đi" onPress={() => toggleModal(true)}>
           <FastImage style={{ width: 16, height: 16 }} source={require('../../assets/icons/ic_plus.png')} />
@@ -402,7 +402,7 @@ const GoFPT = () => {
                       source={require('../../assets/icons/ic_destination.png')}
                       style={[AppStyle.icon, { width: 16, height: 16 }]}
                     />
-                    <Text style={[AppStyle.titleMedium, { color: 'black' }]}>Chọn địa điểm và chụp quãng đường</Text>
+                    <Text style={[AppStyle.titleMedium, { color: 'black', marginLeft: 4 }]}>Chọn địa điểm và chụp quãng đường</Text>
                   </View>
                   <TouchableOpacity onPress={toggleNestedModal}>
                     <FastImage
@@ -531,16 +531,16 @@ const GoFPT = () => {
                   />
                   <Text style={[AppStyle.titleMedium, { color: 'black', fontWeight: 500, marginLeft: 8 }]}>Ghi chú</Text>
                 </View>
-                <View style={{ borderWidth: .5, color: '#DBDBDB', backgroundColor: COLOR.background,paddingVertical:4,paddingHorizontal:4,alignItems:'flex-start',justifyContent:'flex-start',height:60,borderRadius:8,marginTop:6,marginBottom:12 }}>
+                <View style={{ borderWidth: .5, color: '#DBDBDB', backgroundColor: COLOR.background, paddingVertical: 4, paddingHorizontal: 4, alignItems: 'flex-start', justifyContent: 'flex-start', height: 60, borderRadius: 8, marginTop: 6, marginBottom: 12 }}>
                   <TextInput
                     placeholder="Cần tìm bạn đi chung"
                     editable
                     multiline
-                    style={[{ fontSize: 14, paddingVertical:0}]}
+                    style={[{ fontSize: 14, paddingVertical: 0 }]}
                   />
                 </View>
 
-                <View style={{ alignItems: 'center', marginTop: 10,marginBottom:24 }}>
+                <View style={{ alignItems: 'center', marginTop: 10, marginBottom: 24 }}>
                   <TouchableOpacity
                     onPress={() => { dialogImageChoose() }}
                   >
