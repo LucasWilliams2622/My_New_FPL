@@ -2,7 +2,7 @@ import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable
 import { AppStyle } from "../../constants/AppStyle";
 import AppHeader from "../../components/AppHeader";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import React, { Component, useState } from "react";
+import React, { Component, useState, useRef } from "react";
 import MapView, { Marker } from 'react-native-maps';
 
 import FastImage from 'react-native-fast-image';
@@ -22,6 +22,8 @@ import { Calendar, LocaleConfig } from 'react-native-calendars';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import ItemButton from "../../components/ItemButton";
 import { COLOR } from "../../constants/Theme";
+import AxiosInstance from "../../constants/AxiosInstance";
+import ToastMessage from "../../components/Toast/ToastMessage";
 
 const Tab = createMaterialTopTabNavigator();
 const options = ({ route }) => ({
@@ -83,6 +85,13 @@ const GoFPT = () => {
   const [imageIndex, setImageIndex] = useState(0);
   const [textColor, setTextColor] = useState('black');
 
+  const [toastType, setToastType] = useState("success");
+  const toastRef = useRef(null);
+  const handleShowToast = () => {
+    if (toastRef.current) {
+      toastRef.current.show();
+    }
+  };
 
   const [driverChecked, setDriverChecked] = useState(true);
   const [passengerChecked, setPassengerChecked] = useState(false);
@@ -108,7 +117,11 @@ const GoFPT = () => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   });
-
+  <ToastMessage
+    type={toastType}
+    text="Upload ảnh thành công"
+    // description="Lorem Ipsum Description"
+    ref={toastRef} />
   const handleDriverPress = () => {
     setDriverChecked(true);
     setPassengerChecked(false);
@@ -210,7 +223,23 @@ const GoFPT = () => {
     const result = await launchImageLibrary();
     if (result.assets.length > 0) {
       const imageURI = result.assets[0].uri;
-      setSelectedImageURI(imageURI);
+
+      console.log(result.assets[0].uri);
+      const formdata = new FormData();
+      formdata.append('image', {
+        uri: result.assets[0].uri,
+        type: 'image/jpeg',
+        name: 'image.jpg',
+      });
+      const response = await AxiosInstance("multipart/form-data").post('/gofpt/api/upload-image', formdata);
+      console.log(response.link);
+      if (response.result == true) {
+        setSelectedImageURI(imageURI);
+        setToastType("success"); handleShowToast();
+      }
+      else {
+        ToastAndroid.show("Upload ảnh thất bại", ToastAndroid.SHORT);
+      }
     }
   }
 
@@ -313,12 +342,12 @@ const GoFPT = () => {
                         source={require('../../assets/icons/ic_calendar.png')}
                         style={[AppStyle.iconMedium, {}]}
                       />
-                                <DateTimePickerModal
-                            isVisible={isDatePickerVisible}
-                            mode="date"
-                            onConfirm={handleConfirm}
-                            onCancel={hideDatePicker}
-                          />
+                      <DateTimePickerModal
+                        isVisible={isDatePickerVisible}
+                        mode="date"
+                        onConfirm={handleConfirm}
+                        onCancel={hideDatePicker}
+                      />
                     </TouchableOpacity>
                   </View>
                   <View style={{ height: 40, width: '48%', borderWidth: .8, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
@@ -554,17 +583,20 @@ const GoFPT = () => {
                       <Text style={[AppStyle.titleMedium, { color: 'black' }]}>+ Tải ảnh quãng đường của bạn</Text>
                     </View>
                     <View style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}>
-                      {selectedImageURI && (
+                      {selectedImageURI != null ? (
                         <FastImage
                           style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}
                           source={{ uri: selectedImageURI }}
                         />
-                      )}
+                      ) : (<FastImage
+                        style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}
+                        source={require('../../assets/images/mapFPT.jpg')}
+                      />)}
                     </View>
                   </TouchableOpacity>
                 </View>
 
-                <ItemButton title={'Đăng tin'} paddingVertical={10} onPress={() => { setThirdModal(false) }} />
+                <ItemButton title={'Đăng tin'} type="success" text="Success" paddingVertical={10} onPress={() => { setThirdModal(false); setToastType("success"); handleShowToast(); }} />
 
               </View>
             </View>

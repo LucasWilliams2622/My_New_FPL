@@ -10,15 +10,15 @@ const ToastMessage = forwardRef(({ type, text, description, timeout = 1000 }, re
     const TOAST_TYPE = {
         success: {
             backgroundColor: '#2ecc71',
-            icon: 'checkcircleo'
+            icon: 'check'
         },
         danger: {
             backgroundColor: '#e74c3c',
-            icon: 'error-outline'
+            icon: 'exclamation'
         },
         info: {
             backgroundColor: '#3498db',
-            icon: 'infocirlceo'
+            icon: 'info'
         },
         warning: {
             backgroundColor: '#f39c12',
@@ -63,7 +63,7 @@ const ToastMessage = forwardRef(({ type, text, description, timeout = 1000 }, re
                 entering={FadeInUp.delay(200)}
                 exiting={FadeOutUp}
             >
-               <Icon name="heart" size={30} color="white" />
+                <Icon name={icon} size={30} color="white" />
 
                 <View style={{ marginLeft: 12 }}>
                     <Text style={{ fontSize: 18, fontWeight: '600', color: '#FFF' }}>{text}</Text>

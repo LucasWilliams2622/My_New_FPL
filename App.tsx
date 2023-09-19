@@ -13,7 +13,7 @@ import ScanQrCode from './src/screens/ScanQrCode';
 import TestQRCode from './src/test/TestQRCode'
 import BottomTabNav from './src/app/navigation/BottomNav'
 import { Input, CheckBox, RadioButton } from 'react-native-btr';
-import TestShare from './src/test/TestShare'
+import TestShare from './src/test/Toast'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Splash from './src/screens/Splash';
 import Login from './src/screens/Login';
@@ -31,7 +31,7 @@ import Loading from './src/components/Loading/Loading';
 LogBox.ignoreLogs([
   'Require cycle:',
 ]);
-console.disableYellowBox = true;
+// console.disableYellowBox = true;
 const App = () => {
   // console.log("------------->",numeral(100000000).format('0,0'));
 
@@ -50,7 +50,7 @@ const App = () => {
 
         {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
 
-        {/* <TestShare /> */}
+        <TestShare />
         {/* <TesTMap /> */}
       </NavigationContainer>
 
