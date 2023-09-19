@@ -2,6 +2,8 @@ import { StyleSheet, Text, View, Image, Modal, Button, TouchableOpacity } from '
 import React, { useState } from 'react';
 import { AppStyle } from '../../constants/AppStyle'
 import { COLOR } from '../../constants/Theme'
+import FastImage from 'react-native-fast-image';
+
 const ItemScheduleToday = (props) => {
     const { data } = props
     const [isOverlayVisible, setOverlayVisible] = useState(false);
@@ -22,12 +24,12 @@ const ItemScheduleToday = (props) => {
                     <View style={AppStyle.row}>
                         <View style={[AppStyle.column, { backgroundColor: "#FFE9B1", width: 165, padding: 10, borderRadius: 10, borderWidth: 1.5, borderColor: "#FF640D" }]}>
                             <View style={[AppStyle.row, { justifyContent: 'center', }]}>
-                                <Image style={[AppStyle.iconMedium, { top: 3, marginRight: 5, }]} source={require('../../assets/icons/ic_location.png')} />
+                                <FastImage style={[AppStyle.iconMedium, { top: 3, marginRight: 5, }]} source={require('../../assets/icons/ic_location.png')} />
                                 <Text style={[AppStyle.titleSmall, { color: COLOR.title }]}>{data.location}</Text>
                             </View>
                             <View style={[AppStyle.row, { marginTop: 2, justifyContent: 'space-between', alignItems: 'center' }]}>
                                 <View style={[AppStyle.row, { marginTop: 8, justifyContent: 'center', }]}>
-                                    <Image style={[AppStyle.iconMedium, { top: 3, marginRight: 5, }]} source={require('../../assets/icons/ic_clock.png')} />
+                                    <FastImage style={[AppStyle.iconMedium, { top: 3, marginRight: 5, }]} source={require('../../assets/icons/ic_clock.png')} />
                                     <Text style={[AppStyle.titleSmall, { color: COLOR.title }]}>Ca {data.shift} | </Text>
                                     <Text style={[AppStyle.titleSmall, { color: COLOR.title }]}>{data.time}</Text>
                                 </View>
@@ -82,12 +84,12 @@ const ItemScheduleToday = (props) => {
                     <Text style={[AppStyle.text, { color: COLOR.normalText, fontWeight: '700' }]}>{data.idSubject.codeSubject}</Text>
                 </View>
                 <View style={[AppStyle.row, { marginTop: 8, justifyContent: 'center', }]}>
-                    <Image style={[AppStyle.iconSmall, { top: 3, marginRight: 5, }]} source={require('../../assets/icons/ic_location.png')} />
+                    <FastImage style={[AppStyle.iconSmall, { top: 3, marginRight: 5, }]} source={require('../../assets/icons/ic_location.png')} />
                     <Text style={[AppStyle.titleSmall, { color: COLOR.title }]}>{data.location}</Text>
                 </View>
                 <View style={[AppStyle.row, { marginTop: 2, justifyContent: 'space-between', width: 230, alignItems: 'center' }]}>
                     <View style={[AppStyle.row, { marginTop: 8, justifyContent: 'center', }]}>
-                        <Image style={[AppStyle.iconSmall, { top: 3, marginRight: 5, }]} source={require('../../assets/icons/ic_clock.png')} />
+                        <FastImage style={[AppStyle.iconSmall, { top: 3, marginRight: 5, }]} source={require('../../assets/icons/ic_clock.png')} />
                         <Text style={[AppStyle.titleSmall, { color: COLOR.title }]}>Ca {data.shift} | </Text>
 
                         <Text style={[AppStyle.titleSmall, { color: COLOR.title }]}>{data.time}</Text>

@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import React, { Component, useState } from "react";
 import MapView, { Marker } from 'react-native-maps';
 
-
+import FastImage from 'react-native-fast-image';
 import FindGoWith from "./FindGoWith";
 import FindDriver from "./FindDriver";
 
@@ -20,6 +20,8 @@ import { launchCamera, launchImageLibrary } from 'react-native-image-picker'
 import numeral from 'numeral';
 import { Calendar, LocaleConfig } from 'react-native-calendars';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import ItemButton from "../../components/ItemButton";
+import { COLOR } from "../../constants/Theme";
 
 const Tab = createMaterialTopTabNavigator();
 const options = ({ route }) => ({
@@ -182,11 +184,11 @@ const GoFPT = () => {
   const currentDate = new Date();
 
   const DateNow = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-  
+
   const currentTime = new Date();
 
   const TimeNow = `${currentTime.getHours()}:${currentTime.getMinutes()}`;
-  
+
 
   const dialogImageChoose = () => {
     return Alert.alert(
@@ -222,15 +224,17 @@ const GoFPT = () => {
       </Tab.Navigator>
 
       <ActionButton buttonColor="#FFC634F5" style={{ bottom: '8%', right: '-5%' }} degrees={0}
-        renderIcon={() => <Image style={{ width: 30, height: 30 }} source={require('../../assets/icons/ic_find_user.png')} />}>
+        renderIcon={() => <FastImage style={{ width: 30, height: 30 }} source={require('../../assets/icons/ic_find_user.png')} />}>
         <ActionButton.Item buttonColor='#FFC6AC' title="Tìm bạn cho chuyến đi" onPress={() => toggleModal(true)}>
-          <Image style={{ width: 16, height: 16 }} source={require('../../assets/icons/ic_plus.png')} />
+          <FastImage style={{ width: 16, height: 16 }} source={require('../../assets/icons/ic_plus.png')} />
         </ActionButton.Item>
 
         <ActionButton.Item buttonColor='#C8E4B2' title="Tin đã đăng" onPress={() => { navigation.navigate("HistoryPosted") }}>
-          <Image style={{ width: 24, height: 24, tintColor: 'black' }} source={require('../../assets/icons/ic_history.png')} />
+          <FastImage style={{ width: 24, height: 24, tintColor: 'black' }} source={require('../../assets/icons/ic_history.png')} />
         </ActionButton.Item>
       </ActionButton>
+
+      {/* MODAL ADD */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -243,12 +247,12 @@ const GoFPT = () => {
           enableAutomaticScroll={true}
         >
           <View style={AppStyle.modalBackground}>
-            <View style={[AppStyle.modalView, { width: '90%', borderWidth: 2 }]}>
+            <View style={[AppStyle.modalView, { width: '90%', }]}>
               <View style={AppStyle.viewheadModal}>
                 <TouchableOpacity
                   style={AppStyle.btnX}
                   onPress={() => setModalVisible(false)}>
-                  <Image style={{ width: 18, height: 18, }}
+                  <FastImage style={{ width: 18, height: 18, }}
                     source={require('../../assets/icons/ic_close.png')}
                   />
                 </TouchableOpacity>
@@ -256,11 +260,11 @@ const GoFPT = () => {
               </View>
 
               {/* CONTENT */}
-              <View style={{ paddingHorizontal: 10 }}>
+              <View style={{ paddingHorizontal: 12, paddingBottom: 24 }}>
                 {/* LOCATION */}
                 <View style={AppStyle.ddinputModal}>
                   <View style={[AppStyle.boxCenter, { width: '10%' }]}>
-                    <Image source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, {}]} />
+                    <FastImage source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, {}]} />
                   </View>
 
                   <TextInput
@@ -272,7 +276,7 @@ const GoFPT = () => {
                 {/* PHONE NUM */}
                 <View style={AppStyle.ddinputModal}>
                   <View style={[AppStyle.boxCenter, { width: '10%' }]}>
-                    <Image source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, {}]} />
+                    <FastImage source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, {}]} />
                   </View>
 
                   <PhoneInput
@@ -305,7 +309,7 @@ const GoFPT = () => {
                         <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{formattedDate}</Text>
                     }
                     <TouchableOpacity onPress={showDatePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
-                      <Image
+                      <FastImage
                         source={require('../../assets/icons/ic_calendar.png')}
                         style={[AppStyle.iconMedium, {}]}
                       />
@@ -323,7 +327,7 @@ const GoFPT = () => {
                         <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
                     }
                     <TouchableOpacity onPress={showTimePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
-                      <Image
+                      <FastImage
                         source={require('../../assets/icons/ic_clock.png')}
                         style={[AppStyle.iconMedium, {}]}
                       />
@@ -341,7 +345,7 @@ const GoFPT = () => {
 
                   <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row', alignItems: "center", paddingHorizontal: 6 }} >
                     <View style={[AppStyle.boxCenter, {}]}>
-                      <Image
+                      <FastImage
                         source={require('../../assets/icons/ic_vietnam_dong.png')}
                         style={[AppStyle.icon, {}]}
                       />
@@ -360,7 +364,7 @@ const GoFPT = () => {
                   <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'flex-start', flexDirection: 'row', alignItems: "center", }} >
                     <View style={{ width: "20%" }}>
                       <View style={[AppStyle.boxCenter, { backgroundColor: '#EAFFD0', height: 40, borderTopLeftRadius: 6, borderBottomLeftRadius: 8 }]}>
-                        <Image
+                        <FastImage
                           source={require('../../assets/icons/ic_cross_walk.png')}
                           style={[AppStyle.icon, { width: 20, height: 20 }]}
                         />
@@ -371,7 +375,7 @@ const GoFPT = () => {
                       <View style={[AppStyle.rowBtw, { width: '100%' }]}>
                         <TouchableOpacity onPress={handleDriverPress}>
                           <View style={AppStyle.rowCenter}>
-                            <Image
+                            <FastImage
                               source={driverChecked ? checkImage : uncheckImage}
                               style={{ height: 16, width: 16 }}
                             />
@@ -381,7 +385,7 @@ const GoFPT = () => {
 
                         <TouchableOpacity onPress={handlePassengerPress}>
                           <View style={AppStyle.rowCenter}>
-                            <Image
+                            <FastImage
                               source={passengerChecked ? checkImage : uncheckImage}
                               style={{ height: 16, width: 16 }}
                             />
@@ -392,24 +396,24 @@ const GoFPT = () => {
                     </View>
                   </View>
                 </View>
-                <View style={{ height: 50, width: 320, flexDirection: 'row', marginTop: 11, marginLeft: 15, justifyContent: 'space-between' }}>
-                  <View style={{ flexDirection: 'row' }}>
-                    <Image
+                <View style={{ width: '100%', flexDirection: 'row', marginTop: 18, marginBottom: 8, justifyContent: 'space-between' }}>
+                  <View style={AppStyle.rowCenter}>
+                    <FastImage
                       source={require('../../assets/icons/ic_destination.png')}
-                      style={[AppStyle.icon, {}]}
+                      style={[AppStyle.icon, { width: 16, height: 16 }]}
                     />
                     <Text style={[AppStyle.titleMedium, { color: 'black' }]}>Chọn địa điểm và chụp quãng đường</Text>
                   </View>
                   <TouchableOpacity onPress={toggleNestedModal}>
-                    <Image
+                    <FastImage
                       source={require('../../assets/icons/ic_question_mark.png')}
                       style={[AppStyle.icon, {}]}
                     />
                   </TouchableOpacity>
                 </View>
-                <View style={{ width: '88%', backgroundColor: '#DBDBDB', borderRadius: 8, height: 150, left: '5%', top: '-3%' }}>
+                <View style={{ width: '100%', backgroundColor: '#DBDBDB', borderRadius: 16, height: 150, marginBottom: 18 }}>
                   <MapView
-                    style={[styles.map, { borderRadius: 8 }]}
+                    style={[styles.map, { borderRadius: 16 }]}
                     initialRegion={position}
                     showsUserLocation={true}
                     showsMyLocationButton={true}
@@ -434,12 +438,7 @@ const GoFPT = () => {
 
                   </MapView>
                 </View>
-                <Pressable
-                  onPress={toggleThirdModal}
-                  style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '-1%', marginLeft: '5%' }]}
-                >
-                  <Text style={[AppStyle.titleButton, { marginTop: -6 }]}>Tiếp theo</Text>
-                </Pressable>
+                <ItemButton title={"Tiếp theo"} paddingVertical={10} onPress={toggleThirdModal} />
               </View>
 
             </View>
@@ -447,55 +446,54 @@ const GoFPT = () => {
         </KeyboardAwareScrollView>
       </Modal>
 
+      {/* MODAL ADD TUTORIAL */}
       <Modal
         animationType="fade"
         transparent={true}
         visible={isNestedModalVisible}
         onRequestClose={() => setNestedModalVisible(false)}>
         <View style={AppStyle.modalBackground}>
-          <View style={[AppStyle.modalView, { height: 372 }]}>
+          <View style={[AppStyle.modalView, {}]}>
             <View style={AppStyle.viewheadModal}>
-              <Pressable
+              <TouchableOpacity
                 style={AppStyle.btnX}
                 onPress={() => setNestedModalVisible(false)}>
-                <Image style={{ width: 24, height: 24, }}
+                <FastImage style={{ width: 18, height: 18, }}
                   source={require('../../assets/icons/ic_close.png')}
                 />
-              </Pressable>
+              </TouchableOpacity>
               <Text style={AppStyle.txtModal1}>Hướng dẫn sử dụng</Text>
             </View>
-            <View style={{ left: '6%' }}>
-              <View style={{ flexDirection: 'row', marginTop: '3%' }}>
-                <Text style={[AppStyle.titleMedium, { color: 'black', fontStyle: 'italic' }]}>Bước 1:</Text>
-                <Text style={[AppStyle.titleSmall, { color: 'black', left: 8, top: 2, fontWeight: 400 }]}>Nhấn vào vị trí bạn muốn đến trong bản đồ</Text>
+
+
+            <View style={{ paddingVertical: 12, paddingHorizontal: 12, paddingBottom: 24 }}>
+              <View style={AppStyle.row}>
+                <Text style={[AppStyle.titleMedium, { color: 'black', fontStyle: 'italic', width: '20%', marginBottom: 4, }]}>Bước 1:</Text>
+                <Text style={[AppStyle.titleSmall, { marginLeft: 4, color: 'black', fontWeight: 400, width: '80%' }]}>Nhấn vào vị trí bạn muốn đến trong bản đồ</Text>
               </View>
-              <Image
-                source={require('../../assets/images/default_map.png')}
-                style={{ height: 100, width: 168, marginTop: '2%' }}
+              <FastImage
+                source={require('../../assets/images/mapFPT.jpg')}
+                style={{ height: 100, width: 168, marginBottom: 14 }}
               />
-              <View style={{ flexDirection: 'row', marginTop: '3%' }}>
-                <Text style={[AppStyle.titleMedium, { color: 'black', fontStyle: 'italic' }]}>Bước 2:</Text>
-                <Text style={[AppStyle.titleSmall, { color: 'black', left: 8, top: 2, fontWeight: 400 }]}>Nhấn nút chỉ đường bên phải</Text>
+              <View style={AppStyle.row}>
+                <Text style={[AppStyle.titleMedium, { color: 'black', fontStyle: 'italic', width: '20%', marginBottom: 4 }]}>Bước 2:</Text>
+                <Text style={[AppStyle.titleSmall, { marginLeft: 4, color: 'black', fontWeight: 400, width: '80%' }]}>Nhấn nút chỉ đường bên phải</Text>
               </View>
-              <Image
-                source={require('../../assets/images/image1.png')}
-                style={{ height: 30, width: 80, marginTop: '2%' }}
+              <FastImage
+                source={require('../../assets/images/mapFPT2.jpg')}
+                style={{ height: 30, width: 80, marginBottom: 14 }}
               />
-              <View style={{ flexDirection: 'row', marginTop: '3%' }}>
-                <Text style={[AppStyle.titleMedium, { color: 'black', fontStyle: 'italic' }]}>Bước 3:</Text>
-                <Text style={[AppStyle.titleSmall, { color: 'black', left: 8, top: 2, width: '80%', fontWeight: 400 }]}>Chụp lại màn hình quãng đường đi của bạn ở Google Map để sử dụng cho bước tiếp theo</Text>
+              <View style={AppStyle.row}>
+                <Text style={[AppStyle.titleMedium, { color: 'black', fontStyle: 'italic', width: '20%', marginBottom: 4 }]}>Bước 3:</Text>
+                <Text style={[AppStyle.titleSmall, { marginLeft: 4, color: 'black', fontWeight: 400, width: '80%', marginBottom: 16 }]}>Chụp lại màn hình quãng đường đi của bạn ở Google Map để sử dụng cho bước tiếp theo</Text>
               </View>
+              <ItemButton title={"Đã hiểu"} paddingVertical={10} onPress={() => setNestedModalVisible(false)} />
             </View>
-            <Pressable
-              style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '5%', marginLeft: '5%' }]}
-              onPress={() => setNestedModalVisible(false)}
-            >
-              <Text style={[AppStyle.titleButton, { marginTop: -6 }]}>Đã hiểu</Text>
-            </Pressable>
           </View>
         </View>
       </Modal>
 
+      {/* MODAL ADD STEP 2 */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -508,56 +506,63 @@ const GoFPT = () => {
           enableAutomaticScroll={true}
         >
           <View style={AppStyle.modalBackground}>
-            <View style={[AppStyle.modalView, { height: 540 }]}>
-              <View style={AppStyle.viewheadModal}>
-                <Pressable
-                  style={AppStyle.btnX}
+            <View style={[AppStyle.modalView, {}]}>
+              <View style={[AppStyle.viewheadModal, {}]}>
+                <TouchableOpacity
+                  style={{ marginHorizontal: 12 }}
                   onPress={() => setThirdModal(false)}>
                   <Image
+                    style={{ width: 18, height: 18, alignSelf: 'flex-end', marginLeft: 10 }}
                     source={require('../../assets/icons/ic_close.png')}
                   />
-                </Pressable>
+                </TouchableOpacity>
                 <Text style={AppStyle.txtModal1}>Tìm bạn cho chuyến đi</Text>
               </View>
-              <View style={{ flexDirection: 'row', marginLeft: '5%', marginTop: '5%' }}>
-                <Image
-                  style={AppStyle.iconMedium}
-                  source={require('../../assets/icons/ic_note.png')}
-                />
-                <Text style={[AppStyle.titleMedium, { color: 'black', fontWeight: 500, marginLeft: 10 }]}>Ghi chú</Text>
+              <View>
+
               </View>
-              <TextInput
-                placeholder="Cần tìm bạn đi chung"
-                editable
-                multiline
-                numberOfLines={4}
-                maxLength={35}
-                style={[AppStyle.inputModal, { height: 80, width: 320, borderRadius: 6, fontSize: 16, padding: 10, marginLeft: '5%' }]}>
-              </TextInput>
-              <View style={{ alignItems: 'center', marginTop: 10 }}>
-                <TouchableOpacity
-                  onPress={() => { dialogImageChoose() }}
-                >
-                  <View style={[AppStyle.viewheadModal, { height: 38, width: 326, backgroundColor: '#FCE38A', borderTopStartRadius: 8, borderTopEndRadius: 8, alignItems: 'center' }]}>
-                    <Text style={[AppStyle.titleMedium, { color: 'black' }]}>+ Tải ảnh quãng đường của bạn</Text>
-                  </View>
-                  <View style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}>
-                    {selectedImageURI && (
-                      <Image
-                        style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}
-                        source={{ uri: selectedImageURI }}
-                      />
-                    )}
-                  </View>
-                </TouchableOpacity>
+
+              <View style={{ paddingHorizontal: 10, paddingTop: 12, paddingBottom: 24 }}>
+
+                <View style={AppStyle.rowCenter}>
+                  <FastImage
+                    style={AppStyle.iconMedium}
+                    source={require('../../assets/icons/ic_note.png')}
+                  />
+                  <Text style={[AppStyle.titleMedium, { color: 'black', fontWeight: 500, marginLeft: 8 }]}>Ghi chú</Text>
+                </View>
+                <View style={{ borderWidth: .5, color: '#DBDBDB', backgroundColor: COLOR.background,paddingVertical:4,paddingHorizontal:4,alignItems:'flex-start',justifyContent:'flex-start',height:60,borderRadius:8,marginTop:6,marginBottom:12 }}>
+                  <TextInput
+                    placeholder="Cần tìm bạn đi chung"
+                    editable
+                    multiline
+                    style={[{ fontSize: 14, paddingVertical:0}]}
+                  />
+                </View>
+
+                <View style={{ alignItems: 'center', marginTop: 10,marginBottom:24 }}>
+                  <TouchableOpacity
+                    onPress={() => { dialogImageChoose() }}
+                  >
+                    <View style={[AppStyle.viewheadModal, { height: 38, width: 326, backgroundColor: '#FCE38A', borderTopStartRadius: 8, borderTopEndRadius: 8, alignItems: 'center' }]}>
+                      <Text style={[AppStyle.titleMedium, { color: 'black' }]}>+ Tải ảnh quãng đường của bạn</Text>
+                    </View>
+                    <View style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}>
+                      {selectedImageURI && (
+                        <FastImage
+                          style={{ height: 200, width: 326, borderBottomRightRadius: 8, borderBottomLeftRadius: 8 }}
+                          source={{ uri: selectedImageURI }}
+                        />
+                      )}
+                    </View>
+                  </TouchableOpacity>
+                </View>
+
+                <ItemButton title={'Đăng tin'} paddingVertical={10} onPress={() => { setThirdModal(false) }} />
+
               </View>
-              <Pressable
-                style={[AppStyle.button, { height: 38, width: '90%', backgroundColor: '#F26F25', marginTop: '8%', marginLeft: '5%' }]}
-                onPress={() => setThirdModal(false)}
-              >
-                <Text style={[AppStyle.titleButton, { marginTop: '-3%' }]}>Đăng tin</Text>
-              </Pressable>
             </View>
+
           </View>
         </KeyboardAwareScrollView>
       </Modal>
