@@ -98,6 +98,7 @@ const HistoryFindDriver = () => {
             {
                 listAvailable
                     ? (<SwipeListView
+                        
                         onScroll={e => {
                             animatedValue.setValue(e.nativeEvent.contentOffset.y)
                         }}

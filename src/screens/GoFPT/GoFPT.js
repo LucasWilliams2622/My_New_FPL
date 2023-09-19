@@ -313,6 +313,12 @@ const GoFPT = () => {
                         source={require('../../assets/icons/ic_calendar.png')}
                         style={[AppStyle.iconMedium, {}]}
                       />
+                                <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
+                          />
                     </TouchableOpacity>
                   </View>
                   <View style={{ height: 40, width: '48%', borderWidth: .8, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
