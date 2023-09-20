@@ -2,7 +2,7 @@ import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable
 import { AppStyle } from "../../constants/AppStyle";
 import AppHeader from "../../components/AppHeader";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import React, { Component, useState, useRef } from "react";
+import React, { Component, useState, useRef, useContext } from "react";
 import MapView, { Marker } from 'react-native-maps';
 
 import FastImage from 'react-native-fast-image';
@@ -24,6 +24,11 @@ import ItemButton from "../../components/ItemButton";
 import { COLOR } from "../../constants/Theme";
 import AxiosInstance from "../../constants/AxiosInstance";
 import ToastMessage from "../../components/Toast/ToastMessage";
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { appStyle } from "../../app/theme/appStyle";
+import { AppContext } from "../../utils/AppContext";
+
 
 const Tab = createMaterialTopTabNavigator();
 const options = ({ route }) => ({
@@ -69,6 +74,8 @@ const options = ({ route }) => ({
 
 const GoFPT = () => {
   const navigation = useNavigation();
+  const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
+
   const [modalVisible, setModalVisible] = useState(false);
   const [isNestedModalVisible, setNestedModalVisible] = useState(false);
   const [isThirdModal, setThirdModal] = useState(false);
@@ -84,6 +91,17 @@ const GoFPT = () => {
 
   const [imageIndex, setImageIndex] = useState(0);
   const [textColor, setTextColor] = useState('black');
+
+  const [startPoint, setStartPoint] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
+  const [price, setPrice] = useState(0)
+  const [note, setNote] = useState('')
+
+  const validationSchema = Yup.object().shape({
+    location: Yup.string().required('Vui lòng nhập điểm bắt đầu'),
+    phoneNumber: Yup.string().required('Vui lòng nhập số điện thoại').matches(/^[0-9]+$/, 'Số điện thoại không hợp lệ'),
+    amount: Yup.number().required('Vui lòng nhập số tiền').positive('Số tiền phải là số dương'),
+  });
 
   const [toastType, setToastType] = useState("success");
   const toastRef = useRef(null);
@@ -138,13 +156,49 @@ const GoFPT = () => {
     require('../../assets/icons/ic_uncheck.png'),
   ];
 
-  const handlePress = () => {
-    // Thay đổi chỉ số của hình ảnh để chuyển đổi giữa hai hình ảnh
-    setImageIndex((prevIndex) => (prevIndex === 0 ? 1 : 0));
+  const addNew = async () => {
+    try {
+      // "typeFind": 1,
+      // "idUser": "64ca439dd3b562a9a1e26f98",
+      // "nameUser": "Lucas",
+      // "phoneUser": "0987654321",
+      // "studentCode": "PS24943",
+      // "startPoint": "Quan 5",
+      // "endPoint": "Toa T",
+      // "timeStart": "14h40",
+      // "dateStart": "2023-09-19T16:14:52.655Z",
+      // "price": 25000,
+      // "note": "Minh can tim ban di chung tu quan 5 toi toa T ",
+      // "status": 1,
+      console.log(imageURI);
 
-    // Thay đổi màu chữ
-    setTextColor((prevColor) => (prevColor === 'black' ? 'blue' : 'black'));
-  };
+      console.log(idUser, phoneNumber);
+      const timeStart = selectedTime.getHours() + ":" + selectedTime.getMinutes()
+      const typeFind = driverChecked ? 1 : 2;
+      console.log(price);
+
+      const response = await AxiosInstance().post("gofpt/api/add-new", {
+        typeFind: typeFind,
+        idUser: idUser,
+        phoneUser: phoneNumber,
+        studentCode: infoUser.studentCode,
+        endPoint: "Toa T",
+        timeStart: timeStart,
+        dateStart: formattedDate,
+        price: price,
+        note: note,
+        status: 1
+      });
+      console.log("===================================response", response);
+
+      if (response.result) {
+
+      } else {
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const toggleThirdModal = () => {
     setThirdModal(!isThirdModal);
@@ -279,9 +333,8 @@ const GoFPT = () => {
             <View style={[AppStyle.modalView, { width: '90%', }]}>
               <View style={AppStyle.viewheadModal}>
                 <TouchableOpacity
-                  style={AppStyle.btnX}
                   onPress={() => setModalVisible(false)}>
-                  <FastImage style={{ width: 18, height: 18, }}
+                  <FastImage style={{ width: 18, height: 18, alignSelf: 'flex-end', marginRight: 14 }}
                     source={require('../../assets/icons/ic_close.png')}
                   />
                 </TouchableOpacity>
@@ -289,193 +342,213 @@ const GoFPT = () => {
               </View>
 
               {/* CONTENT */}
-              <View style={{ paddingHorizontal: 12, paddingBottom: 24 }}>
-                {/* LOCATION */}
-                <View style={AppStyle.ddinputModal}>
-                  <View style={[AppStyle.boxCenter, { width: '10%' }]}>
-                    <FastImage source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, {}]} />
-                  </View>
 
-                  <TextInput
-                    style={AppStyle.inputModal}
-                    placeholder="Điền điểm bắt đầu"
-                  />
-                </View>
+              <View style={{ paddingHorizontal: 12, paddingTop: 12, paddingBottom: 24 }}>
+                <Formik
+                  initialValues={{ location: '', phoneNumber: '', amount: '' }}
+                  validationSchema={validationSchema}
+                  onSubmit={(values) => {
+                    // Xử lý khi form được gửi đi
+                    console.log(values);
+                  }}
+                >
+                  {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (
+                    <View>
+                      {/* LOCATION */}
+                      <View style={AppStyle.ddinputModal}>
+                        <View style={[AppStyle.boxCenter, { width: '10%' }]}>
+                          <FastImage source={require('../../assets/icons/ic_location.png')} style={[AppStyle.icon, {}]} />
+                        </View>
 
-                {/* PHONE NUM */}
-                <View style={AppStyle.ddinputModal}>
-                  <View style={[AppStyle.boxCenter, { width: '10%' }]}>
-                    <FastImage source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, {}]} />
-                  </View>
-
-                  <PhoneInput
-                    ref={(ref) => {
-                      this.phone = ref;
-                    }}
-                    style={[AppStyle.inputModal, {}]}
-                    initialCountry="vn"
-                    value="+123456789"
-                    onSelectCountry={(iso2) => {
-                      console.log(`Selected country: ${iso2}`);
-                    }}
-                    onChangePhoneNumber={(number) => {
-                      console.log(`Phone number: ${number}`);
-                    }}
-                  />
-                </View>
-
-                {/* DATE TIME */}
-                <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
-                  <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
-                    <View style={{ backgroundColor: '#FCE38A', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
-                    {/* {selectedDate && (
-                      <Text style={{}}> {formattedDate}</Text>
-                    )} */}
-                    {
-                      selectedDate == null ?
-                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{DateNow}</Text>
-                        :
-                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{formattedDate}</Text>
-                    }
-                    <TouchableOpacity onPress={showDatePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
-                      <FastImage
-                        source={require('../../assets/icons/ic_calendar.png')}
-                        style={[AppStyle.iconMedium, {}]}
-                      />
-                      <DateTimePickerModal
-                        isVisible={isDatePickerVisible}
-                        mode="date"
-                        onConfirm={handleConfirm}
-                        onCancel={hideDatePicker}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={{ height: 40, width: '48%', borderWidth: .8, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
-                    <View style={{ backgroundColor: '#95E1D3', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
-                    {/* {selectedTime && (
-                      <Text style={{}}> {selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
-                    )} */}
-                    {
-                      selectedTime == null ?
-                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{TimeNow}</Text>
-                        :
-                        <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
-                    }
-                    <TouchableOpacity onPress={showTimePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
-                      <FastImage
-                        source={require('../../assets/icons/ic_clock.png')}
-                        style={[AppStyle.iconMedium, {}]}
-                      />
-                      <DateTimePickerModal
-                        isVisible={isTimePickerVisible}
-                        mode="time"
-                        is24Hour={true}
-                        onConfirm={handleTimeConfirm}
-                        onCancel={hideTimePicker}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                </View>
-                <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
-
-                  <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row', alignItems: "center", paddingHorizontal: 6 }} >
-                    <View style={[AppStyle.boxCenter, {}]}>
-                      <FastImage
-                        source={require('../../assets/icons/ic_vietnam_dong.png')}
-                        style={[AppStyle.icon, {}]}
-                      />
-                    </View>
-                    {/* <Text style={[AppStyle.titleMedium, { color: '#0C9B34', fontStyle: 'italic' }]}>{numeral(10000).format('0,0')} </Text> */}
-                    <TextInput
-                      keyboardType="number-pad"
-                      numberOfLines={1}
-                      returnKeyType="go"
-                      style={[AppStyle.titleMedium, { color: '#0C9B34', fontStyle: 'italic' }]}
-                    />
-                    <Text style={{ fontSize: 16, color: '#0C9B34', fontWeight: '500' }}>đ</Text>
-                  </View>
-
-                  {/* ROLE */}
-                  <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'flex-start', flexDirection: 'row', alignItems: "center", }} >
-                    <View style={{ width: "20%" }}>
-                      <View style={[AppStyle.boxCenter, { backgroundColor: '#EAFFD0', height: 40, borderTopLeftRadius: 6, borderBottomLeftRadius: 8 }]}>
-                        <FastImage
-                          source={require('../../assets/icons/ic_cross_walk.png')}
-                          style={[AppStyle.icon, { width: 20, height: 20 }]}
+                        <TextInput
+                          style={AppStyle.inputModal}
+                          onChangeText={[handleChange('location'), (text) => setStartPoint(text)]}
+                          onBlur={handleBlur('location')}
+                          value={values.location}
+                          placeholder="Điền điểm bắt đầu"
                         />
+                        {touched.location && errors.location && <Text>{errors.location}</Text>}
                       </View>
 
-                    </View>
-                    <View style={{ flexDirection: 'row', width: "78%", }}>
-                      <View style={[AppStyle.rowBtw, { width: '100%' }]}>
-                        <TouchableOpacity onPress={handleDriverPress}>
-                          <View style={AppStyle.rowCenter}>
-                            <FastImage
-                              source={driverChecked ? checkImage : uncheckImage}
-                              style={{ height: 16, width: 16 }}
-                            />
-                            <Text style={[AppStyle.text12, { color: driverChecked ? '#0C9B34' : '#626262' }]}>Tài xế</Text>
-                          </View>
-                        </TouchableOpacity>
+                      {/* PHONE NUM */}
+                      <View style={AppStyle.ddinputModal}>
+                        <View style={[AppStyle.boxCenter, { width: '10%' }]}>
+                          <FastImage source={require('../../assets/icons/ic_phone.png')} style={[AppStyle.icon, {}]} />
+                        </View>
 
-                        <TouchableOpacity onPress={handlePassengerPress}>
-                          <View style={AppStyle.rowCenter}>
+                        <TextInput
+                          style={AppStyle.inputModal}
+                          onChangeText={(text) => setPhoneNumber(text)}
+
+                          // onChangeText={[handleChange('phoneNumber'),(text)=>setPhoneNumber(text)]}
+                          onBlur={handleBlur('phoneNumber')}
+                          // value={values.phoneNumber}
+                          placeholder="Số điện thoại"
+                        />
+                        {touched.phoneNumber && errors.phoneNumber && <Text>{errors.phoneNumber}</Text>}
+
+                      </View>
+
+                      {/* DATE TIME */}
+                      <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
+                        <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
+                          <View style={{ backgroundColor: '#FCE38A', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
+                          {/* {selectedDate && (
+                 <Text style={{}}> {formattedDate}</Text>
+               )} */}
+                          {
+                            selectedDate == null ?
+                              <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{DateNow}</Text>
+                              :
+                              <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{formattedDate}</Text>
+                          }
+                          <TouchableOpacity onPress={showDatePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
                             <FastImage
-                              source={passengerChecked ? checkImage : uncheckImage}
-                              style={{ height: 16, width: 16 }}
+                              source={require('../../assets/icons/ic_calendar.png')}
+                              style={[AppStyle.iconMedium, {}]}
                             />
-                            <Text style={[AppStyle.text12, { color: passengerChecked ? '#0C9B34' : '#626262' }]}>Yên sau</Text>
+                            <DateTimePickerModal
+                              isVisible={isDatePickerVisible}
+                              mode="date"
+                              onConfirm={handleConfirm}
+                              onCancel={hideDatePicker}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                        <View style={{ height: 40, width: '48%', borderWidth: .8, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
+                          <View style={{ backgroundColor: '#95E1D3', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
+                          {/* {selectedTime && (
+                 <Text style={{}}> {selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
+               )} */}
+                          {
+                            selectedTime == null ?
+                              <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{TimeNow}</Text>
+                              :
+                              <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
+                          }
+                          <TouchableOpacity onPress={showTimePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
+                            <FastImage
+                              source={require('../../assets/icons/ic_clock.png')}
+                              style={[AppStyle.iconMedium, {}]}
+                            />
+                            <DateTimePickerModal
+                              isVisible={isTimePickerVisible}
+                              mode="time"
+                              is24Hour={true}
+                              onConfirm={handleTimeConfirm}
+                              onCancel={hideTimePicker}
+                            />
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                      <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
+                        {/* PRICE */}
+                        <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row', alignItems: "center", paddingHorizontal: 6 }} >
+                          <View style={[AppStyle.boxCenter, {}]}>
+                            <FastImage
+                              source={require('../../assets/icons/ic_vietnam_dong.png')}
+                              style={[AppStyle.icon, {}]}
+                            />
                           </View>
+                          {/* <Text style={[AppStyle.titleMedium, { color: '#0C9B34', fontStyle: 'italic' }]}>{numeral(10000).format('0,0')} </Text> */}
+                          <TextInput
+                            keyboardType="number-pad"
+                            numberOfLines={1}
+                            returnKeyType="go"
+                            style={[AppStyle.titleMedium, { color: '#0C9B34', fontStyle: 'italic' }]}
+                            onChangeText={(text) => { setPrice(text) }}
+                            // onChangeText={handleChange('amount')}
+                            // onBlur={handleBlur('amount')}
+                            // value={values.amount}
+                            placeholder="Số tiền"
+                          />
+                          {touched.amount && errors.amount && <Text>{errors.amount}</Text>}
+                          <Text style={{ fontSize: 16, color: '#0C9B34', fontWeight: '500' }}>đ</Text>
+                        </View>
+
+                        {/* ROLE */}
+                        <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'flex-start', flexDirection: 'row', alignItems: "center", }} >
+                          <View style={{ width: "20%" }}>
+                            <View style={[AppStyle.boxCenter, { backgroundColor: '#EAFFD0', height: 40, borderTopLeftRadius: 6, borderBottomLeftRadius: 8 }]}>
+                              <FastImage
+                                source={require('../../assets/icons/ic_cross_walk.png')}
+                                style={[AppStyle.icon, { width: 20, height: 20 }]}
+                              />
+                            </View>
+
+                          </View>
+                          <View style={{ flexDirection: 'row', width: "78%", }}>
+                            <View style={[AppStyle.rowBtw, { width: '100%' }]}>
+                              <TouchableOpacity onPress={handleDriverPress}>
+                                <View style={AppStyle.rowCenter}>
+                                  <FastImage
+                                    source={driverChecked ? checkImage : uncheckImage}
+                                    style={{ height: 16, width: 16 }}
+                                  />
+                                  <Text style={[AppStyle.text12, { color: driverChecked ? '#0C9B34' : '#626262' }]}>Tài xế</Text>
+                                </View>
+                              </TouchableOpacity>
+
+                              <TouchableOpacity onPress={handlePassengerPress}>
+                                <View style={AppStyle.rowCenter}>
+                                  <FastImage
+                                    source={passengerChecked ? checkImage : uncheckImage}
+                                    style={{ height: 16, width: 16 }}
+                                  />
+                                  <Text style={[AppStyle.text12, { color: passengerChecked ? '#0C9B34' : '#626262' }]}>Yên sau</Text>
+                                </View>
+                              </TouchableOpacity>
+                            </View>
+                          </View>
+                        </View>
+                      </View>
+                      <View style={{ width: '100%', flexDirection: 'row', marginTop: 18, marginBottom: 8, justifyContent: 'space-between' }}>
+                        <View style={AppStyle.rowCenter}>
+                          <FastImage
+                            source={require('../../assets/icons/ic_destination.png')}
+                            style={[AppStyle.icon, { width: 16, height: 16 }]}
+                          />
+                          <Text style={[AppStyle.titleMedium, { color: 'black', marginLeft: 4 }]}>Chọn địa điểm và chụp quãng đường</Text>
+                        </View>
+                        <TouchableOpacity onPress={toggleNestedModal}>
+                          <FastImage
+                            source={require('../../assets/icons/ic_question_mark.png')}
+                            style={[AppStyle.icon, {}]}
+                          />
                         </TouchableOpacity>
                       </View>
-                    </View>
-                  </View>
-                </View>
-                <View style={{ width: '100%', flexDirection: 'row', marginTop: 18, marginBottom: 8, justifyContent: 'space-between' }}>
-                  <View style={AppStyle.rowCenter}>
-                    <FastImage
-                      source={require('../../assets/icons/ic_destination.png')}
-                      style={[AppStyle.icon, { width: 16, height: 16 }]}
-                    />
-                    <Text style={[AppStyle.titleMedium, { color: 'black', marginLeft: 4 }]}>Chọn địa điểm và chụp quãng đường</Text>
-                  </View>
-                  <TouchableOpacity onPress={toggleNestedModal}>
-                    <FastImage
-                      source={require('../../assets/icons/ic_question_mark.png')}
-                      style={[AppStyle.icon, {}]}
-                    />
-                  </TouchableOpacity>
-                </View>
-                <View style={{ width: '100%', backgroundColor: '#DBDBDB', borderRadius: 16, height: 150, marginBottom: 18 }}>
-                  <MapView
-                    style={[styles.map, { borderRadius: 16 }]}
-                    initialRegion={position}
-                    showsUserLocation={true}
-                    showsMyLocationButton={true}
-                    followsUserLocation={true}
-                    showsCompass={true}
-                    scrollEnabled={true}
-                    zoomEnabled={true}
-                    pitchEnabled={true}
-                    rotateEnabled={true}>
-                    <Marker
-                      title='Tòa T'
-                      // description='This is a description'
-                      coordinate={position} />
-                    <Marker
-                      title='Tòa F'
-                      // description='This is a description'
-                      coordinate={position2} />
-                    <Marker
-                      title='Tòa P'
-                      // description='This is a description'
-                      coordinate={position3} />
+                      <View style={{ width: '100%', backgroundColor: '#DBDBDB', borderRadius: 16, height: 150, marginBottom: 18 }}>
+                        <MapView
+                          style={[styles.map, { borderRadius: 16 }]}
+                          initialRegion={position}
+                          showsUserLocation={true}
+                          showsMyLocationButton={true}
+                          followsUserLocation={true}
+                          showsCompass={true}
+                          scrollEnabled={true}
+                          zoomEnabled={true}
+                          pitchEnabled={true}
+                          rotateEnabled={true}>
+                          <Marker
+                            title='Tòa T'
+                            // description='This is a description'
+                            coordinate={position} />
+                          <Marker
+                            title='Tòa F'
+                            // description='This is a description'
+                            coordinate={position2} />
+                          <Marker
+                            title='Tòa P'
+                            // description='This is a description'
+                            coordinate={position3} />
 
-                  </MapView>
-                </View>
-                <ItemButton title={"Tiếp theo"} paddingVertical={10} onPress={toggleThirdModal} />
+                        </MapView>
+                      </View>
+                      <ItemButton title={"Tiếp theo"} paddingVertical={10} onPress={() => { setThirdModal(true) }} />
+                    </View>
+                  )}
+                </Formik>
               </View>
-
             </View>
           </View>
         </KeyboardAwareScrollView>
@@ -570,6 +643,7 @@ const GoFPT = () => {
                   <TextInput
                     placeholder="Cần tìm bạn đi chung"
                     editable
+                    onChangeText={(text) => { setNote(text) }}
                     multiline
                     style={[{ fontSize: 14, paddingVertical: 0 }]}
                   />
@@ -596,7 +670,7 @@ const GoFPT = () => {
                   </TouchableOpacity>
                 </View>
 
-                <ItemButton title={'Đăng tin'} type="success" text="Success" paddingVertical={10} onPress={() => { setThirdModal(false); setToastType("success"); handleShowToast(); }} />
+                <ItemButton title={'Đăng tin'} type="success" text="Success" paddingVertical={10} onPress={() => { setThirdModal(false); setToastType("success"); handleShowToast(); addNew() }} />
 
               </View>
             </View>

@@ -196,10 +196,10 @@ const HistoryFindGoWith = () => {
                             rightOpenValue={-85}
                         />
                     )
-                    : (
+                    :
+                    (
                         <View style={{ flex: 1, backgroundColor: COLOR.background, alignItems: 'center', justifyContent: 'center' }}>
-
-                            <Text style={{ fontWeight: '600', color: COLOR.primary, fontSize: 18, }}>Bạn chưa có tin tìm tài xế nào</Text>
+                            <Text style={{ fontWeight: '600', color: COLOR.primary, fontSize: 18, }}>Bạn chưa có tin tìm yên sau nào</Text>
                         </View>
                     )
             }
@@ -267,7 +267,6 @@ const HistoryFindGoWith = () => {
                     </View>
                 </View>
             </Modal>
-
         </View>
     )
 }

@@ -31,7 +31,6 @@ import Loading from './src/components/Loading/Loading';
 LogBox.ignoreLogs([
   'Require cycle:',
 ]);
-// console.disableYellowBox = true;
 const App = () => {
   // console.log("------------->",numeral(100000000).format('0,0'));
 
@@ -50,7 +49,7 @@ const App = () => {
 
         {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
 
-        <TestShare />
+        {/* <TestShare /> */}
         {/* <TesTMap /> */}
       </NavigationContainer>
 

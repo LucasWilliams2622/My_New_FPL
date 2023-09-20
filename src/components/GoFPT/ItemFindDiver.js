@@ -18,7 +18,11 @@ const ItemFindDriver = (props) => {
 
   const getDisplayedText = () => {
     if (hidden) {
+      if(phoneUser == null){
+        return " "
+      }
       return phoneUser.substring(0, phoneUser.length - 5) + '*****';
+     
     } else {
       return phoneUser;
     }
@@ -43,7 +47,7 @@ const ItemFindDriver = (props) => {
           <View style={styles.boxItemInfo}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_calendar.png')} />
-              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{dateStart}</Text>
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{dateStart.slice(0,10)}</Text>
             </View>
 
             <View style={[AppStyle.rowCenter, { width: '50%', justifyContent: 'space-between' }]}>
@@ -65,7 +69,7 @@ const ItemFindDriver = (props) => {
           <View style={styles.boxItemInfo}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={[AppStyle.iconMedium, {}]} source={require('../../assets/icons/ic_time.png')} />
-              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{timeStart}</Text>
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{timeStart?.slice(12,16)}</Text>
             </View>
 
             <TouchableOpacity style={[AppStyle.rowCenter, { width: '50%' }]}>
