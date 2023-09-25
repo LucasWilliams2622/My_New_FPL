@@ -224,12 +224,12 @@ export const AppStyle = StyleSheet.create({
         paddingHorizontal: 10,
         shadowColor: "#000000",
         shadowOffset: {
-            width: -2,
-            width: 3,
+            width: -1,
+            width: 2,
         },
-        shadowOpacity: 0.18,
-        shadowRadius: 4.59,
-        elevation: 5
+        shadowOpacity: 0.8,
+        shadowRadius: 2.59,
+        elevation: 2
     },
     buttonVideo: {
         backgroundColor: '#1178F8',
