@@ -23,6 +23,8 @@ const FindDriver = () => {
 
   const toggleModal = async () => {
     setModalVisible(!isModalVisible);
+    
+    console.log( isModalVisible,'isModalVisible' );
   };
 
   const handleSortBy = (criteria) => {
@@ -102,7 +104,7 @@ const FindDriver = () => {
     }
   }
 
-
+console.log(isModalVisible,'isModalVisible');
   return (
     <MotiView style={[AppStyle.main,{marginTop:8}]}
       from={{ opacity: 0, scale: 0.5 }}
@@ -121,19 +123,29 @@ const FindDriver = () => {
         keyExtractor={item => item.id}
         ListHeaderComponent={() => (
           <View>
+            {/* //ItemSearch({}) */}
             <ItemSearch marginBottom={10}
-              onPressRight={() => { { toggleModal(true) } }}
               onPressSearch={() => { getListDriver() }}
-              onChangeText={(keyword) => handleSearch(keyword)} />
+              onChangeText={(keyword) => handleSearch(keyword)} 
+              onPressRight={() =>   toggleModal()  }
+              />
           </View>
         )}
-      >
+        >
+      </FlatList>
         <Modal
           animationType="fade"
           transparent={true}
           isVisible={isModalVisible}
           onRequestClose={() => setModalVisible(false)}>
-          <View style={AppStyle.modalBackground}>
+         
+        </Modal>
+        <Modal
+          animationType="fade"
+          transparent={true}
+          isVisible={isModalVisible}
+          onRequestClose={() => setModalVisible(false)}>
+             <View style={AppStyle.modalBackground}>
             <View style={[AppStyle.modalView, { height: 540 }]}>
               <View style={AppStyle.viewheadModal}>
                 <Pressable
@@ -163,8 +175,7 @@ const FindDriver = () => {
               </TouchableOpacity> */}
             </View>
           </View>
-        </Modal>
-      </FlatList>
+          </Modal>
 
     </MotiView>
   )
