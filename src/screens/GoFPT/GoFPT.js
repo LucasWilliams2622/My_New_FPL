@@ -365,6 +365,7 @@ const GoFPT = () => {
                           onChangeText={[handleChange('location'), (text) => setStartPoint(text)]}
                           onBlur={handleBlur('location')}
                           value={values.location}
+                          returnKeyType="next"
                           placeholder="Điền điểm bắt đầu"
                         />
                         {touched.location && errors.location && <Text>{errors.location}</Text>}
@@ -378,6 +379,8 @@ const GoFPT = () => {
 
                         <TextInput
                           style={AppStyle.inputModal}
+                          keyboardType="phone-pad"
+                          returnKeyType="next"
                           onChangeText={(text) => setPhoneNumber(text)}
 
                           // onChangeText={[handleChange('phoneNumber'),(text)=>setPhoneNumber(text)]}
