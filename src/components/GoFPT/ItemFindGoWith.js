@@ -42,7 +42,7 @@ const ItemFindGoWith = (props) => {
           <View style={styles.boxItemInfo}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_calendar.png')} />
-              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{dateStart}</Text>
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{dateStart.slice(0, 10)}</Text>
             </View>
 
             <View style={[AppStyle.rowCenter, { width: '50%', justifyContent: 'space-between' }]}>
@@ -64,7 +64,7 @@ const ItemFindGoWith = (props) => {
           <View style={styles.boxItemInfo}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_time.png')} />
-              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{timeStart}</Text>
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{timeStart?.slice(12, 16)}</Text>
             </View>
 
             <TouchableOpacity style={[AppStyle.rowCenter, { width: '50%' }]}>
@@ -76,13 +76,13 @@ const ItemFindGoWith = (props) => {
 
           <View style={[styles.boxItemInfo, { marginBottom: 0 }]}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
-            <Image style={[AppStyle.iconMedium,{tintColor:COLOR.textMoney}]}  source={require('../../assets/icons/ic_vietnam_dong.png')} />
+              <Image style={[AppStyle.iconMedium, { tintColor: COLOR.textMoney }]} source={require('../../assets/icons/ic_vietnam_dong.png')} />
               <Text style={[AppStyle.text12, { fontWeight: '700', marginLeft: 6, fontStyle: 'italic', color: COLOR.textMoney }]}>{numeral(price).format('0,0')} ₫</Text>
             </View>
 
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <ItemButton title={"Xem chi tiết"} paddingVertical={6}
-               onPress={() => { { navigation.navigate('DetailFindGoWith', { data: data }) } }} />
+                onPress={() => { { navigation.navigate('DetailFindGoWith', { data: data }) } }} />
             </View>
 
           </View>
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   boxInfo: {
     paddingHorizontal: 8,
     paddingVertical: 10,
-    backgroundColor:COLOR.background,
+    backgroundColor: COLOR.background,
   },
   boxItemInfo: {
     flexDirection: 'row',

@@ -28,10 +28,16 @@ import Button from './src/components/Toast/Button';
 import ToastMessage from './src/components/Toast/ToastMessage';
 import Loading from './src/components/Loading/Loading';
 
+<<<<<<< HEAD
 // LogBox.ignoreLogs([
 //   'Require cycle:',
 // ]);
 // console.disableYellowBox = true;
+=======
+LogBox.ignoreLogs([
+  'Require cycle:',
+]);
+>>>>>>> 9adf5708a027f0f72e4913ce53281e4c19893076
 const App = () => {
   // console.log("------------->",numeral(100000000).format('0,0'));
 

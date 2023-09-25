@@ -94,6 +94,7 @@ const HistoryFindDriver = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: COLOR.background }}>
+            <LoadingHistoryFindDriver/>
             {
                 isLoading ? 
                 ( <LoadingHistoryFindDriver/>) :
