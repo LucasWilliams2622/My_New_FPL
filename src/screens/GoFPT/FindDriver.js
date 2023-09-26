@@ -77,6 +77,7 @@ const FindDriver = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
 
+  // Sắp xếp dữ liệu theo giá
   const filterDataByPriceRange = (data, a, b) => {
     return data.filter(item => item.price >= a && item.price <= b);
   };
@@ -149,17 +150,20 @@ const FindDriver = () => {
   };
 
   const handleApplySort = () => {
-    if (sortType === 'date') {
-      // Sắp xếp theo ngày ở đây
+    if (sortBy  === 'date') {
+      // Sắp xếp theo ngày  
       handleSortByDate();
-    } else if (sortType === 'time') {
-      // Sắp xếp theo giờ ở đây
+    } else if (sortBy  === 'time') {
+      // Sắp xếp theo giờ  
       handleSortByTime();
-    } else if (sortType === 'price') {
-      // Sắp xếp theo giá ở đây
+    } else if (sortBy  === 'price') {
+      // Sắp xếp theo giá  
       filterDataByPriceRange();
     }
-    toggleModal(); // Đóng modal sau khi áp dụng sắp xếp
+    console.log('====================================');
+    console.log(handleApplySort);
+    console.log('====================================');
+    toggleModal();
   };
 
   const [keyword, setKeyword] = useState('')
