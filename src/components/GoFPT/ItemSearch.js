@@ -2,6 +2,7 @@ import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'reac
 import React from 'react'
 import { COLOR } from '../../constants/Theme'
 import { AppStyle } from '../../constants/AppStyle'
+import FastImage from 'react-native-fast-image'
 
 const ItemSearch = (props) => {
     const { placeholder, placeholderTextColor,
@@ -10,12 +11,13 @@ const ItemSearch = (props) => {
         fontWeight, fontSize, textButtonColor, titleButton,
         onPressRight, onPressSearch,
         marginBottom,
+        onPressMic
     } = props;
     return (
         <TouchableOpacity style={[styles.boxMain, {
             backgroundColor: backgroundColor == null ? COLOR.background : backgroundColor,
             marginBottom: marginBottom == null ? 0 : marginBottom
-        }]}>
+        }]} onPress={onPressSearch}>
             <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', width: '90%' }}>
                 <View style={styles.boxInput}>
                     <Image style={[styles.icon, {
@@ -24,11 +26,13 @@ const ItemSearch = (props) => {
                     <TextInput style={[AppStyle.text12, { height: 36, marginLeft: 8, width: '90%' }]} placeholder='Nhập địa điểm ...' placeholderTextColor={'#6D6D6D'}
                         onChangeText={onChangeText} />
                 </View>
-                <TouchableOpacity style={styles.button} onPress={onPressSearch}>
-                    <Text style={[AppStyle.text12, {
+                <TouchableOpacity style={styles.button} onPress={onPressMic}>
+                    {/* <Text style={[AppStyle.text12, {
                         fontWeight: fontWeight == null ? '700' : fontWeight,
                         color: textButtonColor == null ? COLOR.white : textButtonColor,
-                    }]}>{titleButton == null ? "Tìm kiếm" : titleButton}</Text>
+                    }]}>{titleButton == null ? "Tìm kiếm" : titleButton}</Text> */}
+
+                    <FastImage style={{width:24,height:24}} source={require('../../assets/icons/ic_mic.png')} />
                 </TouchableOpacity>
             </View>
             <TouchableOpacity style={{ width: '10%', alignItems: 'center', justifyContent: 'center', }}
@@ -72,7 +76,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.primary,
         alignItems: 'center',
         justifyContent: 'center',
-        width: '25%',
+        width: '20%',
         height: 40,
         borderTopRightRadius: 10,
         borderBottomRightRadius: 10,

@@ -94,7 +94,7 @@ const HistoryFindDriver = () => {
 
     return (
         <View style={{ flex: 1, backgroundColor: COLOR.background }}>
-            <LoadingHistoryFindDriver/>
+            {/* <LoadingHistoryFindDriver/> */}
             {
                 isLoading ? 
                 ( <LoadingHistoryFindDriver/>) :
@@ -142,16 +142,16 @@ const HistoryFindDriver = () => {
                         //             <ActivityIndicator size="small" color='green' fontWeight='bold' />
                         //         </View> : null
                         // )}
-                        onEndReached={() => {
-                            setIsLoading(true)
-                            console.log("Load More")
-                            // setData(mang_du_lieu)
+                        // onEndReached={() => {
+                        //     setIsLoading(true)
+                        //     console.log("Load More")
+                        //     // setData(mang_du_lieu)
 
-                            setTimeout(() => {
-                                //   setData(data.concat([ { title : "moi a nha"} ]))
-                                setIsLoading(false)
-                            }, 5000);
-                        }}
+                        //     setTimeout(() => {
+                        //         //   setData(data.concat([ { title : "moi a nha"} ]))
+                        //         setIsLoading(false)
+                        //     }, 5000);
+                        // }}
                         onEndReachedThreshold={0.1}
                         renderHiddenItem={(data, rowMap) => (
                             <>
