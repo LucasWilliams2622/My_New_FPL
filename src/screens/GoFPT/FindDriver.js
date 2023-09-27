@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, Text, Image, View, ScrollView, Alert, Modal, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, FlatList, Text, Image, View, ScrollView, Alert, Modal, TouchableOpacity, Pressable } from 'react-native'
 import React, { useContext, useCallback, useEffect, useState } from 'react'
 import { AppStyle } from '../../constants/AppStyle'
 import ItemSearch from '../../components/GoFPT/ItemSearch'
@@ -10,159 +10,33 @@ import ItemFindDriver from '../../components/GoFPT/ItemFindDiver'
 import { MotiView, MotiText } from 'moti'
 import TimerMixin from 'react-timer-mixin';
 import Toast from 'react-native-toast-message';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-
-const sampleData = [
-  {
-    id: '1',
-    title: 'Driver 1',
-    price: 50,
-    date: '2023-09-27',
-    time: '12:00 AM',
-  },
-  {
-    id: '2',
-    title: 'Driver 2',
-    price: 40,
-    date: '2023-09-28',
-    time: '10:00 AM',
-  },
-  {
-    id: '3',
-    title: 'Driver 3',
-    price: 60,
-    date: '2023-09-29',
-    time: '11:00 AM',
-  },
-  {
-    id: '4',
-    title: 'Driver 14',
-    price: 100000000,
-    date: '2023-09-27',
-    time: '09:00 AM',
-  },
-  {
-    id: '5',
-    title: 'Driver 12',
-    price: 400000000,
-    date: '2023-09-12',
-    time: '05:00 AM',
-  },
-  {
-    id: '6',
-    title: 'Driver 13',
-    price: 60000000,
-    date: '2023-09-26',
-    time: '01:00 AM',
-  },
-  // Thêm các mục khác tại đây
-];
+import { COLOR } from '../../constants/Theme'
+import { BottomSheet } from 'react-native-btr';
+import FastImage from 'react-native-fast-image'
+import Voice from '@react-native-voice/voice'
 
 const FindDriver = () => {
   const [dataFindDriver, setDataFindDriver] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
-  //http://103.57.129.166:3000/gofpt/api/get-by-location?keyword=Go&typeFind=1
   const [availaBle, setAvailaBle] = useState(true)
+  const [modalVoice, setModalVoice] = useState(true)
 
-  const [ModalVisible, setModalVisible] = useState(false);
-
-  const [originalData, setOriginalData] = useState([]); // Dữ liệu gốc
+  const [isModalVisible, setModalVisible] = useState(false);
   const [sortBy, setSortBy] = useState(null);
 
-  const [priceRangeStart, setPriceRangeStart] = useState('');
-  const [priceRangeEnd, setPriceRangeEnd] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-
-  // Sắp xếp dữ liệu theo giá
-  const filterDataByPriceRange = (data, a, b) => {
-    return data.filter(item => item.price >= a && item.price <= b);
-  };
-  const handleFilterByPrice = () => {
-    const filteredData = filterDataByPriceRange(dataFindDriver, parseFloat(priceRangeStart), parseFloat(priceRangeEnd));
-    setDataFindDriver(filteredData);
-    console.log('====================================');
-    console.log(filteredData);
-    console.log('====================================');
-    toggleModal()
-  }
-
-  const handleSortByDate = () => {
-    const sortedData = dataFindDriver.filter((item) => {
-      const itemDate = item.dateStart.slice(0, 10);
-      return itemDate >= startDate && itemDate <= endDate;
-    });
-
-    // Sắp xếp dữ liệu theo ngày
-    sortedData.sort((a, b) => {
-      const dateA = new Date(a.dateStart.slice(0, 10));
-      const dateB = new Date(b.dateStart.slice(0, 10));
-      return dateA - dateB;
-    });
-
-    setDataFindDriver(sortedData);
-    console.log('====================================');
-    console.log(sortedData);
-    console.log('====================================');
-    toggleModal()
-  };
-
-  const handleSortByTime = () => {
-    const sortedData = dataFindDriver.filter((item) => {
-      const itemTime = item.timeStart?.slice(12, 16);
-      const startTimeObj = startTime;
-      const endTimeObj = endTime;
-
-      return itemTime >= startTimeObj && itemTime <= endTimeObj;
-    });
-
-    // Sắp xếp dữ liệu theo giờ
-    sortedData.sort((a, b) => {
-      const timeA = a.timeStart?.slice(12, 16);
-      const timeB = b.timeStart?.slice(12, 16);
-      return timeA.localeCompare(timeB);
-
-    });
-
-    setDataFindDriver(sortedData);
-    toggleModal()
-    console.log('====================================');
-    console.log(sortedData);
-    console.log('====================================');
-  };
-
-  useEffect(() => {
-    setDataFindDriver(dataFindDriver);
-    setOriginalData(dataFindDriver); // Lưu trữ dữ liệu gốc
-  }, []);
-
   const toggleModal = async () => {
-    setModalVisible(!ModalVisible);
+    setModalVisible(!isModalVisible);
+  };
+
+  const handleSortBy = (criteria) => {
+    setSortBy(criteria);
+    toggleModal();
+
   };
 
   const resetSort = () => {
     setSortBy(null);
-    setDataFindDriver(originalData); // Khôi phục danh sách gốc
-    toggleModal();
-  };
-
-  const handleApplySort = () => {
-    if (sortBy  === 'date') {
-      // Sắp xếp theo ngày  
-      handleSortByDate();
-    } else if (sortBy  === 'time') {
-      // Sắp xếp theo giờ  
-      handleSortByTime();
-    } else if (sortBy  === 'price') {
-      // Sắp xếp theo giá  
-      filterDataByPriceRange();
-    }
-    console.log('====================================');
-    console.log(handleApplySort);
-    console.log('====================================');
     toggleModal();
   };
 
@@ -174,19 +48,23 @@ const FindDriver = () => {
     }
   }, [appState])
 
+  // ======================| GET LIST AND SEARCH |=======================
   const getListDriver = async () => {
-    console.log("aaaaa");
     try {
       const response = await AxiosInstance().get("gofpt/api/get-by-typeFind?typeFind=1");
       // console.log("===================================response", response);
 
       if (response.result) {
         if (Array.isArray(response.post) && response.post.length === 0) {
-          console.log("post là một mảng rỗng");
+          console.log("post find driver là một mảng rỗng");
+          setAvailaBle(false)
+
         } else {
           console.log("post không phải là một mảng rỗng");
           setIsLoading(false)
           setDataFindDriver(response.post);
+          setAvailaBle(true)
+
         }
       } else {
         setIsLoading(true)
@@ -217,6 +95,8 @@ const FindDriver = () => {
             text1: 'KhÔng tìm thấy kết quả phù hợp',
           });
           console.log("get-by-location " + keyword + " là một mảng rỗng");
+          setAvailaBle(false)
+
         } else {
           console.log("get-by-location " + keyword + " không phải là một mảng rỗng");
           setDataFindDriver(response.post)
@@ -230,8 +110,63 @@ const FindDriver = () => {
       console.log("ERROR", error);
     }
   }
+  // ========================| VOICE |=============================
+  const [started, setStarted] = useState('')
+  const [ended, setEnded] = useState('')
+  const [results, setResults] = useState([])
+  const [isListening, setIsListening] = useState(false)
+  useEffect(() => {
+    Voice.onSpeechStart = onSpeechStart;
+    Voice.onSpeechEnd = onSpeechEnd;
+    Voice.onSpeechResults = onSpeechResults;
 
-  console.log(ModalVisible, 'ModalVisible');
+    return () => {
+      Voice.destroy().then(Voice.removeAllListeners)
+    }
+  }, [])
+
+  const onSpeechStart = (e) => {
+    console.log(e)
+    setStarted('❤️')
+  }
+
+  const onSpeechEnd = (e) => {
+    console.log(e)
+    setEnded('❤️')
+  }
+
+  const onSpeechResults = (e) => {
+    console.log(e)
+    setResults(e.value)
+  }
+
+  const startRecognizing = async () => {
+    try {
+      console.log("start");
+      Voice.start('vi-VN');
+      console.log("start");
+      setStarted('')
+      setEnded('')
+      setResults([])
+      setIsListening(true)
+      console.log("start");
+    } catch (error) {
+      console.log("error2", error)
+    }
+  }
+
+  const stopRecognizing = async () => {
+    try {
+      console.log("STOP");
+      Voice.stop();
+      setStarted('')
+      setEnded('')
+      setResults([])
+      setIsListening(false)
+    } catch (error) {
+      console.log("error1", error)
+    }
+  }
   return (
     <MotiView style={[AppStyle.main, { marginTop: 8 }]}
       from={{ opacity: 0, scale: 0.5 }}
@@ -240,105 +175,111 @@ const FindDriver = () => {
         type: 'timing',
         duration: 350,
       }}>
-      <FlatList
-        style={{ marginVertical: 0, marginBottom: 70 }}
-        data={dataFindDriver}
-        showsHorizontalScrollIndicator={false}
-        shouldRasterizeIOS
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <ItemFindDriver data={item} />}
-        keyExtractor={item => item.id}
-        ListHeaderComponent={() => (
-          <View>
-            {/* //ItemSearch({}) */}
-            <ItemSearch marginBottom={10}
-              onPressSearch={() => { getListDriver() }}
-              onChangeText={(keyword) => handleSearch(keyword)}
-              onPressRight={() => toggleModal()}
-            />
-          </View>
-        )}
-      >
-      </FlatList>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={ModalVisible}
-        onRequestClose={() => setModalVisible(false)}>
-        <KeyboardAwareScrollView
-          style={{}}
-          contentContainerStyle={{}}
-          enableOnAndroid={true}
-          enableAutomaticScroll={true}
-        >
-          <View style={AppStyle.modalBackground}>
-            <View style={[AppStyle.modalView, { height: 540 }]}>
-              <View style={AppStyle.viewheadModal}>
-                <TouchableOpacity
-                  style={AppStyle.btnX}
-                  onPress={() => setModalVisible(false)}>
-                  <Image
-                    source={require('../../assets/icons/ic_close.png')}
-                  />
-                </TouchableOpacity>
-                <Text style={AppStyle.txtModal1}>Tìm bạn cho chuyến đi</Text>
-              </View>
-              <Text>Nhập khoảng giá:</Text>
-              <TextInput
-                placeholder="Giá bắt đầu (a)"
-                keyboardType="numeric"
-                value={priceRangeStart}
-                onChangeText={(text) => setPriceRangeStart(text)}
-              />
-              <TextInput
-                placeholder="Giá kết thúc (b)"
-                keyboardType="numeric"
-                value={priceRangeEnd}
-                onChangeText={(text) => setPriceRangeEnd(text)}
-              />
-              <TouchableOpacity onPress={() => handleFilterByPrice()}>
-                <Text>Lọc theo giá</Text>
-              </TouchableOpacity>
+      {
+        availaBle
+          ? (
+            <>
+              <FlatList
+                style={{ marginVertical: 0, marginBottom: 70 }}
+                data={dataFindDriver}
+                showsHorizontalScrollIndicator={false}
+                shouldRasterizeIOS
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item }) => <ItemFindDriver data={item} />}
+                keyExtractor={item => item.id}
+                ListHeaderComponent={() => (
+                  <View>
+                    <ItemSearch marginBottom={10}
+                      onPressRight={() => { { toggleModal(true) } }}
+                      onPressSearch={() => { getListDriver() }}
+                      onChangeText={(keyword) => handleSearch(keyword)}
+                      onPressMic={() => { setModalVoice(true) }}
+                    />
+                  </View>
+                )}
+              >
+                <Modal
+                  animationType="fade"
+                  transparent={true}
+                  isVisible={isModalVisible}
+                  onRequestClose={() => setModalVisible(false)}>
+                  <View style={AppStyle.modalBackground}>
+                    <View style={[AppStyle.modalView, { height: 540 }]}>
+                      <View style={AppStyle.viewheadModal}>
+                        <Pressable
+                          style={AppStyle.btnX}
+                          onPress={() => setModalVisible(false)}>
+                          <Image
+                            source={require('../../assets/icons/ic_close.png')}
+                          />
+                        </Pressable>
+                        <Text style={AppStyle.txtModal1}>Tìm bạn cho chuyến đi</Text>
+                      </View>
+                      <Text>Chọn tiêu chí sắp xếp:</Text>
+                      <TouchableOpacity onPress={() => handleSortBy('price')}>
+                        <Text>Sắp xếp theo giá</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => handleSortBy('date')}>
+                        <Text>Sắp xếp theo ngày</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={() => handleSortBy('time')}>
+                        <Text>Sắp xếp theo giờ</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity onPress={resetSort}>
+                        <Text>Reset</Text>
+                      </TouchableOpacity>
+                      {/* <TouchableOpacity onPress={toggleModal}>
+                <Text>Áp dụng sắp xếp</Text>
+              </TouchableOpacity> */}
+                    </View>
+                  </View>
+                </Modal>
 
-              <Text>Nhập khoảng ngày:</Text>
-              <TextInput
-                placeholder="Ngày bắt đầu (yyyy-MM-dd)"
-                value={startDate}
-                onChangeText={(text) => setStartDate(text)}
-              />
-              <TextInput
-                placeholder="Ngày kết thúc (yyyy-MM-dd)"
-                value={endDate}
-                onChangeText={(text) => setEndDate(text)}
-              />
-              <TouchableOpacity onPress={() => handleSortByDate()}>
-                <Text>Sắp xếp theo ngày</Text>
-              </TouchableOpacity>
 
-              <Text>Nhập khoảng giờ (24 giờ):</Text>
-              <TextInput
-                placeholder="Giờ bắt đầu (hh:mm)"
-                value={startTime}
-                onChangeText={(text) => setStartTime(text)}
-              />
-              <TextInput
-                placeholder="Giờ kết thúc (hh:mm)"
-                value={endTime}
-                onChangeText={(text) => setEndTime(text)}
-              />
-              <TouchableOpacity onPress={() => handleSortByTime()}>
-                <Text>Sắp xếp theo giờ</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleApplySort}>
-                <Text>Apply</Text>
-              </TouchableOpacity>
-              <TouchableOpacity onPress={resetSort}>
-                <Text>Reset</Text>
-              </TouchableOpacity>
+
+              </FlatList>
+              {/* MODAL VOICE */}
+              <BottomSheet
+                visible={modalVoice}
+                transparent={true}
+                animationType="fade"
+                onBackButtonPress={() => { setModalVoice(false) }}
+                onBackdropPress={() => { setModalVoice(false) }}
+              >
+                <View style={[AppStyle.modalContentBottom, { justifyContent: 'center', alignItems: 'center' }]}>
+                  <Text style={[AppStyle.text16, { paddingVertical: 16 }]}>Nhấn và giữ để nói</Text>
+                  <TouchableOpacity style={[AppStyle.boxCenter, { backgroundColor: COLOR.primary, width: '40%', height: '40%', borderRadius: 999 }]}
+                    onPressIn={() => {
+                      startRecognizing()
+                    }}
+                    onPressOut={() => {
+                      stopRecognizing()
+                    }}>
+                    <View style={[AppStyle.boxCenter, { backgroundColor: COLOR.background, width: '98%', height: '98%', borderRadius: 999 }]}>
+                      <Image style={{ width: 40, height: 50, tintColor: COLOR.primary }} source={require('../../assets/icons/ic_mic.png')} />
+                    </View>
+                  </TouchableOpacity>
+                  <Text>Started {started}</Text>
+                
+                <Text>Ended {ended}</Text>
+                <Text>{results}</Text>
+                  <ScrollView horizontal style={{ alignSelf: 'center',  }}>
+                    {results.map((item, index) => {
+                      return (<Text key={index} style={{ textAlign: 'center' }}>{item}</Text>)
+                    })}
+                  </ScrollView>
+                </View>
+              </BottomSheet>
+            </>
+
+          )
+          :
+          (
+            <View style={{ flex: 1, backgroundColor: COLOR.background, alignItems: 'center', justifyContent: 'center' }}>
+              <Text style={{ fontWeight: '600', color: COLOR.primary, fontSize: 18, }}>Chưa có tin tìm tài xế mới</Text>
             </View>
-          </View>
-        </KeyboardAwareScrollView>
-      </Modal>
+          )
+      }
     </MotiView>
   )
 }
