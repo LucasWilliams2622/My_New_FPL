@@ -74,6 +74,7 @@ export const dateNearThe = (max) => {
     }
 
   }
+  
 
   return max
 }
@@ -89,7 +90,7 @@ const Study = (props) => {
   const getAllNews = async () => {
     try {
       const response = await AxiosInstance().get("/news/api/get-all");
-      // console.log("===================================response", response.news);
+      // console.log("===================================response", response.news[0]);
       if (response.result) {
         setdataCurrentNews(response.news);
         setIsLoading(false)
@@ -111,7 +112,7 @@ const Study = (props) => {
   return (
     <SafeAreaView style={styles.BoxContent} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
       <ScrollView showsVerticalScrollIndicator={false} style={{ width: "100%", marginBottom: 75, }}>
-        <View style={[AppStyle.column,]}>
+        {/* <View style={[AppStyle.column]}>
           <View style={[AppStyle.column,]}>
             <Text style={AppStyle.titleBig}> Tin mới nhất </Text>
             <Image style={[AppStyle.iconMedium, { position: "absolute", left: 110, bottom: 2 }]} source={require('../assets/icons/ic_new.png')} />
@@ -122,16 +123,15 @@ const Study = (props) => {
               vertical
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
-              data={[DataNewsStudy[0]]}
+              data={[dataCurrentNews[0]]}
               renderItem={({ item }) => <ItemStudy data={item} />}
               keyExtractor={item => item.id}
             />)}
-        </View>
-
+        </View> */}
         <View style={[AppStyle.column,]}>
-          <View style={[AppStyle.column, { marginTop: 20 }]}>
+          {/* <View style={[AppStyle.column, { marginTop: 20 }]}>
             <Text style={AppStyle.titleBig}> Tin khác </Text>
-          </View>
+          </View> */}
           {isLoading ?
             (<Loading />)
             : (<FlatList

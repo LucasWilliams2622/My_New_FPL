@@ -15,7 +15,7 @@ const ItemEnterprise = (props) => {
         
     }
     return (
-        <TouchableOpacity onPress={() => goDetail()} style={[AppStyle.item, { width: 360, paddingHorizontal: 0, paddingVertical: 0, borderRadius: 30,marginBottom:20 }]}>
+        <TouchableOpacity onPress={() => goDetail()} style={[AppStyle.item, { width: "100%", paddingHorizontal: 0, paddingVertical: 0, borderRadius: 30,marginBottom:20 }]}>
             <Image style={{ width: "100%", height: 140, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} source={{uri: data.image}} />
 
             <View style={{paddingHorizontal:10,marginBottom: 12}}>
