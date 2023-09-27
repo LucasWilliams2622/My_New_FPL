@@ -20,7 +20,7 @@ const FindDriver = () => {
   const [isLoading, setIsLoading] = useState(true)
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [availaBle, setAvailaBle] = useState(true)
-  const [modalVoice, setModalVoice] = useState(true)
+  const [modalVoice, setModalVoice] = useState(false)
 
   const [isModalVisible, setModalVisible] = useState(false);
   const [sortBy, setSortBy] = useState(null);
@@ -82,8 +82,6 @@ const FindDriver = () => {
 
   const onSearch = async (keyword) => {
     try {
-      console.log("==============>", keyword);
-      // const response = await AxiosInstance().get("gofpt/api/get-by-location", { keyword: keyword, typeFind: 1});
       const response = await AxiosInstance().get("gofpt/api/get-by-location?keyword=" + keyword + "&typeFind=1");
       console.log(response);
       if (response.result) {
@@ -138,6 +136,7 @@ const FindDriver = () => {
   const onSpeechResults = (e) => {
     console.log(e)
     setResults(e.value)
+    handleSearch(e.value)
   }
 
   const startRecognizing = async () => {

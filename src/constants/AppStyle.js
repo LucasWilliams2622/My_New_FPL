@@ -292,7 +292,7 @@ export const AppStyle = StyleSheet.create({
     },
     titleButton: {
         color: COLOR.white,
-        fontWeight: '500',
+        fontWeight: '600',
         fontSize: 16
     },
     textError: {
