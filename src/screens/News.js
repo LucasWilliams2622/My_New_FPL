@@ -17,19 +17,19 @@ const options = ({ route }) => ({
     if (route.name === 'Study') {
       return <Text style={{
         color: focused ? "#F26F25" : '#787878',
-        fontSize:17,
+        fontSize:15,
         fontWeight:'600'
       }}>Học Tập</Text>
     } else if (route.name === 'Activate') {
       return <Text style={{
         color: focused ? "#F26F25" : '#787878',
-        fontSize:17,
+        fontSize:15,
         fontWeight:'600'
       }}>Hoạt Động</Text>
     }else if (route.name === 'Enterprise') {
       return <Text style={{
         color: focused ? "#F26F25" : '#787878',
-        fontSize:17,
+        fontSize:15,
         fontWeight:'600'
       }}>Doanh Nghiệp</Text>
     }

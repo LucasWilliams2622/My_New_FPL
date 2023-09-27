@@ -20,7 +20,7 @@ const ItemStudy = (props) => {
     }
     const goDetail = () => { navigation.navigate('DetailsNew') }
     return (
-        <TouchableOpacity onPress={facingShow} style={[AppStyle.item, { width: 360, marginVertical: 5 }]}>
+        <TouchableOpacity onPress={facingShow} style={[AppStyle.item, { width: "100%", marginVertical: 5 }]}>
             <Text style={[AppStyle.titleMedium, { color: COLOR.title }]} numberOfLines={1}>{data.title}</Text>
             {/* <Image style={{ width: '100%', height: 80, borderRadius: 10, display: showImg ? 'flex' : 'none' }} source={require('../../assets/images/green_field.jpg')} /> */}
             <Text style={{ display: isShow ? 'flex' : 'none' }}>{data.content}</Text>
