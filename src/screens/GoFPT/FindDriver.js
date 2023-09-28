@@ -247,24 +247,24 @@ const FindDriver = () => {
               >
                 <View style={[AppStyle.modalContentBottom, { justifyContent: 'center', alignItems: 'center' }]}>
                   <Text style={[AppStyle.text16, { paddingVertical: 16 }]}>Nhấn và giữ để nói</Text>
-                  <TouchableOpacity style={[AppStyle.boxCenter, { backgroundColor: COLOR.primary, width: '40%', height: '40%', borderRadius: 999 }]}
+                  <TouchableOpacity style={[AppStyle.boxCenter, { backgroundColor: COLOR.primary, width: 150, height: 150, borderRadius: 999 }]}
                     onPressIn={() => {
                       startRecognizing()
                     }}
                     onPressOut={() => {
                       stopRecognizing()
                     }}>
-                    <View style={[AppStyle.boxCenter, { backgroundColor: COLOR.background, width: '98%', height: '98%', borderRadius: 999 }]}>
-                      <Image style={{ width: 40, height: 50, tintColor: COLOR.primary }} source={require('../../assets/icons/ic_mic.png')} />
+                    <View style={[AppStyle.boxCenter, { backgroundColor: COLOR.background, width: 147, height: 147, borderRadius: 999 }]}>
+                      <Image style={{ width: 50, height: 50, tintColor: COLOR.primary }} source={require('../../assets/icons/ic_mic.png')} />
                     </View>
                   </TouchableOpacity>
-                  <Text>Started {started}</Text>
-                
-                <Text>Ended {ended}</Text>
-                <Text>{results}</Text>
-                  <ScrollView horizontal style={{ alignSelf: 'center',  }}>
+                  <Text style={{ color: 'black' }}>Started {started}</Text>
+
+                  <Text style={{ color: 'black' }}>Ended {ended}</Text>
+                  <Text style={{ color: 'black' }}>results{results}</Text>
+                  <ScrollView horizontal style={{ alignSelf: 'center', }}>
                     {results.map((item, index) => {
-                      return (<Text key={index} style={{ textAlign: 'center' }}>{item}</Text>)
+                      return (<Text key={index} style={{ textAlign: 'center', color: 'black' }}>đấa{item}</Text>)
                     })}
                   </ScrollView>
                 </View>
