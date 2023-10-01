@@ -130,7 +130,7 @@ const Profile = (props) => {
     navigation.navigate("VideoCall");
   }
   const goChat = () => {
-    navigation.navigate("ChatTest");
+    navigation.navigate("HomeScreen");
   }
   const goScanner = () => {
     navigation.navigate("ScanQRCode");
