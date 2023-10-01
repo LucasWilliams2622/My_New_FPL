@@ -22,6 +22,8 @@ const Home = () => {
   const getCurrentSchedule = async () => {
     try {
       const response = await AxiosInstance().get("scheduleStudy/api/get-by-current-day?currentDay=" + currentDay);
+
+      console.log(response.scheduleStudy);
       const responseActivate = await AxiosInstance().get("news/api/search-by-category?id=64c7b309704c7286d864e646");
       const responseEnterprise = await AxiosInstance().get("news/api/search-by-category?id=64c7b313704c7286d864e648");
       for (let i = 0; i < response.scheduleStudy.length; i++) {

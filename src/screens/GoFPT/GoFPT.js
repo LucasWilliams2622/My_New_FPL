@@ -170,12 +170,12 @@ const GoFPT = () => {
       // "price": 25000,
       // "note": "Minh can tim ban di chung tu quan 5 toi toa T ",
       // "status": 1,
-      console.log(imageURI);
+      // console.log(imageURI);
 
-      console.log(idUser, phoneNumber);
-      const timeStart = selectedTime.getHours() + ":" + selectedTime.getMinutes()
+      console.log(idUser, selectedTime);
+      // const timeStart = selectedTime.getHours() + ":" + selectedTime.getMinutes()
       const typeFind = driverChecked ? 1 : 2;
-      console.log(price);
+      // console.log(price);
 
       const response = await AxiosInstance().post("gofpt/api/add-new", {
         typeFind: typeFind,
@@ -194,6 +194,7 @@ const GoFPT = () => {
       if (response.result) {
 
       } else {
+
       }
     } catch (error) {
       console.log(error);
@@ -369,7 +370,7 @@ const GoFPT = () => {
                           placeholder="Điền điểm bắt đầu"
                           placeholderTextColor={'#787878'}
                         />
-                        {touched.location && errors.location && <Text>{errors.location}</Text>}
+                        {/* {touched.location && errors.location && <Text>{errors.location}</Text>} */}
                       </View>
 
                       {/* PHONE NUM */}
@@ -389,7 +390,7 @@ const GoFPT = () => {
                           // value={values.phoneNumber}
                           placeholder="Số điện thoại"
                         />
-                        {touched.phoneNumber && errors.phoneNumber && <Text>{errors.phoneNumber}</Text>}
+                        {/* {touched.phoneNumber && errors.phoneNumber && <Text>{errors.phoneNumber}</Text>} */}
 
                       </View>
 
@@ -414,6 +415,7 @@ const GoFPT = () => {
                             <DateTimePickerModal
                               isVisible={isDatePickerVisible}
                               mode="date"
+                              
                               onConfirm={handleConfirm}
                               onCancel={hideDatePicker}
                             />
@@ -679,7 +681,7 @@ const GoFPT = () => {
                   </TouchableOpacity>
                 </View>
 
-                <ItemButton title={'Đăng tin'} type="success" text="Success" paddingVertical={10} onPress={() => { setThirdModal(false); setToastType("success"); handleShowToast(); addNew() }} />
+                <ItemButton title={'Đăng tin'} type="success" text="Success" paddingVertical={10} onPress={() => { setModalVisible(false), setThirdModal(false); setToastType("success"); handleShowToast(); addNew() }} />
 
               </View>
             </View>

@@ -15,6 +15,7 @@ import { BottomSheet } from 'react-native-btr';
 import FastImage from 'react-native-fast-image'
 import Voice from '@react-native-voice/voice'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { LANG_TAGS } from 'react-native-mlkit-translate-text';
 
 const FindDriver = () => {
   const [dataFindDriver, setDataFindDriver] = useState([])
@@ -167,18 +168,21 @@ const FindDriver = () => {
   const onSearch = async (keyword) => {
     try {
       const response = await AxiosInstance().get("gofpt/api/get-by-location?keyword=" + keyword + "&typeFind=1");
-      console.log(response);
+      // console.log("==================dsadas====>",response);
       if (response.result) {
 
         if (Array.isArray(response.post) && response.post.length === 0) {
+          ToastAndroid.showWithGravity(
+            'KhÔng tìm thấy kết quả phù hợp',
+            ToastAndroid.TOP,
+            ToastAndroid.CENTER,
+          );
           Toast.show({
             position: 'top',
             type: 'success',
             text1: 'KhÔng tìm thấy kết quả phù hợp',
           });
           console.log("get-by-location " + keyword + " là một mảng rỗng");
-          setAvailaBle(false)
-
         } else {
           console.log("get-by-location " + keyword + " không phải là một mảng rỗng");
           setDataFindDriver(response.post)
@@ -193,64 +197,51 @@ const FindDriver = () => {
     }
   }
   // ========================| VOICE |=============================
-  const [started, setStarted] = useState('')
-  const [ended, setEnded] = useState('')
-  const [results, setResults] = useState([])
-  const [isListening, setIsListening] = useState(false)
   const [modalVoice, setModalVoice] = useState(false)
+  const [voice, setVoice] = useState('');
+
   useEffect(() => {
-    Voice.onSpeechStart = onSpeechStart;
-    Voice.onSpeechEnd = onSpeechEnd;
-    Voice.onSpeechResults = onSpeechResults;
+    Voice.isAvailable().then(res => {
+      console.log('isAvailable', res);
+    });
 
     return () => {
-      Voice.destroy().then(Voice.removeAllListeners)
-    }
-  }, [])
+      Voice.destroy().then(Voice.removeAllListeners);
+    };
+  }, []);
 
-  const onSpeechStart = (e) => {
-    console.log(e)
-    setStarted('❤️')
-  }
+  const startSpeechToText = () => {
+    Voice.start(LANG_TAGS.VIETNAMESE);
+  };
 
-  const onSpeechEnd = (e) => {
-    console.log(e)
-    setEnded('❤️')
-  }
+  const endSpeechToText = () => {
+    Voice.stop();
+  };
 
-  const onSpeechResults = (e) => {
-    console.log(e)
-    setResults(e.value)
-    handleSearch(e.value)
-  }
+  Voice.onSpeechPartialResults = e => {
+    console.log('onSpeechPartialResults: ', e.value);
+  };
 
-  const startRecognizing = async () => {
-    try {
-      console.log("start");
-      Voice.start('vi-VN');
-      console.log("start");
-      setStarted('')
-      setEnded('')
-      setResults([])
-      setIsListening(true)
-      console.log("start");
-    } catch (error) {
-      console.log("error2", error)
-    }
-  }
+  Voice.onSpeechRecognized = e => {
+    console.log('onSpeechRecognized: ', e.isFinal);
+  };
 
-  const stopRecognizing = async () => {
-    try {
-      console.log("STOP");
-      Voice.stop();
-      setStarted('')
-      setEnded('')
-      setResults([])
-      setIsListening(false)
-    } catch (error) {
-      console.log("error1", error)
-    }
-  }
+  Voice.onSpeechError = e => {
+    console.log('onSpeechError: ', e.error?.message);
+  };
+
+  Voice.onSpeechResults = e => {
+    console.log('onSpeechResults: ', e.value);
+    setVoice(e.value[0]);
+    handleSearch(e.value[0])
+
+  };
+
+  Voice.onSpeechEnd = e => {
+    console.log('onSpeechEnd: ', e.error);
+  };
+
+  
   return (
     <MotiView style={[AppStyle.main, { marginTop: 8 }]}
       from={{ opacity: 0, scale: 0.5 }}
@@ -398,25 +389,13 @@ const FindDriver = () => {
                 <View style={[AppStyle.modalContentBottom, { justifyContent: 'center', alignItems: 'center' }]}>
                   <Text style={[AppStyle.text16, { paddingVertical: 16 }]}>Nhấn và giữ để nói</Text>
                   <TouchableOpacity style={[AppStyle.boxCenter, { backgroundColor: COLOR.primary, width: 150, height: 150, borderRadius: 999 }]}
-                    onPressIn={() => {
-                      startRecognizing()
-                    }}
-                    onPressOut={() => {
-                      stopRecognizing()
-                    }}>
+                    onPressIn={startSpeechToText}
+                    onPressOut={endSpeechToText}>
                     <View style={[AppStyle.boxCenter, { backgroundColor: COLOR.background, width: 147, height: 147, borderRadius: 999 }]}>
                       <Image style={{ width: 50, height: 50, tintColor: COLOR.primary }} source={require('../../assets/icons/ic_mic.png')} />
                     </View>
                   </TouchableOpacity>
-                  <Text style={{ color: 'black' }}>Started {started}</Text>
-
-                  <Text style={{ color: 'black' }}>Ended {ended}</Text>
-                  <Text style={{ color: 'black' }}>results{results}</Text>
-                  <ScrollView horizontal style={{ alignSelf: 'center', }}>
-                    {results.map((item, index) => {
-                      return (<Text key={index} style={{ textAlign: 'center', color: 'black' }}>đấa{item}</Text>)
-                    })}
-                  </ScrollView>
+                  <Text>{voice}</Text>
                 </View>
               </BottomSheet>
             </>

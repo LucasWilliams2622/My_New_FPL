@@ -74,6 +74,7 @@ const ScanQrCode = () => {
   );
   const handleReadQRCode = async ({ data }) => {
     try {
+      console.log(data);
       const studentCode = data.slice(7, 14)
       console.log("studentCode", studentCode);
 
@@ -109,7 +110,7 @@ const ScanQrCode = () => {
         </View>
       </Modal>
       <QRCodeScanner
-        onRead={handleReadQRCode}
+        onRead={handleReadQRCode()}
         flashMode={isFlashOn ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
         reactivateTimeout={500}
         showMarker={true}

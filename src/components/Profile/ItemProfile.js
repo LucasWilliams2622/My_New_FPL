@@ -5,16 +5,15 @@ import { COLOR } from '../../constants/Theme'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppContext } from '../../utils/AppContext'
 import AxiosInstance from '../../constants/AxiosInstance';
-import QRCode from 'react-native-qrcode-svg';
-
+// import QRCode from 'react-native-qrcode-svg';
+import QRCode from 'react-qr-code';
 const ItemProfile = () => {
   const { infoUser, idUser, setIsLogin } = useContext(AppContext);
   const [isOverlayVisible, setOverlayVisible] = useState(false);
-  const [valueQRCode, setValueQRCode] = useState(studentCode)
 
   const [avatar, setAvatar] = useState('')
   const [name, setName] = useState('')
-  const [studentCode, setStudentCode] = useState('')
+  const [studentCode, setStudentCode] = useState(infoUser.studentCode)
   const [email, setEmail] = useState('')
   const Overlay = () => (
     <TouchableOpacity
@@ -54,16 +53,19 @@ const ItemProfile = () => {
           </View>
           <Text style={styles.textLink} >----------------------- caodang.fpt.edu.vn -----------------------</Text>
           <View style={{ alignItems: 'center', marginBottom: 12 }}>
-            <QRCode value={valueQRCode}
+            <QRCode
+              value={'PS24943'}
               color={COLOR.black}
               backgroundColor='white'
               // gradientDirection={[0, 0, 0]}
               // enableLinearGradient={true}
               // linearGradient={[COLOR.Fcolor, COLOR.Pcolor, COLOR.Tcolor]}
-              logo={require('../../assets/icons/logo_fpt_square.jpg')}
-              logoBackgroundColor={'white'}
-              logoBorderRadius={16}
-              logoMargin={6}
+
+              // logo={require('../../assets/icons/logo_fpt_square.jpg')}
+              // logoBackgroundColor={'white'}
+              // logoBorderRadius={16}
+              // logoSize={20}
+              // logoMargin={6}
               size={190}
             />
           </View>
@@ -82,6 +84,7 @@ const ItemProfile = () => {
       if (userInfoString !== null) {
         const userInfo = JSON.parse(userInfoString);
         // Sử dụng thông tin đã lưu ở đây
+        console.log('++++++++++>', userInfo.studentCode);
         setAvatar(userInfo.avatar)
         setStudentCode(userInfo.studentCode)
         setName(userInfo.name)

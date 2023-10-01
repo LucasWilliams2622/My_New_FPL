@@ -3246,7 +3246,7 @@ cosmiconfig@^5.0.5, cosmiconfig@^5.1.0:
     js-yaml "^3.13.1"
     parse-json "^4.0.0"
 
-create-react-class@^15.6.2:
+create-react-class@^15.6.0, create-react-class@^15.6.2:
   version "15.7.0"
   resolved "https://registry.npmjs.org/create-react-class/-/create-react-class-15.7.0.tgz"
   integrity sha512-QZv4sFWG9S5RUvkTYWbflxeZX+JG7Cz0Tn33rQBJ+WFQTqTfUTjMjiv9tnfXazjsO5r0KhPs+AqCjyrQX6h2ng==
@@ -7277,6 +7277,11 @@ punycode@^2.1.0:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.3.0.tgz"
   integrity sha512-rRV+zQD8tVFys26lAGR9WUuS4iUAngJScM+ZRSKtvl5tKeZ2t5bvdNFdNHBW9FWR4guGHlgmsZ1G7BSm2wTbuA==
 
+qr.js@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.npmjs.org/qr.js/-/qr.js-0.0.0.tgz"
+  integrity sha512-c4iYnWb+k2E+vYpRimHqSu575b1/wKl4XFeJGpFmrJQz5I88v9aY2czh7s0w36srfCM1sXgC/xpoJz5dJfq+OQ==
+
 qrcode@^1.5.1:
   version "1.5.3"
   resolved "https://registry.npmjs.org/qrcode/-/qrcode-1.5.3.tgz"
@@ -7753,6 +7758,15 @@ react-native-qrcode-svg@^6.2.0:
     prop-types "^15.8.0"
     qrcode "^1.5.1"
 
+react-native-qrcode@^0.2.7:
+  version "0.2.7"
+  resolved "https://registry.npmjs.org/react-native-qrcode/-/react-native-qrcode-0.2.7.tgz"
+  integrity sha512-Xvc3T1h95zA9tbRxiMkKethDYpPwKcqDPIHe9Cxt7pM+lma9dSzd6yXGGLGeZmFU/SmHMK+4bTnDltUv1s4Jnw==
+  dependencies:
+    create-react-class "^15.6.0"
+    prop-types "^15.5.10"
+    qr.js "0.0.0"
+
 react-native-radio-buttons-group@^2.2.11:
   version "2.3.2"
   resolved "https://registry.npmjs.org/react-native-radio-buttons-group/-/react-native-radio-buttons-group-2.3.2.tgz"
@@ -7830,7 +7844,7 @@ react-native-stock-star-rating@^1.0.6:
   resolved "https://registry.npmjs.org/react-native-stock-star-rating/-/react-native-stock-star-rating-1.0.6.tgz"
   integrity sha512-YQMGVYX03kq9cW0Of0y+fad9A1RpyM/ZOKMb2o15DfITcceLlrz5x83B6kBOl6SxM/YzdXpMvphWNZehilJ46g==
 
-react-native-svg@^13.14.0, react-native-svg@^13.2.0:
+react-native-svg@*, react-native-svg@^13.14.0, react-native-svg@^13.2.0:
   version "13.14.0"
   resolved "https://registry.npmjs.org/react-native-svg/-/react-native-svg-13.14.0.tgz"
   integrity sha512-27ZnxUkHgWICimhuj6MuqBkISN53lVvgWJB7pIypjXysAyM+nqgQBPh4vXg+7MbqLBoYvR4PiBgKfwwGAqVxHg==
@@ -7970,6 +7984,14 @@ react-native@*, "react-native@^0.0.0-0 || 0.60 - 0.72 || 1000.0.0", "react-nativ
     whatwg-fetch "^3.0.0"
     ws "^6.2.2"
 
+react-qr-code@^2.0.12:
+  version "2.0.12"
+  resolved "https://registry.npmjs.org/react-qr-code/-/react-qr-code-2.0.12.tgz"
+  integrity sha512-k+pzP5CKLEGBRwZsDPp98/CAJeXlsYRHM2iZn1Sd5Th/HnKhIZCSg27PXO58zk8z02RaEryg+60xa4vyywMJwg==
+  dependencies:
+    prop-types "^15.8.1"
+    qr.js "0.0.0"
+
 react-refresh@^0.4.0:
   version "0.4.3"
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.4.3.tgz"
@@ -7997,7 +8019,7 @@ react-timer-mixin@^0.13.4:
   resolved "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz"
   integrity sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q==
 
-react@*, "react@^16 || ^17 || ^18", "react@^16.0.0 || ^17.0.0 || ^18.0.0", react@^16.13.1, "react@^16.13.1 || ^17 || ^18", react@^16.3.0, "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^17 || ^18", react@^18.0.0, react@^18.2.0, "react@>= 15.2.1", "react@>= 17.0.1", react@>=0.14.8, react@>=15.0.0, react@>=16, react@>=16.0, react@>=16.13.1, react@>=16.3.0, react@>=16.8, "react@>=16.8 || ^17.0.0 || ^18.0.0", react@>=16.8.0, react@>=16.8.1, react@>=16.8.6, react@>=17.0.0, react@>=18.1.0, react@16.x.x, react@18.2.0:
+react@*, "react@^16 || ^17 || ^18", "react@^16.0.0 || ^17.0.0 || ^18.0.0", react@^16.13.1, "react@^16.13.1 || ^17 || ^18", react@^16.3.0, "react@^16.8.0 || ^17.0.0 || ^18.0.0", "react@^16.x || ^17.x || ^18.x", "react@^17 || ^18", react@^18.0.0, react@^18.2.0, "react@>= 15.2.1", "react@>= 17.0.1", react@>=0.14.8, react@>=15.0.0, react@>=16, react@>=16.0, react@>=16.13.1, react@>=16.3.0, react@>=16.8, "react@>=16.8 || ^17.0.0 || ^18.0.0", react@>=16.8.0, react@>=16.8.1, react@>=16.8.6, react@>=17.0.0, react@>=18.1.0, react@16.x.x, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==

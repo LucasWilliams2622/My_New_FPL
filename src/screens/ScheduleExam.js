@@ -11,16 +11,14 @@ import Swiper from 'react-native-swiper'
 import Loading from '../components/Loading/Loading';
 
 const data = [
-  { label: '3 ngày tới', value: '1' },
-  { label: '7 ngày tới', value: '2' },
-  { label: '14 ngày tới', value: '3' },
-  { label: '21 ngày tới', value: '4' },
-  { label: '30 ngày tới', value: '5' },
-  { label: '60 ngày tới', value: '6' },
-  { label: '90 ngày tới', value: '7' },
+  { label: '7 ngày tới', value: '7' },
+  { label: '14 ngày tới', value: '14' },
+  { label: '30 ngày tới', value: '30' },
+  { label: '60 ngày tới', value: '60' },
+  { label: '90 ngày tới', value: '90' },
 ];
 
-const ItemTextSches = () => {
+const ScheduleExam = () => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [dataCurrentScheduleExam, setDataCurrentScheduleExam] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -29,7 +27,6 @@ const ItemTextSches = () => {
     try {
       console.log(currentDay);
       const response = await AxiosInstance().get("scheduleExam/api/get-by-current-day?currentDay=" + currentDay);
-      // const response = await AxiosInstance().get("scheduleExam/api/get-all");
       console.log("===================================response", response);
 
       if (response.result) {
@@ -39,8 +36,10 @@ const ItemTextSches = () => {
         } else {
           console.log("scheduleExam không phải là một mảng rỗng");
           setAvailableExam(true)
-          setIsLoading(false)
           setDataCurrentScheduleExam(response.ScheduleExam);
+          console.log("scheduleExa");
+          setIsLoading(false)
+
         }
       } else {
         setIsLoading(true)
@@ -105,7 +104,8 @@ const ItemTextSches = () => {
                     data={dataCurrentScheduleExam}
                     renderItem={({ item }) => <ItemScheduleExam data={item} />}
                     keyExtractor={item => item.id}
-                  />)}
+                  />
+                  )}
             </>
           ) : (
             <>
@@ -125,7 +125,7 @@ const ItemTextSches = () => {
 }
 
 
-export default ItemTextSches
+export default ScheduleExam
 
 const styles = StyleSheet.create({
   item: {

@@ -38,7 +38,7 @@ const VoiceTranslate = () => {
 
   Voice.onSpeechResults = e => {
     console.log('onSpeechResults: ', e.value);
-    setVoice(e.value[0]); // Cập nhật giá trị của state voice với kết quả thu âm đầu tiên
+    setVoice(e.value[0]);
   };
 
   Voice.onSpeechEnd = e => {

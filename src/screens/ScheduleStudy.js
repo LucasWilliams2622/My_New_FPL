@@ -17,7 +17,7 @@ const data = [
   { label: '90 ngày tới', value: '90' },
 ];
 
-const ItemTextSches = (props) => {
+const ScheduleStudy = (props) => {
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [dataScheduleByDay, setDataScheduleByDay] = useState([])
   const [isFocus, setIsFocus] = useState(false);
@@ -123,7 +123,7 @@ const ItemTextSches = (props) => {
 }
 
 
-export default ItemTextSches
+export default ScheduleStudy
 
 const styles = StyleSheet.create({
   item: {
