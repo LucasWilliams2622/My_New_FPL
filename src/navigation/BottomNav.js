@@ -25,7 +25,7 @@ import FindDriver from '../screens/GoFPT/FindDriver';
 import DetailFindGoWith from '../screens/GoFPT/DetailFindGoWith';
 import FindGoWith from '../screens/GoFPT/FindGoWith';
 import HistoryPosted from '../screens/GoFPT/HistoryPosted';
-
+import ChatAI from '../screens/ChatAI'
 
 
 
@@ -59,6 +59,8 @@ const StackProfile = () => {
             <Stack.Screen name="VideoCall" component={VideoCall} />
             <Stack.Screen name="ScanQRCode" component={ScanQrCode} />
             <Stack.Screen name="WebsiteFPL" component={WebsiteFPL} />
+            <Stack.Screen name="ChatAI" component={ChatAI} />
+
 
 
         </Stack.Navigator>
@@ -93,7 +95,7 @@ const StackGoFPT = () => {
             <Stack.Screen name="FindDriver" component={FindDriver} />
             <Stack.Screen name="HistoryPosted" component={HistoryPosted} />
             <Stack.Screen name="FindGoWith" component={FindGoWith} />
-            
+
 
         </Stack.Navigator>
     )
@@ -104,80 +106,156 @@ const Main = () => {
     return (
         <>
             {
-                showWebView ? (
+                showWebView == 0 ? (
                     <WebsiteFPL />
                 ) :
-                    (<Tab.Navigator
-                        initialRouteName="StackHome"
-                        screenOptions={
-                            ({ route }) => ({
-                                tabBarIcon: ({ focused, label, size }) => {
-                                    let iconName = focused
-                                    if (route.name === 'StackHome') {
-                                        iconName = focused ? ICON.HomeFocus : ICON.Home
-                                        label = 'Trang chủ'
-                                    } else if (route.name === 'StackSchedule') {
-                                        iconName = focused ? ICON.ScheduleFocus : ICON.Schedule;
-                                        label = 'Lịch'
-                                    } else if (route.name === 'StackGoFPT') {
-                                        iconName = focused ? ICON.Walk : ICON.Walk;
-                                        label = 'Go FPT'
-                                    } else if (route.name === 'StackNews') {
-                                        iconName = focused ? ICON.NotificationFocus : ICON.Notification;
-                                        label = 'Tin tức'
-                                    }
-                                    else if (route.name === 'StackProfile') {
-                                        iconName = focused ? ICON.ProfileFocus : ICON.Profile;
-                                        label = 'Hồ sơ'
-                                    }
-                                    // You can return any component that you like here!
-                                    return <View style={{
-                                        flex: 1,
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        width: 60
-                                    }}>
+                    showWebView == 1 ? (
+                        <ChatAI />
+                    ) : showWebView == 3 ?
+                        (<Tab.Navigator
+                            initialRouteName="StackHome"
+                            screenOptions={
+                                ({ route }) => ({
+                                    tabBarIcon: ({ focused, label, size }) => {
+                                        let iconName = focused
+                                        if (route.name === 'StackHome') {
+                                            iconName = focused ? ICON.HomeFocus : ICON.Home
+                                            label = 'Trang chủ'
+                                        } else if (route.name === 'StackSchedule') {
+                                            iconName = focused ? ICON.ScheduleFocus : ICON.Schedule;
+                                            label = 'Lịch'
+                                        } else if (route.name === 'StackGoFPT') {
+                                            iconName = focused ? ICON.Walk : ICON.Walk;
+                                            label = 'Go FPT'
+                                        } else if (route.name === 'StackNews') {
+                                            iconName = focused ? ICON.NotificationFocus : ICON.Notification;
+                                            label = 'Tin tức'
+                                        }
+                                        else if (route.name === 'StackProfile') {
+                                            iconName = focused ? ICON.ProfileFocus : ICON.Profile;
+                                            label = 'Hồ sơ'
+                                        }
+                                        // You can return any component that you like here!
+                                        return <View style={{
+                                            flex: 1,
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: 60
+                                        }}>
 
-                                        <Animatable.View
-                                            animation="zoomIn"
-                                            duration={2000}>
-                                            <Image source={iconName}
-                                                style={{
-                                                    width: focused ? 28 : 24,
-                                                    height: focused ? 28 : 24,
+                                            <Animatable.View
+                                                animation="zoomIn"
+                                                duration={2000}>
+                                                <Image source={iconName}
+                                                    style={{
+                                                        width: focused ? 28 : 24,
+                                                        height: focused ? 28 : 24,
 
-                                                    resizeMode: 'stretch',
-                                                    tintColor: focused ? COLOR.focus : COLOR.notFocus,
-                                                }} />
-                                        </Animatable.View>
-                                        <Text style={{
-                                            fontSize: focused ? 10 : 0,
-                                            fontWeight: focused ? "600" : "100",
-                                            marginTop: 4,
-                                            color: focused ? COLOR.focus : COLOR.notFocus,
+                                                        resizeMode: 'stretch',
+                                                        tintColor: focused ? COLOR.focus : COLOR.notFocus,
+                                                    }} />
+                                            </Animatable.View>
+                                            <Text style={{
+                                                fontSize: focused ? 10 : 0,
+                                                fontWeight: focused ? "600" : "100",
+                                                marginTop: 4,
+                                                color: focused ? COLOR.focus : COLOR.notFocus,
 
-                                        }}>{label}</Text>
-                                    </View>;
-                                },
+                                            }}>{label}</Text>
+                                        </View>;
+                                    },
 
-                                tabBarHideOnKeyboard: true,
-                                headerShown: false,
-                                tabBarShowLabel: false,
-                                tabBarStyle: {
-                                    height: 70,
-                                    position: 'absolute',
-                                    backgroundColor: COLOR.background,
-                                  
+                                    tabBarHideOnKeyboard: true,
+                                    headerShown: false,
+                                    tabBarShowLabel: false,
+                                    tabBarStyle: {
+                                        height: 70,
+                                        position: 'absolute',
+                                        backgroundColor: COLOR.background,
 
-                                },
-                            })}
-                    >
-                        <Tab.Screen name="StackHome" component={StackHome} />
-                        <Tab.Screen name="StackSchedule" component={StackSchedule} />
-                        <Tab.Screen name="StackGoFPT" component={StackGoFPT} />
-                        <Tab.Screen name="StackNews" component={StackNews} />
-                        <Tab.Screen name="StackProfile" component={StackProfile} />
-                    </Tab.Navigator>)}
+
+                                    },
+                                })}
+                        >
+                            <Tab.Screen name="StackHome" component={StackHome} />
+                            <Tab.Screen name="StackSchedule" component={StackSchedule} />
+                            <Tab.Screen name="StackGoFPT" component={StackGoFPT} />
+                            <Tab.Screen name="StackNews" component={StackNews} />
+                            <Tab.Screen name="StackProfile" component={StackProfile} />
+                        </Tab.Navigator>)
+                        :
+                        (<Tab.Navigator
+                            initialRouteName="StackHome"
+                            screenOptions={
+                                ({ route }) => ({
+                                    tabBarIcon: ({ focused, label, size }) => {
+                                        let iconName = focused
+                                        if (route.name === 'StackHome') {
+                                            iconName = focused ? ICON.HomeFocus : ICON.Home
+                                            label = 'Trang chủ'
+                                        } else if (route.name === 'StackSchedule') {
+                                            iconName = focused ? ICON.ScheduleFocus : ICON.Schedule;
+                                            label = 'Lịch'
+                                        } else if (route.name === 'StackGoFPT') {
+                                            iconName = focused ? ICON.Walk : ICON.Walk;
+                                            label = 'Go FPT'
+                                        } else if (route.name === 'StackNews') {
+                                            iconName = focused ? ICON.NotificationFocus : ICON.Notification;
+                                            label = 'Tin tức'
+                                        }
+                                        else if (route.name === 'StackProfile') {
+                                            iconName = focused ? ICON.ProfileFocus : ICON.Profile;
+                                            label = 'Hồ sơ'
+                                        }
+                                        // You can return any component that you like here!
+                                        return <View style={{
+                                            flex: 1,
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            width: 60
+                                        }}>
+
+                                            <Animatable.View
+                                                animation="zoomIn"
+                                                duration={2000}>
+                                                <Image source={iconName}
+                                                    style={{
+                                                        width: focused ? 28 : 24,
+                                                        height: focused ? 28 : 24,
+
+                                                        resizeMode: 'stretch',
+                                                        tintColor: focused ? COLOR.focus : COLOR.notFocus,
+                                                    }} />
+                                            </Animatable.View>
+                                            <Text style={{
+                                                fontSize: focused ? 10 : 0,
+                                                fontWeight: focused ? "600" : "100",
+                                                marginTop: 4,
+                                                color: focused ? COLOR.focus : COLOR.notFocus,
+
+                                            }}>{label}</Text>
+                                        </View>;
+                                    },
+
+                                    tabBarHideOnKeyboard: true,
+                                    headerShown: false,
+                                    tabBarShowLabel: false,
+                                    tabBarStyle: {
+                                        height: 70,
+                                        position: 'absolute',
+                                        backgroundColor: COLOR.background,
+
+
+                                    },
+                                })}
+                        >
+                            <Tab.Screen name="StackHome" component={StackHome} />
+                            <Tab.Screen name="StackSchedule" component={StackSchedule} />
+                            <Tab.Screen name="StackGoFPT" component={StackGoFPT} />
+                            <Tab.Screen name="StackNews" component={StackNews} />
+                            <Tab.Screen name="StackProfile" component={StackProfile} />
+                        </Tab.Navigator>)
+            }
         </>
     )
 }

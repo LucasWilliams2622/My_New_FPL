@@ -15,7 +15,7 @@ import call from 'react-native-phone-call';
 const DetailFindGoWith = (props) => {
   const navigation = useNavigation();
   const { data } = props.route.params;
-  console.log(data.phoneUser);
+  // console.log(data.phoneUser);
   const { nameUser, phoneUser, dateStart, endPoint,
     price, startPoint, status, studentCode, timeStart,
     note, image } = data;
@@ -29,7 +29,6 @@ const DetailFindGoWith = (props) => {
         number: phoneNumber,
         prompt: true,
       };
-      console.log("asdasdas");
       call(args).catch(console.error);
     };
 
@@ -38,7 +37,6 @@ const DetailFindGoWith = (props) => {
   const handleCopy = () => {
     const content = phoneUser; // Nội dung cần sao chép
     Clipboard.setString(content);
-    console.log("ASDASD");
     Toast.show({
       ToastPosition: 'top',
       type: 'success',

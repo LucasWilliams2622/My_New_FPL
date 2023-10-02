@@ -39,9 +39,9 @@ const HistoryFindDriver = () => {
 
     const handleDelete = async () => {
         try {
-            console.log(idPost);
+            // console.log(idPost);
             const response = await AxiosInstance().delete("gofpt/api/delete-by-id?id=" + idPost);
-            console.log("===================================response", response);
+            // console.log("===================================response", response);
             if (response.result) {
                 Toast.show({
                     ToastPosition: "top",
@@ -72,7 +72,7 @@ const HistoryFindDriver = () => {
         try {
             //gofpt/api/get-by-idUser?idUser=6507177073342287aa1b01fd&typeFind=1
             const response = await AxiosInstance().get("gofpt/api/get-by-idUser?idUser=" + idUser + "&typeFind=1");
-            console.log("===================================response", response);
+            // console.log("===================================response", response);
             if (response.result) {
                 if (Array.isArray(response.post) && response.post.length === 0) {
                     console.log("post là một mảng rỗng");
@@ -93,7 +93,7 @@ const HistoryFindDriver = () => {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: COLOR.background }}>
+        <View style={{ flex: 1, backgroundColor: COLOR.background ,marginBottom:60}}>
             {/* <LoadingHistoryFindDriver/> */}
             {
                 isLoading ? 
@@ -103,7 +103,7 @@ const HistoryFindDriver = () => {
                         onScroll={e => {
                             animatedValue.setValue(e.nativeEvent.contentOffset.y)
                         }}
-                        style={{ marginTop: 18 }}
+                        style={{ marginTop: 18, }}
 
                         scrollEventThrottle={16}
                         showsVerticalScrollIndicator={false}

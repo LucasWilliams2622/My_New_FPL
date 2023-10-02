@@ -10,7 +10,7 @@ export const AppContextProvider = (props) => {
     const [infoUser, setInfoUser] = useState({})
     const [idUser, setIdUser] = useState("")
     const [appState, setAppState] = useState(0)
-    const [showWebView, setShowWebView] = React.useState(false);
+    const [showWebView, setShowWebView] = React.useState(3);
 
     useEffect(() => {
         getInfoUser()

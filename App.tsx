@@ -36,7 +36,6 @@ LogBox.ignoreLogs([
   'Require cycle:',
 ]);
 const App = () => {
-  // console.log("------------->",numeral(100000000).format('0,0'));
 
   // return (
   //   <AppProvider>

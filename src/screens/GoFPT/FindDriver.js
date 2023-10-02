@@ -43,9 +43,9 @@ const FindDriver = () => {
   const handleFilterByPrice = () => {
     const filteredData = filterDataByPriceRange(dataFindDriver, parseFloat(priceRangeStart), parseFloat(priceRangeEnd));
     setDataFindDriver(filteredData);
-    console.log('====================================');
-    console.log(filteredData);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(filteredData);
+    // console.log('====================================');
     toggleModal()
   }
 
@@ -63,9 +63,9 @@ const FindDriver = () => {
     });
 
     setDataFindDriver(sortedData);
-    console.log('====================================');
-    console.log(sortedData);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(sortedData);
+    // console.log('====================================');
     toggleModal()
   };
 
@@ -88,9 +88,9 @@ const FindDriver = () => {
 
     setDataFindDriver(sortedData);
     toggleModal()
-    console.log('====================================');
-    console.log(sortedData);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(sortedData);
+    // console.log('====================================');
   };
 
   useEffect(() => {
@@ -119,9 +119,9 @@ const FindDriver = () => {
       // Sắp xếp theo giá  
       filterDataByPriceRange();
     }
-    console.log('====================================');
-    console.log(handleApplySort);
-    console.log('====================================');
+    // console.log('====================================');
+    // console.log(handleApplySort);
+    // console.log('====================================');
     toggleModal();
   };
 
@@ -287,7 +287,7 @@ const FindDriver = () => {
                   enableAutomaticScroll={true}
                 >
                   <View style={AppStyle.modalBackground}>
-                    <View style={[AppStyle.modalView, { height: '60%', width: '100%', marginTop: '60%' }]}>
+                    <View style={[AppStyle.modalView, { height: '60%', width: '90%',}]}>
                       <View style={[AppStyle.viewheadModal, {}]}>
                         <TouchableOpacity
                           style={AppStyle.btnX}
@@ -296,7 +296,7 @@ const FindDriver = () => {
                             source={require('../../assets/icons/ic_close.png')}
                           />
                         </TouchableOpacity>
-                        <Text style={AppStyle.txtModal1}>SORT</Text>
+                        <Text style={AppStyle.txtModal1}>Bộ lọc</Text>
                       </View>
                       <View style={{ flex: 1, marginTop: 10 }}>
                         <View style={{ height: '20%', width: '100%', marginTop: 10 }}>
@@ -365,7 +365,7 @@ const FindDriver = () => {
                           <TouchableOpacity
                             style={[AppStyle.buttonBlue, { height: '35%', width: '45%' }]}
                             onPress={handleApplySort}>
-                            <Text style={[AppStyle.txtModal1, { color: 'black' }]}>Apply</Text>
+                            <Text style={[AppStyle.txtModal1, { color: 'black' }]}>Áp dụng</Text>
                           </TouchableOpacity>
                           <TouchableOpacity
                             style={[AppStyle.buttonBlue, { height: '35%', width: '45%' }]}

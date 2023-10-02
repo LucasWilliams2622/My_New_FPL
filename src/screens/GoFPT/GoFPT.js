@@ -1,4 +1,4 @@
-import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable, TextInput, TouchableOpacity, Alert } from "react-native";
+import { StyleSheet, Text, SafeAreaView, View, Image, Animated, Modal, Pressable, TextInput, TouchableOpacity, Alert, ToastAndroid } from "react-native";
 import { AppStyle } from "../../constants/AppStyle";
 import AppHeader from "../../components/AppHeader";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
@@ -75,14 +75,13 @@ const options = ({ route }) => ({
 const GoFPT = () => {
   const navigation = useNavigation();
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
-
   const [modalVisible, setModalVisible] = useState(false);
   const [isNestedModalVisible, setNestedModalVisible] = useState(false);
   const [isThirdModal, setThirdModal] = useState(false);
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
-  const [formattedDate, setFormattedDate] = useState('');
+  const [formattedDate, setFormattedDate] = useState(null);
 
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -150,12 +149,8 @@ const GoFPT = () => {
     setPassengerChecked(true);
   };
 
-
-  const images = [
-    require('../../assets/icons/ic_check.png'),
-    require('../../assets/icons/ic_uncheck.png'),
-  ];
-
+  const currentTime = new Date();
+  let TimeNow = `${currentTime.getHours()}:${currentTime.getMinutes()}`;
   const addNew = async () => {
     try {
       // "typeFind": 1,
@@ -170,32 +165,58 @@ const GoFPT = () => {
       // "price": 25000,
       // "note": "Minh can tim ban di chung tu quan 5 toi toa T ",
       // "status": 1,
-      // console.log(imageURI);
 
-      console.log(idUser, selectedTime);
-      // const timeStart = selectedTime.getHours() + ":" + selectedTime.getMinutes()
+
+      if (selectedTime.getTime() !== currentTime.getTime()) {
+        TimeNow = `${selectedTime.getHours()}:${selectedTime.getMinutes()}`;
+      } else {
+        TimeNow = `${currentTime.getHours()}:${currentTime.getMinutes()}`;
+      }
+
       const typeFind = driverChecked ? 1 : 2;
-      // console.log(price);
+      let dateStart = formattedDate == null ? currentDay : formattedDate;
+
+      // console.log(selectedImageURI);
+      // console.log(dateStart, currentDay);
+      // console.log(idUser, selectedTime);
 
       const response = await AxiosInstance().post("gofpt/api/add-new", {
+        startPoint: startPoint,
         typeFind: typeFind,
+        nameUser: infoUser.name,
         idUser: idUser,
         phoneUser: phoneNumber,
         studentCode: infoUser.studentCode,
         endPoint: "Toa T",
-        timeStart: timeStart,
-        dateStart: formattedDate,
+        timeStart: TimeNow,
+        dateStart: dateStart,
         price: price,
         note: note,
-        status: 1
+        status: 1,
+        image: selectedImageURI
       });
       console.log("===================================response", response);
 
       if (response.result) {
-
+        console.log("ADD SUCCESS");
+        ToastAndroid.showWithGravity(
+          'Đăng thành công',
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
+        setStartPoint('')
+        setPhoneNumber('')
       } else {
+        console.log("ADD FAILED");
 
+        ToastAndroid.showWithGravity(
+          'Đăng thất bại',
+          ToastAndroid.SHORT,
+          ToastAndroid.CENTER,
+        );
       }
+
+
     } catch (error) {
       console.log(error);
     }
@@ -222,17 +243,12 @@ const GoFPT = () => {
   };
 
   const handleConfirm = (date) => {
-    setSelectedDate(date);
+    // console.log(date);
+    setFormattedDate(moment(date, 'YYYY/MM/DD').format('YYYY/MM/DD'));
     hideDatePicker();
-
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-
-    const formatted = `${day}/${month}/${year}`;
-    setFormattedDate(formatted);
   };
 
+  // ==================| TIME PICKER |========================
   const showTimePicker = () => {
     setTimePickerVisibility(true);
   };
@@ -242,20 +258,12 @@ const GoFPT = () => {
   };
 
   const handleTimeConfirm = (date) => {
+    // console.log('data',date);
     setSelectedTime(date);
     hideTimePicker();
 
-    const formattedTime = date.toLocaleTimeString('en-US', { hour12: false });
-
   };
 
-  const currentDate = new Date();
-
-  const DateNow = `${currentDate.getDate()}/${currentDate.getMonth() + 1}/${currentDate.getFullYear()}`;
-
-  const currentTime = new Date();
-
-  const TimeNow = `${currentTime.getHours()}:${currentTime.getMinutes()}`;
 
 
   const dialogImageChoose = () => {
@@ -279,7 +287,7 @@ const GoFPT = () => {
     if (result.assets.length > 0) {
       const imageURI = result.assets[0].uri;
 
-      console.log(result.assets[0].uri);
+      // console.log(result.assets[0].uri);
       const formdata = new FormData();
       formdata.append('image', {
         uri: result.assets[0].uri,
@@ -287,7 +295,7 @@ const GoFPT = () => {
         name: 'image.jpg',
       });
       const response = await AxiosInstance("multipart/form-data").post('/gofpt/api/upload-image', formdata);
-      console.log(response.link);
+      // console.log(response.link);
       if (response.result == true) {
         setSelectedImageURI(imageURI);
         setToastType("success"); handleShowToast();
@@ -363,9 +371,11 @@ const GoFPT = () => {
 
                         <TextInput
                           style={AppStyle.inputModal}
-                          onChangeText={[handleChange('location'), (text) => setStartPoint(text)]}
+                          // onChangeText={[handleChange('location'), (text) => setStartPoint(text)]}
+                          onChangeText={(text) => setStartPoint(text)}
                           onBlur={handleBlur('location')}
-                          value={values.location}
+                          // value={values.location}
+                          value={startPoint}
                           returnKeyType="next"
                           placeholder="Điền điểm bắt đầu"
                           placeholderTextColor={'#787878'}
@@ -394,20 +404,13 @@ const GoFPT = () => {
 
                       </View>
 
-                      {/* DATE TIME */}
+                      {/* DATE  */}
                       <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
-                        <View style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
+                        <TouchableOpacity style={{ height: 40, width: '48%', borderWidth: .5, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }}
+                          onPress={() => { showDatePicker() }}>
                           <View style={{ backgroundColor: '#FCE38A', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
-                          {/* {selectedDate && (
-                 <Text style={{}}> {formattedDate}</Text>
-               )} */}
-                          {
-                            selectedDate == null ?
-                              <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{DateNow}</Text>
-                              :
-                              <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{formattedDate}</Text>
-                          }
-                          <TouchableOpacity onPress={showDatePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
+                          <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{formattedDate == null ? currentDay : formattedDate}</Text>
+                          <View style={[AppStyle.boxCenter, { marginRight: 10 }]} >
                             <FastImage
                               source={require('../../assets/icons/ic_calendar.png')}
                               style={[AppStyle.iconMedium, {}]}
@@ -415,24 +418,23 @@ const GoFPT = () => {
                             <DateTimePickerModal
                               isVisible={isDatePickerVisible}
                               mode="date"
-                              
-                              onConfirm={handleConfirm}
-                              onCancel={hideDatePicker}
+                              onConfirm={() => { handleConfirm() }}
+                              onCancel={() => hideDatePicker}
                             />
-                          </TouchableOpacity>
-                        </View>
-                        <View style={{ height: 40, width: '48%', borderWidth: .8, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }} >
+                          </View>
+                        </TouchableOpacity>
+
+                        {/* TIME */}
+                        <TouchableOpacity style={{ height: 40, width: '48%', borderWidth: .8, borderColor: '#DBDBDB', borderRadius: 8, justifyContent: 'space-between', flexDirection: 'row' }}
+                          onPress={() => { showTimePicker() }} >
                           <View style={{ backgroundColor: '#95E1D3', height: 40, width: 10, borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }} />
-                          {/* {selectedTime && (
-                 <Text style={{}}> {selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
-               )} */}
                           {
                             selectedTime == null ?
                               <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{TimeNow}</Text>
                               :
                               <Text style={[AppStyle.text14, { alignSelf: 'center', textAlign: 'center' }]}>{selectedTime.getHours()}:{selectedTime.getMinutes()}</Text>
                           }
-                          <TouchableOpacity onPress={showTimePicker} style={[AppStyle.boxCenter, { marginRight: 10 }]} >
+                          <View style={[AppStyle.boxCenter, { marginRight: 10 }]} >
                             <FastImage
                               source={require('../../assets/icons/ic_clock.png')}
                               style={[AppStyle.iconMedium, {}]}
@@ -444,8 +446,8 @@ const GoFPT = () => {
                               onConfirm={handleTimeConfirm}
                               onCancel={hideTimePicker}
                             />
-                          </TouchableOpacity>
-                        </View>
+                          </View>
+                        </TouchableOpacity>
                       </View>
                       <View style={[AppStyle.rowBtw, { height: 40, width: '100%', marginTop: 10 }]}>
                         {/* PRICE */}
