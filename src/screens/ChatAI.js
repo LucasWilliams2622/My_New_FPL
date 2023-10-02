@@ -4,8 +4,8 @@ import { WebView } from 'react-native-webview';
 import { AppStyle } from '../constants/AppStyle';
 import { COLOR } from '../constants/Theme';
 import { useNavigation } from '@react-navigation/native';
-import { AppContext } from '../utils/AppContext'
-const WebsiteFPL = () => {
+import {AppContext} from '../utils/AppContext'
+const ChatAI = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [showModal, setShowModal] = useState(true);
     const navigation = useNavigation();
@@ -15,24 +15,8 @@ const WebsiteFPL = () => {
         setIsLoading(false);
         setShowModal(false);
     };
-
-    const pan = useRef(new Animated.ValueXY()).current;
-
-    const panResponder = useRef(
-        PanResponder.create({
-            onMoveShouldSetPanResponder: () => true,
-            onPanResponderMove: Animated.event([
-                null,
-                { dx: pan.x, dy: pan.y }
-            ]),
-            onPanResponderRelease: () => {
-                Animated.spring(pan, { toValue: { x: 0, y: 0 } }).start();
-            }
-        })
-    ).current;
-
     return (
-        <SafeAreaView style={[AppStyle.container]}>
+        <SafeAreaView style={[AppStyle.container,{backgroundColor:'#343541'}]}>
             <Modal
                 visible={showModal}
                 transparent={true}
@@ -49,30 +33,19 @@ const WebsiteFPL = () => {
                     </View>
                 </View>
             </Modal>
-            <TouchableOpacity style={[AppStyle.row, { alignItems: 'center', paddingHorizontal: 8, paddingVertical: 12 }]} onPress={() => { setShowWebView(3) }}>
-                <Image style={AppStyle.icon} source={require('../assets/icons/ic_back_black.png')} />
-                <Text style={[AppStyle.titleMedium, { backgroundColor: 'white', color: COLOR.title }]}> Quay lại </Text>
+            <TouchableOpacity style={[AppStyle.row, { alignItems: 'center' ,paddingHorizontal:8,paddingVertical:12}]} onPress={() => { setShowWebView(3) }}>
+                <Image style={[AppStyle.icon,{tintColor:'white'}]} source={require('../assets/icons/ic_back_black.png',)} />
+                <Text style={[AppStyle.titleMedium, { backgroundColor: 'white', color: 'white',backgroundColor:'#343541' }]}> Quay lại </Text>
             </TouchableOpacity>
-
             <WebView
-                source={{ uri: 'https://caodang.fpt.edu.vn' }}
+                source={{ uri: 'https://chatgpt.org/chat' }}
                 onLoad={handleWebViewLoad}
             />
-            {/* <Animated.View
-                style={{
-                    transform: [{ translateX: pan.x }, { translateY: pan.y }]
-                }}
-                {...panResponder.panHandlers}
-            >
-                <View style={{ width: 50, height: 50, borderRadius: 25, backgroundColor: 'red' ,zIndex:10}} />
-            </Animated.View> */}
-
         </SafeAreaView>
-    );
-
+    )
 }
 
-export default WebsiteFPL
+export default ChatAI
 
 const styles = StyleSheet.create({
     modalContainer: {
@@ -94,4 +67,4 @@ const styles = StyleSheet.create({
         color: COLOR.Tcolor,
 
     }
-});
+})

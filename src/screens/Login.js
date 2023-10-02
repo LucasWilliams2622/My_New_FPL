@@ -200,7 +200,7 @@ const Login = () => {
 
 
               <View style={[AppStyle.border, { marginHorizontal: 16, backgroundColor: COLOR.background, }, touched.email && errors.email && { borderColor: COLOR.primary }]}>
-                <TextInput style={{ backgroundColor: COLOR.background, fontSize: 14 }}
+                <TextInput style={{ backgroundColor: COLOR.background, fontSize: 14, borderRadius: 10,paddingVertical:0 }}
                   placeholder='Email' placeholderTextColor={COLOR.normalText}
                   // onChangeText={(text) => setEmail(text)} 
                   onChangeText={handleChange('email')}
@@ -211,7 +211,7 @@ const Login = () => {
               {touched.email && errors.email && <Text style={AppStyle.textError}>{errors.email}</Text>}
 
               <View style={[AppStyle.border, { marginHorizontal: 16, marginTop: 10, backgroundColor: COLOR.background, }]}>
-                <TextInput style={{ backgroundColor: COLOR.background, fontSize: 14 }}
+                <TextInput style={{ backgroundColor: COLOR.background, fontSize: 14, borderRadius: 10,paddingVertical:0 }}
                   placeholder='Password' placeholderTextColor={COLOR.normalText}
                   // onChangeText={(text) => setPassword(text)}
                   secureTextEntry
@@ -249,7 +249,9 @@ export default Login
 const styles = StyleSheet.create({
   image: {
     width: '100%',
-    height: '60%'
+    height: '60%',
+    borderBottomLeftRadius:8,
+    borderBottomRightRadius:8,
   },
   boxLogin: {
     backgroundColor: COLOR.background,

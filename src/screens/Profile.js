@@ -130,7 +130,10 @@ const Profile = (props) => {
     navigation.navigate("VideoCall");
   }
   const goChat = () => {
-    navigation.navigate("HomeScreen");
+    // navigation.navigate("ChatTest");
+    // navigation.navigate("ChatAI");
+    setShowWebView(1)
+
   }
   const goScanner = () => {
     navigation.navigate("ScanQRCode");
@@ -138,7 +141,7 @@ const Profile = (props) => {
   const goWebsite = () => {
     // navigation.navigate("WebsiteFPL");
     // navigation.replace("WebsiteFPL")
-    setShowWebView(true)
+    setShowWebView(0)
   }
   return (
     <SafeAreaView style={[AppStyle.container]}>
@@ -233,7 +236,7 @@ const Profile = (props) => {
             <TouchableOpacity style={[AppStyle.button, { width: '48%' }]}
               onPress={() => { { goChat() } }}>
               <Image style={AppStyle.icon} source={require('../assets/icons/ic_message_color.png')} />
-              <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>Nhắn tin hỗ trợ</Text>
+              <Text style={[AppStyle.titleMedium, { color: COLOR.black, textAlign: 'center', fontWeight: '500', marginLeft: 10 }]}>AI hỗ trợ</Text>
             </TouchableOpacity>
           </View>
         </View>

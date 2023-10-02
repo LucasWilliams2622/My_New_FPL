@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const ItemFindDriver = (props) => {
   const { data } = props;
-  console.log("data",data);
+  // console.log("data",data);
   const { typeFind, idUser, nameUser, phoneUser, dateStart, endPoint, price, startPoint, status, studentCode, timeStart,image } = data;
   const navigation = useNavigation();
   const [hidden, setHidden] = useState(true);

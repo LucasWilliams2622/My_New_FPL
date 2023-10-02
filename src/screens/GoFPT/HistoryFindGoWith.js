@@ -36,9 +36,9 @@ const HistoryFindGoWith = () => {
 
     const handleDelete = async () => {
         try {
-            console.log(idPost);
+            // console.log(idPost);
             const response = await AxiosInstance().delete("gofpt/api/delete-by-id?id=" + idPost);
-            console.log("===================================response", response);
+            // console.log("===================================response", response);
             if (response.result) {
                 Toast.show({
                     ToastPosition: "top",
@@ -86,7 +86,7 @@ const HistoryFindGoWith = () => {
         }
     }
     return (
-        <View style={{ flex: 1, backgroundColor: COLOR.background, marginBottom: 50 }}>
+        <View style={{ flex: 1, backgroundColor: COLOR.background, marginBottom: 60 }}>
             {
                 listAvailable
                     ? (
@@ -94,7 +94,7 @@ const HistoryFindGoWith = () => {
                             onScroll={e => {
                                 animatedValue.setValue(e.nativeEvent.contentOffset.y)
                             }}
-                            style={{ marginTop: 18 }}
+                            style={{ marginTop: 18, }}
 
                             scrollEventThrottle={16}
                             showsVerticalScrollIndicator={false}
