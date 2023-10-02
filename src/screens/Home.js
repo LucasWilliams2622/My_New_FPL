@@ -105,10 +105,11 @@ const Home = () => {
           <View style={[AppStyle.column, { marginTop: 20, marginBottom: 80 }]}>
             <Text style={[AppStyle.titleBig, { marginBottom: 6 }]}>Tin tức doanh nghiệp !</Text>
             <FlatList
-              numColumns={2}
+              // numColumns={2}
               showsHorizontalScrollIndicator={false}
               showsVerticalScrollIndicator={false}
-              vertical
+              // vertical
+              horizontal
               data={dataNewsEnterprise}
               renderItem={({ item }) => <ItemNewsEnterprise data={item} />}
               keyExtractor={item => item.id}
