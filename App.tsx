@@ -28,6 +28,7 @@ import Button from './src/components/Toast/Button';
 import ToastMessage from './src/components/Toast/ToastMessage';
 import Loading from './src/components/Loading/Loading';
 import TestVoice from './src/test/TestVoice'
+import Toast from 'react-native-toast-message';
 // LogBox.ignoreLogs([
 //   'Require cycle:',
 // ]);
@@ -52,7 +53,7 @@ const App = () => {
       <NavigationContainer>
 
         {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
-
+      <Toast/>
         {/* <TestShare /> */}
         {/* <TestVoice /> */}
       </NavigationContainer>
