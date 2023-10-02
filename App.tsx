@@ -27,7 +27,11 @@ import { LogBox } from 'react-native';
 import Button from './src/components/Toast/Button';
 import ToastMessage from './src/components/Toast/ToastMessage';
 import Loading from './src/components/Loading/Loading';
-
+import TestVoice from './src/test/TestVoice'
+// LogBox.ignoreLogs([
+//   'Require cycle:',
+// ]);
+// console.disableYellowBox = true;
 LogBox.ignoreLogs([
   'Require cycle:',
 ]);
@@ -50,7 +54,7 @@ const App = () => {
         {isLoading ? <Splash setIsLoading={setIsLoading} /> : <BottomTabs />}
 
         {/* <TestShare /> */}
-        {/* <TesTMap /> */}
+        {/* <TestVoice /> */}
       </NavigationContainer>
 
     </AppContextProvider>

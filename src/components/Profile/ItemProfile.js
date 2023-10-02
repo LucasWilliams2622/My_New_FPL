@@ -164,7 +164,7 @@ const styles = StyleSheet.create({
   panel: {
     backgroundColor: 'white',
     padding: 15,
-    width: 370,
+    width: '90%',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
   },

@@ -69,7 +69,7 @@ const ItemFindDriver = (props) => {
           <View style={styles.boxItemInfo}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={[AppStyle.iconMedium, {}]} source={require('../../assets/icons/ic_time.png')} />
-              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{timeStart?.slice(12,16)}</Text>
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{timeStart}</Text>
             </View>
 
             <TouchableOpacity style={[AppStyle.rowCenter, { width: '50%' }]}>

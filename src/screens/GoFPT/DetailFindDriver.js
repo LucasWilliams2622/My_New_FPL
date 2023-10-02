@@ -74,7 +74,7 @@ const DetailFindDriver = (props) => {
             </View>
             <View style={[AppStyle.row, { width: '50%', alignItems: 'center' }]}>
               <Image style={styles.iconBig} source={require('../../assets/icons/ic_destination.png')} />
-              <Text style={[AppStyle.text16, { fontWeight: '600',  }]} numberOfLines={1}>{endPoint}</Text >
+              <Text style={[AppStyle.text16, { fontWeight: '600', }]} numberOfLines={1}>{endPoint}</Text >
             </View>
           </View>
 
@@ -98,7 +98,7 @@ const DetailFindDriver = (props) => {
                 <Image style={styles.icon} source={require('../../assets/icons/ic_calendar.png')} />
                 <View style={[AppStyle.row, { marginLeft: 2 }]}>
                   <Text style={[AppStyle.text14, { marginLeft: 4, color: '#4D4C4C' }]} numberOfLines={1}>Ngày: </Text >
-                  <Text style={[AppStyle.text14, { fontWeight: '600', color: COLOR.blue }]} numberOfLines={1}>{dateStart}</Text >
+                  <Text style={[AppStyle.text14, { fontWeight: '600', color: COLOR.blue }]} numberOfLines={1}>{dateStart.slice(0, 10)}</Text >
                 </View>
               </View>
 
@@ -194,7 +194,7 @@ const styles = StyleSheet.create({
     elevation: 4
   },
   header: {
-    backgroundColor:COLOR.headItem,
+    backgroundColor: COLOR.headItem,
     borderTopLeftRadius: 12,
     borderTopRightRadius: 12,
     paddingHorizontal: 8,

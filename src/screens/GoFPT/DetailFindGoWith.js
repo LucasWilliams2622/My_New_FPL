@@ -103,7 +103,7 @@ const DetailFindGoWith = (props) => {
               <Image style={styles.icon} source={require('../../assets/icons/ic_calendar.png')} />
               <View style={[AppStyle.row, { marginLeft: 2 }]}>
                 <Text style={[AppStyle.text14, { marginLeft: 4, color: '#4D4C4C' }]} numberOfLines={1}>Ngày: </Text >
-                <Text style={[AppStyle.text14, { fontWeight: '600', color: COLOR.blue }]} numberOfLines={1}>{dateStart}</Text >
+                <Text style={[AppStyle.text14, { fontWeight: '600', color: COLOR.blue }]} numberOfLines={1}>{dateStart.slice(0, 10)}</Text >
               </View>
             </View>
 

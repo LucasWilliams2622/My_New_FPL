@@ -94,8 +94,8 @@ const GoFPT = () => {
 
   const [startPoint, setStartPoint] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
-  const [price, setPrice] = useState(0)
-  const [note, setNote] = useState('')
+  const [price, setPrice] = useState('10000')
+  const [note, setNote] = useState('Mình cần tìm bạn đi chung xe')
 
   const validationSchema = Yup.object().shape({
     location: Yup.string().required('Vui lòng nhập điểm bắt đầu'),
@@ -367,6 +367,7 @@ const GoFPT = () => {
                           value={values.location}
                           returnKeyType="next"
                           placeholder="Điền điểm bắt đầu"
+                          placeholderTextColor={'#787878'}
                         />
                         {touched.location && errors.location && <Text>{errors.location}</Text>}
                       </View>
@@ -382,7 +383,7 @@ const GoFPT = () => {
                           keyboardType="phone-pad"
                           returnKeyType="next"
                           onChangeText={(text) => setPhoneNumber(text)}
-
+                          placeholderTextColor={'#787878'}
                           // onChangeText={[handleChange('phoneNumber'),(text)=>setPhoneNumber(text)]}
                           onBlur={handleBlur('phoneNumber')}
                           // value={values.phoneNumber}
@@ -458,12 +459,15 @@ const GoFPT = () => {
                             keyboardType="number-pad"
                             numberOfLines={1}
                             returnKeyType="go"
-                            style={[AppStyle.titleMedium, { color: '#0C9B34', fontStyle: 'italic' }]}
+                            style={[AppStyle.titleMedium, { fontSize: price == '' ? 12 : 14, color: '#0C9B34', fontWeight: '700', fontStyle: 'italic', textAlign: 'center' }]}
+                            value={price}
                             onChangeText={(text) => { setPrice(text) }}
                             // onChangeText={handleChange('amount')}
                             // onBlur={handleBlur('amount')}
                             // value={values.amount}
-                            placeholder="Số tiền"
+                            placeholder="Nhập số tiền"
+                            placeholderTextColor={'#0C9B34'}
+                            multiline={false}
                           />
                           {touched.amount && errors.amount && <Text>{errors.amount}</Text>}
                           <Text style={{ fontSize: 16, color: '#0C9B34', fontWeight: '500' }}>đ</Text>
@@ -644,8 +648,10 @@ const GoFPT = () => {
                 </View>
                 <View style={{ borderWidth: .5, color: '#DBDBDB', backgroundColor: COLOR.background, paddingVertical: 4, paddingHorizontal: 4, alignItems: 'flex-start', justifyContent: 'flex-start', height: 60, borderRadius: 8, marginTop: 6, marginBottom: 12 }}>
                   <TextInput
-                    placeholder="Cần tìm bạn đi chung"
+                    placeholder="Nhập mô tả"
                     editable
+                    placeholderTextColor={'#787878'}
+                    value={note}
                     onChangeText={(text) => { setNote(text) }}
                     multiline
                     style={[{ fontSize: 14, paddingVertical: 0 }]}
