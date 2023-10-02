@@ -54,7 +54,7 @@ const ItemProfile = () => {
           <Text style={styles.textLink} >----------------------- caodang.fpt.edu.vn -----------------------</Text>
           <View style={{ alignItems: 'center', marginBottom: 12 }}>
             <QRCode
-              value={'PS24943'}
+              value={studentCode}
               color={COLOR.black}
               backgroundColor='white'
               // gradientDirection={[0, 0, 0]}
