@@ -59,34 +59,36 @@ const DetailsNew = (props) => {
   }, [appState])
 
   return (
-    <SafeAreaView style={[AppStyle.container, { padding: 16 }]}>
+    <SafeAreaView style={[AppStyle.container, { padding: 16,backgroundColor:'#FFF6CE' }]}>
 
-      <View style={[AppStyle.row, { justifyContent: 'space-between' }]}>
+      <View style={[AppStyle.row, { justifyContent: 'space-between'}]}>
         <TouchableOpacity style={[AppStyle.row, { alignItems: 'center' }]} onPress={() => { navigation.goBack() }}>
           <Image style={AppStyle.icon} source={require('../assets/icons/ic_back_black.png')} />
-          <Text style={[AppStyle.titleMedium, { backgroundColor: 'white', color: COLOR.title }]}> Quay lại </Text>
+          <Text style={[AppStyle.titleMedium, { color: COLOR.title }]}> Quay lại </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => { shareToFacebook() }}>
           <Image style={[AppStyle.icon, { tintColor: COLOR.primary }]} source={require('../assets/icons/ic_share.png')} />
         </TouchableOpacity>
       </View>
+      <View style={{backgroundColor:'black', width:'100%',height:'0.2%',marginTop:'2%'}}></View>
 
       <Text style={[AppStyle.titleBig, { marginTop: 10 }]}>{dataNewsById.title}</Text>
-      <View style={[AppStyle.container]}>
+      <View style={{width:'100%',height:'1%'}}></View>
+      <View style={{backgroundColor:COLOR.background, padding:6,borderRadius:8}}>
         {/* <Text style={[AppStyle.titleBig, { color: 'black',right:"3%" ,margin:10}]}>
                 {dataNewsById.title}
             </Text> */}
-        <Text style={[AppStyle.title, { width: 350, textAlign: 'justify', marginTop: 10 }]}>
+        <Text style={[AppStyle.title, { width: 350, textAlign: 'justify', marginTop: 10, color:'black' }]}>
           {dataNewsById.content}
         </Text>
         <Image style={{ width: "100%", height: 200, borderRadius: 10, top: "2%" }} source={{ uri: dataNewsById.image }} />
-        <Text style={{ top: "3%", textAlign: 'justify', marginTop: 8 }}>
+        <Text style={{ top: "3%", textAlign: 'justify', marginTop: 8,color:'black' }}>
           {dataNewsById.content}
         </Text>
 
         <View style={{ top: "10%", flexDirection: 'row', justifyContent: 'space-between' }}>
-          <Text>Người đăng:  {dataNewsById.author}</Text>
-          <Text> Thời gian: {date}</Text>
+          <Text style={AppStyle.titleMedium}>Người đăng:  {dataNewsById.author}</Text>
+          <Text style={AppStyle.titleMedium}> Thời gian: {date}</Text>
         </View>
       </View>
     </SafeAreaView>
