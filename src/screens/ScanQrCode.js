@@ -46,12 +46,12 @@ const ScanQrCode = () => {
               :
               (<FastImage style={AppStyle.portrait} source={{ uri: avatar, priority: FastImage.priority.normal, }} />)
             }
-            <View style={[AppStyle.column, { marginLeft: 8,width: '50%' }]}>
+            <View style={[AppStyle.column, { marginLeft: 8, width: '50%' }]}>
               <View style={{ marginBottom: 12 }} >
                 <Text style={AppStyle.textNormal}>Họ và tên/Name</Text>
                 <Text style={AppStyle.titleBig}>{nameUser}</Text>
               </View>
-              <View style={{ marginBottom: 12,  width: '100%', }} >
+              <View style={{ marginBottom: 12, width: '100%', }} >
                 <Text style={AppStyle.textNormal}>MSSV/Student ID</Text>
                 <Text style={[AppStyle.titleMedium, { width: '100%', color: COLOR.title, letterSpacing: 1, textAlign: 'left' }]} numberOfLines={1}>{studentCode}</Text>
               </View>
@@ -74,15 +74,13 @@ const ScanQrCode = () => {
   );
   const handleReadQRCode = async ({ data }) => {
     try {
-      console.log(data);
       const studentCode = data.slice(7, 14)
-      console.log("studentCode", studentCode);
+      // const studentCode ='PS24943'
+      console.log("studentCode", studentCode, data);
 
       const response = await AxiosInstance().get("user/api/get-by-studentCode?studentCode=" + studentCode);
       console.log("===============================================>", response);
-      console.log("===============================================>", response.user.name);
-
-
+      console.log("=============================r==================>", response.user.name);
 
       if (response.result) {
         setInfoStudent(response)
@@ -110,12 +108,12 @@ const ScanQrCode = () => {
         </View>
       </Modal>
       <QRCodeScanner
-        onRead={handleReadQRCode()}
+        onRead={(data) => handleReadQRCode(data)}
         flashMode={isFlashOn ? RNCamera.Constants.FlashMode.torch : RNCamera.Constants.FlashMode.off}
         reactivateTimeout={500}
         showMarker={true}
         topContent={
-          <View style={{ alignSelf: 'flex-start', width: '100%', height: '100%', backgroundColor: COLOR.background,  borderColor: 'white', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
+          <View style={{ alignSelf: 'flex-start', width: '100%', height: '100%', backgroundColor: COLOR.background, borderColor: 'white', borderBottomLeftRadius: 20, borderBottomRightRadius: 20 }}>
             <View style={[AppStyle.row, { justifyContent: 'space-between', width: '100%', paddingHorizontal: 8, paddingVertical: 8 }]}>
               <TouchableOpacity onPress={() => { navigation.navigate('Profile') }} style={AppStyle.row}>
                 <Image style={[AppStyle.icon, { tintColor: COLOR.primary }]} source={require('../assets/icons/ic_left.png')} />

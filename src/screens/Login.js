@@ -12,6 +12,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import ToastMessage from '../components/Toast/ToastMessage';
+import Toast from 'react-native-toast-message';
+
 const dataLocation = [
   { labelLocation: 'Cơ sở Hồ Chí Minh', valueLocation: '1' },
   { labelLocation: 'Cơ sở Hà Nội', valueLocation: '2' },
@@ -65,7 +67,11 @@ const Login = () => {
           setInfoUser(response.user)
           // console.log("SIGN UP & SIGN IN GOOGLE SUCCESS!");
           ToastAndroid.show("Đăng nhập thành công", ToastAndroid.SHORT);
-
+          // Toast.show({
+          //   ToastPosition: 'top',
+          //   type: 'success',
+          //   text1: "Đăng nhập thành công ✅"
+          // });
           // navigation.navigate("BottomTabs")
         } else {
           console.log("Tài khoản đã bị khóa");
