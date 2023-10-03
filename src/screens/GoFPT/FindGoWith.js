@@ -1,4 +1,4 @@
-import { StyleSheet, FlatList, Text, Image, View, ScrollView } from 'react-native'
+import { StyleSheet, FlatList, Text, Image, View, ScrollView, TouchableOpacity } from 'react-native'
 import React, { useContext, useCallback, useEffect, useState } from 'react'
 import { AppStyle } from '../../constants/AppStyle'
 
@@ -18,6 +18,7 @@ const FindGoWith = () => {
   const [isLoading, setIsLoading] = useState(true)
   const { idUser, infoUser, currentDay, appState, setAppState } = useContext(AppContext);
   const [available, setavailable] = useState(true)
+  const [page, setPage] = useState(10)
 
   useEffect(() => {
     getListGoWith()
@@ -28,7 +29,8 @@ const FindGoWith = () => {
 
   const getListGoWith = async () => {
     try {
-      const response = await AxiosInstance().get("gofpt/api/get-by-typeFind?typeFind=2");
+      const response = await AxiosInstance().get("gofpt/api/get-by-typeFind?typeFind=1&page=" + page);
+
       // console.log("===================================response", response);
 
       if (response.result) {
@@ -114,6 +116,12 @@ const FindGoWith = () => {
                     onChangeText={(keyword) => handleSearch(keyword)} />
                 </View>
               )}
+
+              ListFooterComponent={<View style={{ width: '100%' }}>
+                <TouchableOpacity onPress={() => { setPage((pre) => pre + 10) }} style={styles.buttonMore}>
+                  <Text style={styles.textMore}>Hiện thêm</Text>
+                </TouchableOpacity>
+              </View>}
             />
           )
           : (
@@ -128,4 +136,21 @@ const FindGoWith = () => {
 
 export default FindGoWith
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  buttonMore: {
+    borderWidth: 1,
+    borderColor: 'green',
+    borderRadius: 12,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    width: '50%',
+    alignSelf: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  textMore: {
+    fontSize: 14,
+    color: 'green',
+    fontWeight: '600',
+  }
+})

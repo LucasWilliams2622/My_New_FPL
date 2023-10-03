@@ -1,8 +1,10 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
+import { View, Text, TouchableOpacity,Dimensions, Image } from 'react-native'
 import React, { useState } from 'react'
 import { AppStyle } from '../../constants/AppStyle'
 import { COLOR } from '../../constants/Theme'
 import { dateNearThe } from '../../screens/Study'
+import { MotiView, MotiText } from 'moti'
+const { height } = Dimensions.get('window');
 
 import { useNavigation } from '@react-navigation/native'
 
@@ -20,7 +22,12 @@ const ItemStudy = (props) => {
     }
     const goDetail = () => { navigation.navigate('DetailsNew') }
     return (
-        <TouchableOpacity onPress={facingShow} style={[AppStyle.item, { width: "100%", marginVertical: 5 }]}>
+        <MotiView onPress={facingShow} style={[AppStyle.item, { width: "100%", marginVertical: 5 }]}  from={{ translateY: -height }}
+        animate={{ translateY: 0 }}
+        transition={{
+          type: 'timing',
+          duration: 1000,
+        }}>
             <Text style={[AppStyle.titleMedium, { color: COLOR.title }]} numberOfLines={1}>{data.title}</Text>
             {/* <Image style={{ width: '100%', height: 80, borderRadius: 10, display: showImg ? 'flex' : 'none' }} source={require('../../assets/images/green_field.jpg')} /> */}
             <Text style={{ display: isShow ? 'flex' : 'none' }}>{data.content}</Text>
@@ -35,7 +42,7 @@ const ItemStudy = (props) => {
                     <Text style={[AppStyle.titleSmall, { fontWeight: '400', alignSelf: 'flex-end' }]}> {isShow ? "Ẩn bớt" : "Xem thêm"}</Text>
                 </TouchableOpacity>
             </View>
-        </TouchableOpacity>
+        </MotiView>
     )
 }
 

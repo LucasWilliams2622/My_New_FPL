@@ -69,6 +69,11 @@ export const appStyle = StyleSheet.create({
     text14Bold: {
         fontWeight: '500',
         fontSize: 14,
+        color: COLOR.text
+    },
+    text14: {
+        fontWeight: '400',
+        fontSize: 14,
         fontStyle: 'normal',
         color: COLOR.text
     },

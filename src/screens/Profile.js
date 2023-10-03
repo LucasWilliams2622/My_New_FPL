@@ -13,6 +13,8 @@ import { WebView } from 'react-native-webview';
 import { useNavigation } from '@react-navigation/native';
 import { MotiView, MotiText } from 'moti'
 const { height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
+
 
 const Profile = (props) => {
   const navigation = useNavigation();

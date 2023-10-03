@@ -24,7 +24,7 @@ import { COLOR } from "../constants/Theme";
 import { useNavigation } from '@react-navigation/native';
 function JoinScreen({ getMeetingAndToken, setMode }) {
   const [meetingVal, setMeetingVal] = useState("");
-
+  const navigation = useNavigation();
   const JoinButton = ({ value, onPress }) => {
     return (
       <TouchableOpacity
@@ -51,6 +51,10 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
         paddingHorizontal: 6 * 10,
       }}
     >
+      <TouchableOpacity style={[AppStyle.row, { alignItems: 'center', alignSelf: 'flex-start',left:-60,top:-80, paddingHorizontal: 8, paddingVertical: 12 }]} onPress={() => { navigation.goBack() }}>
+        <Image style={[AppStyle.icon, { tintColor: 'white' }]} source={require('../assets/icons/ic_back_black.png')} />
+        <Text style={[AppStyle.titleMedium, { backgroundColor: 'black', color: 'white' }]}> Quay lại </Text>
+      </TouchableOpacity>
       <Image style={{ alignSelf: "center", width: windowWidth - 100, height: 100, marginBottom: 10 }} source={require('../assets/images/logoFPL.png')} />
       <Text style={[AppStyle.titleBig, { color: COLOR.primary, fontStyle: 'italic', fontWeight: '700', fontSize: 30, alignSelf: 'center', marginBottom: 50 }]}>MEETING</Text>
       <TextInput
@@ -83,7 +87,7 @@ function JoinScreen({ getMeetingAndToken, setMode }) {
       <Text
         style={{
           alignSelf: "center",
-          fontSize: 22,
+          fontSize: 16,
           marginVertical: 16,
           fontStyle: "italic",
           color: "grey",

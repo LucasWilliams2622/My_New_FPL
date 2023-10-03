@@ -93,124 +93,131 @@ const HistoryFindDriver = () => {
     }
 
     return (
-        <View style={{ flex: 1, backgroundColor: COLOR.background ,marginBottom:60}}>
+        <View style={{ flex: 1, backgroundColor: COLOR.background, marginBottom: 60 }}>
             {/* <LoadingHistoryFindDriver/> */}
             {
-                isLoading ? 
-                ( <LoadingHistoryFindDriver/>) :
-                (listAvailable
-                    ? (<SwipeListView
-                        onScroll={e => {
-                            animatedValue.setValue(e.nativeEvent.contentOffset.y)
-                        }}
-                        style={{ marginTop: 18, }}
+                isLoading ?
+                    (<LoadingHistoryFindDriver />) :
+                    (listAvailable
+                        ? (<SwipeListView
+                            onScroll={e => {
+                                animatedValue.setValue(e.nativeEvent.contentOffset.y)
+                            }}
+                            style={{ marginTop: 18, }}
 
-                        scrollEventThrottle={16}
-                        showsVerticalScrollIndicator={false}
-                        data={dataFindDriver}
-                        renderItem={({ item }) => <ItemHistoryPosted data={item} navigation={navigation} />}
-                        keyExtractor={item => item._id}
-                        extraData={true}
+                            scrollEventThrottle={16}
+                            showsVerticalScrollIndicator={false}
+                            data={dataFindDriver}
+                            renderItem={({ item }) => <ItemHistoryPosted data={item} navigation={navigation} />}
+                            keyExtractor={item => item._id}
+                            extraData={true}
 
-                        // refreshControl={
-                        //   <RefreshControl
-                        //     // refreshing={{}}
-                        //     onRefresh={() => {
-                        //       setRefreshControl(true)
-                        //       console.log("Refresh")
-                        //       setStateList(stateList + 1)
-                        //       console.log(stateList)
+                            // refreshControl={
+                            //     <RefreshControl
 
-                        //       setRefreshControl(false)
-                        //     }} colors={['green']} />
-                        // }
+                            //         refreshing={() => setRefreshControl(false)}
+                            //         onRefresh={() => {
+                            //             setRefreshControl(true)
+                            //             console.log("Refresh")
+                            //             setStateList(stateList + 1)
+                            //             console.log(stateList)
 
-                        // ListFooterComponent={() => (
-                        //     isLoading ? //  a==b ? b : a
-                        //         <View style={{
-                        //             marginTop: 10,
-                        //             alignItems: 'center',
-                        //             justifyContent: 'center',
-                        //             flexDirection: 'row',
-                        //             justifyContent: 'space-around',
-                        //             padding: 10,
-                        //             // width : WIDTH,
-                        //             // height : 50 ,
-                        //             flexDirection: 'column'
-                        //         }} >
-                        //             <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}> Loading ... </Text>
-                        //             <ActivityIndicator size="small" color='green' fontWeight='bold' />
-                        //         </View> : null
-                        // )}
-                        // onEndReached={() => {
-                        //     setIsLoading(true)
-                        //     console.log("Load More")
-                        //     // setData(mang_du_lieu)
+                            //             setRefreshControl(false)
+                            //         }} colors={['green']} />
+                            // }
 
-                        //     setTimeout(() => {
-                        //         //   setData(data.concat([ { title : "moi a nha"} ]))
-                        //         setIsLoading(false)
-                        //     }, 5000);
-                        // }}
-                        onEndReachedThreshold={0.1}
-                        renderHiddenItem={(data, rowMap) => (
-                            <>
-                                <TouchableOpacity
-                                    onPress={() => {
-                                        { }
-                                    }}
-                                    style={{
-                                        height: '45%',
-                                        backgroundColor: '#74dc2e',
+                            // ListFooterComponent={() => (
+                            //     isLoading ? //  a==b ? b : a
+                            //         <View style={{
+                            //             marginTop: 10,
+                            //             alignItems: 'center',
+                            //             justifyContent: 'center',
+                            //             flexDirection: 'row',
+                            //             justifyContent: 'space-around',
+                            //             padding: 10,
+                            //             // width : WIDTH,
+                            //             // height : 50 ,
+                            //             flexDirection: 'column'
+                            //         }} >
+                            //             <Text style={{ fontSize: 15, fontWeight: 'bold', marginBottom: 5 }}> Loading ... </Text>
+                            //             <ActivityIndicator size="small" color='green' fontWeight='bold' />
+                            //         </View> : null
+                            // )}
+                            // onEndReached={() => {
+                            //     setIsLoading(true)
+                            //     console.log("Load More")
+                            //     // setData(mang_du_lieu)
 
-                                        justifyContent: 'center',
-                                        alignItems: 'flex-end',
-                                        borderTopRightRadius: 20,
-                                        borderTopLeftRadius: 20,
-                                    }}>
-                                    <Image
-                                        source={require('../../assets/icons/ic_edit.png')}
-                                        style={{
-                                            width: 20,
-                                            height: 20,
-                                            marginRight: 35,
-                                            tintColor: 'white',
+                            //     setTimeout(() => {
+                            //         //   setData(data.concat([ { title : "moi a nha"} ]))
+                            //         setIsLoading(false)
+                            //     }, 5000);
+                            // }}
+                            onEndReachedThreshold={0.1}
+                            renderHiddenItem={(data, rowMap) => (
+                                <>
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            {
+                                                Toast.show({
+                                                    ToastPosition: 'top',
+                                                    type: 'info',
+                                                    text1: "Tính năng đang phát triển"
+                                                });
+                                            }
                                         }}
-                                    />
-                                </TouchableOpacity>
-
-                                {/* DELETE */}
-                                <TouchableOpacity
-                                    onPress={() => { setIdPost(data.item._id), setModalDeleteVisible(true) }}
-                                    style={{
-                                        height: '45%',
-                                        backgroundColor: '#A42B32',
-                                        borderBottomLeftRadius: 20,
-                                        borderBottomRightRadius: 20,
-                                        justifyContent: 'center',
-                                        alignItems: 'flex-end',
-                                    }}>
-                                    <Image
-                                        source={require('../../assets/icons/ic_delete.png')}
                                         style={{
-                                            width: 30,
-                                            height: 20,
-                                            marginRight: 30,
-                                            tintColor: 'white',
-                                        }}
-                                    />
-                                </TouchableOpacity>
-                            </>
-                        )}
-                        rightOpenValue={-85}
-                    />)
-                    : (
-                        <View style={{ flex: 1, backgroundColor: COLOR.background, alignItems: 'center', justifyContent: 'center' }}>
+                                            height: '45%',
+                                            backgroundColor: '#74dc2e',
 
-                            <Text style={{ fontWeight: '600', color: COLOR.primary, fontSize: 18, }}>Bạn chưa có tin tìm tài xế nào</Text>
-                        </View>
+                                            justifyContent: 'center',
+                                            alignItems: 'flex-end',
+                                            borderTopRightRadius: 20,
+                                            borderTopLeftRadius: 20,
+                                        }}>
+                                        <Image
+                                            source={require('../../assets/icons/ic_edit.png')}
+                                            style={{
+                                                width: 20,
+                                                height: 20,
+                                                marginRight: 35,
+                                                tintColor: 'white',
+                                            }}
+                                        />
+                                    </TouchableOpacity>
+
+                                    {/* DELETE */}
+                                    <TouchableOpacity
+                                        onPress={() => { setIdPost(data.item._id), setModalDeleteVisible(true) }}
+                                        style={{
+                                            height: '45%',
+                                            backgroundColor: '#A42B32',
+                                            borderBottomLeftRadius: 20,
+                                            borderBottomRightRadius: 20,
+                                            justifyContent: 'center',
+                                            alignItems: 'flex-end',
+                                        }}>
+                                        <Image
+                                            source={require('../../assets/icons/ic_delete.png')}
+                                            style={{
+                                                width: 30,
+                                                height: 20,
+                                                marginRight: 30,
+                                                tintColor: 'white',
+                                            }}
+                                        />
+                                    </TouchableOpacity>
+                                </>
+                            )}
+                            rightOpenValue={-85}
+                        />)
+                        : (
+                            <View style={{ flex: 1, backgroundColor: COLOR.background, alignItems: 'center', justifyContent: 'center' }}>
+
+                                <Text style={{ fontWeight: '600', color: COLOR.primary, fontSize: 18, }}>Bạn chưa có tin tìm tài xế nào</Text>
+                            </View>
+                        )
                     )
-                )
             }
 
             {/* MODAL DELETE */}

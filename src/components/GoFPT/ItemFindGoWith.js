@@ -5,6 +5,7 @@ import { COLOR } from '../../constants/Theme'
 import numeral from 'numeral';
 import ItemButton from "../ItemButton";
 import { useNavigation } from '@react-navigation/native';
+import { MotiView, MotiText } from 'moti'
 
 const ItemFindGoWith = (props) => {
   const { data } = props;
@@ -23,7 +24,12 @@ const ItemFindGoWith = (props) => {
     }
   };
   return (
-    <View style={styles.boxItem}>
+    <MotiView style={styles.boxItem}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        type: 'timing',
+        duration: 350,
+      }}>
       <View style={styles.left} />
       <View style={styles.boxContent}>
         <View style={styles.boxLocation}>
@@ -88,7 +94,7 @@ const ItemFindGoWith = (props) => {
           </View>
         </View>
       </View>
-    </View>
+    </MotiView>
 
 
   );

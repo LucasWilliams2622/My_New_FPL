@@ -15,19 +15,15 @@ const ItemEnterprise = (props) => {
         
     }
     return (
-        <TouchableOpacity onPress={() => goDetail()} style={[AppStyle.item, { width: "100%", paddingHorizontal: 0, paddingVertical: 0, borderRadius: 30,marginBottom:20 }]}>
-            <Image style={{ width: "100%", height: 140, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} source={{uri: data.image}} />
+        <TouchableOpacity onPress={() => goDetail()} style={[AppStyle.item, { width: "100%", paddingHorizontal: 0, paddingVertical: 0, borderRadius: 30, marginBottom: 20 }]}>
+            <Image style={{ width: "100%", height: 140, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} source={{ uri: data.image }} />
 
-            <View style={{paddingHorizontal:10,marginBottom: 12}}>
+            <View style={{ paddingHorizontal: 10, marginBottom: 12 }}>
                 <Text style={[AppStyle.titleBig, { textAlign: "center", marginTop: 10 }]} numberOfLines={1}>{data.title}</Text>
-
-                <Text style={[AppStyle.titleSmall, { marginTop: 10, width: '80%', color: COLOR.text, fontWeight: '400' }]} numberOfLines={1}>{data.content}</Text>
-
-
-                <View style={[AppStyle.row, { marginTop: 15 }]}>
-                    <Text style={[AppStyle.text, { flex: 1 }]}>Người Đăng :{data.author}</Text>
-
-                    <Text style={[AppStyle.text, { flex: 1, textAlign: 'right' }]}>Thời gian :{data.date.slice(0, 10)}</Text>
+                <Text style={[AppStyle.titleSmall, { marginVertical: 8, width: '98%', color: COLOR.newText, fontWeight: '400' }]} numberOfLines={2}>{data.content}</Text>
+                <View style={[AppStyle.row, { marginBottom: 8 }]}>
+                    <Text style={[AppStyle.text, { flex: 1, color: '#787878', fontSize: 10, }]}>Người Đăng :{data.author}</Text>
+                    <Text style={[AppStyle.text, { flex: 1, textAlign: 'right', color: '#787878', fontSize: 10, }]}>Thời gian :{data.date.slice(0, 10)}</Text>
                 </View>
             </View>
         </TouchableOpacity>

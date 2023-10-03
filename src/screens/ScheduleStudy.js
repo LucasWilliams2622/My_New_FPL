@@ -104,6 +104,7 @@ const ScheduleStudy = (props) => {
                 (<Loading />)
                 : (<FlatList
                   vertical
+                  style={{marginBottom:200}}
                   showsVerticalScrollIndicator={false}
                   data={dataScheduleByDay}
                   renderItem={({ item }) => <ItemScheduleStudy data={item} />}

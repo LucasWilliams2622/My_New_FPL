@@ -14,7 +14,7 @@ import call from 'react-native-phone-call';
 const DetailFindDriver = (props) => {
   const navigation = useNavigation();
   const { data } = props.route.params;
-  console.log(data.phoneUser);
+  console.log(data);
   const { nameUser, phoneUser, dateStart, endPoint,
     price, startPoint, status, studentCode, timeStart,
     note, image } = data;
@@ -33,7 +33,6 @@ const DetailFindDriver = (props) => {
   const handleCopy = () => {
     const content = phoneUser; // Nội dung cần sao chép
     Clipboard.setString(content);
-    console.log("ASDASD");
     Toast.show({
       ToastPosition: 'top',
       type: 'success',
@@ -148,7 +147,12 @@ const DetailFindDriver = (props) => {
                 <Text style={[AppStyle.text14, { marginLeft: 6, color: '#4D4C4C' }]} numberOfLines={1}
                 >Quãng đường</Text >
               </View>
-              <Image style={{ width: '100%', height: 200, borderRadius: 10, marginTop: 10 }} source={require('../../assets/images/default_map.png')} />
+              {
+                data.image ==null ?
+              
+              (<Image style={{ width: '100%', height: 200, borderRadius: 10, marginTop: 10 }} source={require('../../assets/images/default_map.png')} />)
+                :(<Image style={{ width: '100%', height: 200, borderRadius: 10, marginTop: 10 }} source={{uri:image}} />)
+              }
             </View>
 
             {/* NOTE */}

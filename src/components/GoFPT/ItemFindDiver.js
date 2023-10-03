@@ -5,11 +5,12 @@ import { COLOR } from '../../constants/Theme'
 import numeral from 'numeral';
 import ItemButton from "../ItemButton";
 import { useNavigation } from '@react-navigation/native';
+import { MotiView, MotiText } from 'moti'
 
 const ItemFindDriver = (props) => {
   const { data } = props;
   // console.log("data",data);
-  const { typeFind, idUser, nameUser, phoneUser, dateStart, endPoint, price, startPoint, status, studentCode, timeStart,image } = data;
+  const { typeFind, idUser, nameUser, phoneUser, dateStart, endPoint, price, startPoint, status, studentCode, timeStart, image } = data;
   const navigation = useNavigation();
   const [hidden, setHidden] = useState(true);
   const toggleHidden = () => {
@@ -18,17 +19,22 @@ const ItemFindDriver = (props) => {
 
   const getDisplayedText = () => {
     if (hidden) {
-      if(phoneUser == null){
+      if (phoneUser == null) {
         return " "
       }
       return phoneUser.substring(0, phoneUser.length - 5) + '*****';
-     
+
     } else {
       return phoneUser;
     }
   };
   return (
-    <View style={styles.boxItem}>
+    <MotiView style={styles.boxItem} from={{ opacity: 0, scale: 0.5 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+        type: 'timing',
+        duration: 350,
+      }}>
       <View style={styles.left} />
       <View style={styles.boxContent}>
         <View style={styles.boxLocation}>
@@ -47,7 +53,7 @@ const ItemFindDriver = (props) => {
           <View style={styles.boxItemInfo}>
             <View style={[AppStyle.rowCenter, { width: '50%' }]}>
               <Image style={AppStyle.iconMedium} source={require('../../assets/icons/ic_calendar.png')} />
-              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{dateStart.slice(0,10)}</Text>
+              <Text style={[AppStyle.text12, { fontWeight: '500', marginLeft: 6 }]}>{dateStart.slice(0, 10)}</Text>
             </View>
 
             <View style={[AppStyle.rowCenter, { width: '50%', justifyContent: 'space-between' }]}>
@@ -93,7 +99,7 @@ const ItemFindDriver = (props) => {
           </View>
         </View>
       </View>
-    </View>
+    </MotiView>
 
 
   );

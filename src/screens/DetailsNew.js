@@ -70,7 +70,7 @@ const DetailsNew = (props) => {
           <Image style={[AppStyle.icon, { tintColor: COLOR.primary }]} source={require('../assets/icons/ic_share.png')} />
         </TouchableOpacity>
       </View>
-      <View style={{backgroundColor:'black', width:'100%',height:'0.2%',marginTop:'2%'}}></View>
+      <View style={{backgroundColor:'#787878', width:'100%',height:0.5,marginTop:12}}></View>
 
       <Text style={[AppStyle.titleBig, { marginTop: 10 }]}>{dataNewsById.title}</Text>
       <View style={{width:'100%',height:'1%'}}></View>

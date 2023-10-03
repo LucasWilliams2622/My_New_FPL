@@ -140,7 +140,7 @@ const Main = () => {
                                             flex: 1,
                                             alignItems: 'center',
                                             justifyContent: 'center',
-                                            width: 60
+                                            width: 55,
                                         }}>
 
                                             <Animatable.View
@@ -148,8 +148,8 @@ const Main = () => {
                                                 duration={2000}>
                                                 <Image source={iconName}
                                                     style={{
-                                                        width: focused ? 28 : 24,
-                                                        height: focused ? 28 : 24,
+                                                        width: focused ? 24 : 20,
+                                                        height: focused ? 24 : 20,
 
                                                         resizeMode: 'stretch',
                                                         tintColor: focused ? COLOR.focus : COLOR.notFocus,
@@ -169,7 +169,7 @@ const Main = () => {
                                     headerShown: false,
                                     tabBarShowLabel: false,
                                     tabBarStyle: {
-                                        height: 70,
+                                        height: 60,
                                         position: 'absolute',
                                         backgroundColor: COLOR.background,
 
